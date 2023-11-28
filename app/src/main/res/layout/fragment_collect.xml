@@ -5,9 +5,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".collect.ui.CollectFragment" >
+    tools:context=".collect.ui.CollectFragment"
+    android:paddingTop="@dimen/status_bar_height">
+
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/collect_lay_title"/>
 
     <include
         android:id="@+id/lay_empty"
         layout="@layout/collect_lay_empty"/>
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

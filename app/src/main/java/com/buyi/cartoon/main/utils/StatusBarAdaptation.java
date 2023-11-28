@@ -40,6 +40,7 @@ public class StatusBarAdaptation {
 //        bindView.getRoot().addView(mStatusBarView, 0,new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mStatusBarHeight));
         int paddingStart = rootView.getPaddingStart();
         int paddingEnd = rootView.getPaddingEnd();
+        mStatusBarHeight = 0;
         rootView.setPadding(paddingStart, mStatusBarHeight, paddingEnd, 0);
     }
 

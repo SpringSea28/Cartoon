@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.buyi.cartoon.collect.vm.CollectVm
-import com.buyi.cartoon.databinding.FragmentDashboardBinding
+import com.buyi.cartoon.databinding.FragmentCollectBinding
 import com.buyi.cartoon.main.base.BaseFragment
 
-class CollectFragment : BaseFragment<FragmentDashboardBinding>() {
+class CollectFragment : BaseFragment<FragmentCollectBinding>() {
 
     private val TAG = CollectFragment::class.simpleName!!
     private val collectVm : CollectVm by viewModels()
@@ -17,8 +17,8 @@ class CollectFragment : BaseFragment<FragmentDashboardBinding>() {
     override fun getBindingView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-    ): FragmentDashboardBinding {
-        return FragmentDashboardBinding.inflate(inflater, container, false)
+    ): FragmentCollectBinding {
+        return FragmentCollectBinding.inflate(inflater, container, false)
     }
 
     override fun initAllMembersData(savedInstanceState: Bundle?) {

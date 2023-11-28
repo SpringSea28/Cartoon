@@ -15,7 +15,7 @@
         android:id="@+id/navigation_collect"
         android:name="com.buyi.cartoon.collect.ui.CollectFragment"
         android:label="@string/title_collect"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_collect" />
 
     <fragment
         android:id="@+id/navigation_my"
