@@ -5,9 +5,11 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="tab_ripple_bg">#08000000</color>
     <color name="main_text_col">#FF222222</color>
     <color name="main_tab_text_inactive_col">#FF8A8A8A</color>
+    <color name="empty_hint_text_color">#FFA4A4A4</color>
 </resources>
