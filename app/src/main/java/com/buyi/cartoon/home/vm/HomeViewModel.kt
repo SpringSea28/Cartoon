@@ -1,4 +1,4 @@
-package com.buyi.cartoon.ui.home
+package com.buyi.cartoon.home.vm
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

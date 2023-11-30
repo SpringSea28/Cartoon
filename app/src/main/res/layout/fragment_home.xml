@@ -5,19 +5,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment" >
+    tools:context=".home.ui.HomeFragment" >
 
-    <TextView
-        android:id="@+id/text_home"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
+   <androidx.constraintlayout.widget.ConstraintLayout
+       android:id="@+id/cl_title"
+       android:layout_width="match_parent"
+       android:layout_height="74dp"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       android:paddingTop="@dimen/status_bar_height"
+       android:background="@drawable/bg_gradient_pink">
+       <TextView
+           android:id="@+id/tv_search"
+           android:layout_width="match_parent"
+           android:layout_height="34dp"
+           app:layout_constraintTop_toTopOf="parent"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           android:layout_marginStart="33dp"
+           android:layout_marginEnd="33dp"
+           android:background="@drawable/bg_22_white"
+           android:paddingStart="35dp"
+           android:textSize="15sp"
+           android:textColor="@color/search_hint_text_color"
+           android:text="@string/home_search_hint"
+           android:gravity="center_vertical"/>
+
+       <ImageView
+           android:layout_width="22dp"
+           android:layout_height="22dp"
+           app:layout_constraintStart_toStartOf="@id/tv_search"
+           app:layout_constraintTop_toTopOf="@id/tv_search"
+           app:layout_constraintBottom_toBottomOf="@id/tv_search"
+           android:layout_marginStart="8dp"
+           android:src="@mipmap/search"/>
+
+   </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="0dp"
+        android:layout_height="125dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:background="?android:attr/windowBackground"
+        app:labelVisibilityMode="labeled"
+        app:itemRippleColor="@null"
+        app:itemTextColor="@color/main_text_col"
+        app:elevation="0dp"
+        app:itemIconSize="48dp"
+        app:itemTextAppearanceActive="@style/HomeNav"
+        app:itemTextAppearanceInactive="@style/HomeNav"
+        app:itemPaddingTop="25dp"
+        app:itemPaddingBottom="25dp"
+        app:layout_constraintTop_toBottomOf="@id/cl_title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:menu="@menu/home_classify_nav"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

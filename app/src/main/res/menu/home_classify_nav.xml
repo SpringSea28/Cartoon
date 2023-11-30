@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_classify"
+        android:icon="@mipmap/home_classification"
+        android:title="@string/home_nav_classify"/>
+
+    <item
+        android:id="@+id/navigation_ranking"
+        android:icon="@mipmap/home_ranking"
+        android:title="@string/home_nav_ranking"/>
+
+    <item
+        android:id="@+id/navigation_girl"
+        android:icon="@mipmap/home_girl"
+        android:title="@string/home_nav_girl"/>
+
+    <item
+        android:id="@+id/navigation_boy"
+        android:icon="@mipmap/home_boy"
+        android:title="@string/home_nav_boy"/>
+
+</menu>
