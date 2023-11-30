@@ -1,4 +1,4 @@
-package com.buyi.cartoon.home.adapter
+package com.buyi.cartoon.home.ui.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -27,6 +27,20 @@ class HomeItemClass1Adapter : RecyclerView.Adapter<HomeItemClass1Adapter.ItemVh>
         this.homeVM = homeVM
     }
 
+    fun updateItem(item:HomeRecommendItemBean){
+        var position = -1
+        for (index in 0 until srcArray.size){
+            if(srcArray[index].id == item.id){
+                position = index
+                srcArray[index].cartoonsList = item.cartoonsList
+            }
+        }
+        if(position <0){
+            return
+        }
+        notifyItemChanged(position)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemVh {
         val inflate =
             HomeItemClass1Binding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -38,7 +52,7 @@ class HomeItemClass1Adapter : RecyclerView.Adapter<HomeItemClass1Adapter.ItemVh>
         holder.binding.tvTitle.text = srcArray[position].title
         val context = holder.binding.root.context
         val gridLayoutManager = GridLayoutManager(context,4)
-        val itemAdapter:HomeItemClass2Adapter = HomeItemClass2Adapter()
+        val itemAdapter: HomeItemClass2Adapter = HomeItemClass2Adapter()
         holder.binding.recyclerView.layoutManager = gridLayoutManager
         holder.binding.recyclerView.setHasFixedSize(true)
         holder.binding.recyclerView.adapter = itemAdapter
@@ -48,7 +62,7 @@ class HomeItemClass1Adapter : RecyclerView.Adapter<HomeItemClass1Adapter.ItemVh>
 
         }
         holder.binding.tvReplace.setOnClickListener {
-
+            homeVM.fetchRecommendList(srcArray[holder.adapterPosition].id)
         }
     }
 

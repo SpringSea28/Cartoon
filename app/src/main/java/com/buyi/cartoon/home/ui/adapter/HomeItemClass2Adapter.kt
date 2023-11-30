@@ -1,4 +1,4 @@
-package com.buyi.cartoon.home.adapter
+package com.buyi.cartoon.home.ui.adapter
 
 import android.annotation.SuppressLint
 import android.util.Log
