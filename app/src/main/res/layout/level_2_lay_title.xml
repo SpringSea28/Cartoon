@@ -9,9 +9,10 @@
         android:layout_height="match_parent"
         android:layout_centerVertical="true"
         android:paddingStart="16dp"
-        android:paddingTop="13dp"
-        android:paddingBottom="13dp"
-        android:paddingEnd="32dp"/>
+        android:paddingTop="11dp"
+        android:paddingBottom="11dp"
+        android:paddingEnd="32dp"
+        android:src="@mipmap/go_back_black"/>
 
     <TextView
         android:id="@+id/tv_tile"
@@ -23,7 +24,7 @@
         android:textSize="17sp"
         android:maxLines="2"
         android:ellipsize="end"
-        android:text="@string/collect_title"/>
+        android:text="title"/>
 
 
     <ImageView

@@ -1,5 +1,6 @@
 package com.buyi.cartoon.home.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -45,7 +46,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         (navView.getChildAt(0) as? ViewGroup)?.children?.forEach { it.setOnLongClickListener { true } }
         navView.setOnItemSelectedListener {
             when(it.itemId){
-                R.id.navigation_classify ->{ Log.e(TAG,"classify")}
+                R.id.navigation_classify ->{
+                    startActivity(Intent(context,ClassifyActivity::class.java))
+                }
                 R.id.navigation_ranking ->{Log.e(TAG,"ranking")}
                 R.id.navigation_boy ->{Log.e(TAG,"boy")}
                 R.id.navigation_girl ->{Log.e(TAG,"girl")}

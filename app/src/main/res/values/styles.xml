@@ -13,4 +13,15 @@
         <item name="android:background">@drawable/bg_21_gray_f0f0f0</item>
     </style>
 
+    <style name="classify_tab">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textColor">@color/home_classify_nav_tab_text_color_selector</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:background">@drawable/home_classify_nav_tab2_bg_selector</item>
+    </style>
+
 </resources>

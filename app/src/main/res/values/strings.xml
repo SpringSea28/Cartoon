@@ -17,6 +17,15 @@
     <string name="home_item_2_tile">纯爱漫画.天天上新</string>
     <string name="home_item_3_tile">宅男新漫</string>
 
+    <string name="home_classify_tab_type">类型</string>
+    <string name="home_classify_tab_whole">全部</string>
+    <string name="home_classify_tab_universal">通用</string>
+    <string name="home_classify_tab_boy">男生</string>
+    <string name="home_classify_tab_girl">女生</string>
+    <string name="home_classify_tab_status">状态</string>
+    <string name="home_classify_tab_over">完结</string>
+    <string name="home_classify_tab_serialization">连载</string>
+
 
     <string name="collect_empty">亲，您的收藏为空</string>
     <string name="collect_title">我的收藏</string>
