@@ -18,6 +18,8 @@
     <color name="home_classify_nav_tab_text_inactive_col">#FF444444</color>
     <color name="home_classify_nav_tab_bg_active_col">#FFFB709C</color>
     <color name="home_classify_nav_bg_col">#FFF6F8FA</color>
+    <color name="home_classify_content_item_content_col">#FF767676</color>
+    <color name="home_classify_content_item_divider_line_col">#FFE6E6E6</color>
 
     #FFFB709C
 

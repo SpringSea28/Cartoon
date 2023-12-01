@@ -102,6 +102,18 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         item3.cartoonsList = cartoonList
         recommendList.add(item3)
 
+        val item4 = HomeRecommendItemBean()
+        item4.id = 4
+        item4.title = getApplication<Application>().getString(R.string.home_item_4_tile)
+        item4.cartoonsList = cartoonList
+        recommendList.add(item4)
+
+        val item5 = HomeRecommendItemBean()
+        item5.id = 5
+        item5.title = getApplication<Application>().getString(R.string.home_item_5_tile)
+        item5.cartoonsList = cartoonList
+        recommendList.add(item5)
+
         recommendItemBeanListLD.postValue(recommendList)
 //        network = !network
         refreshFinishLD.postValue(network)

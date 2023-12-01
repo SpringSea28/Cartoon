@@ -15,6 +15,9 @@ class HomeItemClass1Adapter : RecyclerView.Adapter<HomeItemClass1Adapter.ItemVh>
     val srcArray = ArrayList<HomeRecommendItemBean>()
     lateinit var homeVM: HomeVM
 
+    val GRID_4 = 1
+    val GRID_3 = 2
+
     var onItemClickListener: ((position: Int)->Unit) = { _ -> }
 
     fun setData(data:List<HomeRecommendItemBean>){
@@ -51,12 +54,21 @@ class HomeItemClass1Adapter : RecyclerView.Adapter<HomeItemClass1Adapter.ItemVh>
     override fun onBindViewHolder(holder: ItemVh, position: Int) {
         holder.binding.tvTitle.text = srcArray[position].title
         val context = holder.binding.root.context
-        val gridLayoutManager = GridLayoutManager(context,4)
-        val itemAdapter: HomeItemClass2Adapter = HomeItemClass2Adapter()
-        holder.binding.recyclerView.layoutManager = gridLayoutManager
-        holder.binding.recyclerView.setHasFixedSize(true)
-        holder.binding.recyclerView.adapter = itemAdapter
-        itemAdapter.setData(srcArray[position].cartoonsList)
+        if(getItemViewType(position) == GRID_4) {
+            val gridLayoutManager = GridLayoutManager(context, 4)
+            val itemAdapter: HomeItemClass2Adapter = HomeItemClass2Adapter()
+            holder.binding.recyclerView.layoutManager = gridLayoutManager
+            holder.binding.recyclerView.setHasFixedSize(true)
+            holder.binding.recyclerView.adapter = itemAdapter
+            itemAdapter.setData(srcArray[position].cartoonsList)
+        }else{
+            val gridLayoutManager = GridLayoutManager(context, 3)
+            val itemAdapter = HomeItemClass2AdapterBig3()
+            holder.binding.recyclerView.layoutManager = gridLayoutManager
+            holder.binding.recyclerView.setHasFixedSize(true)
+            holder.binding.recyclerView.adapter = itemAdapter
+            itemAdapter.setData(srcArray[position].cartoonsList)
+        }
 
         holder.binding.tvMore.setOnClickListener {
 
@@ -70,7 +82,12 @@ class HomeItemClass1Adapter : RecyclerView.Adapter<HomeItemClass1Adapter.ItemVh>
         return srcArray.size
     }
 
-
+    override fun getItemViewType(position: Int): Int {
+        if(position == 0){
+            return GRID_4
+        }
+        return GRID_3
+    }
 
     class ItemVh(val binding : HomeItemClass1Binding) : ViewHolder(binding.root){
 

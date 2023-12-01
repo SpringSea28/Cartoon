@@ -13,9 +13,11 @@
     <string name="home_nav_girl">女孩</string>
     <string name="home_item_more">查看更多</string>
     <string name="home_item_replace">换一批</string>
-    <string name="home_item_1_tile">每周火爆更新</string>
-    <string name="home_item_2_tile">纯爱漫画.天天上新</string>
-    <string name="home_item_3_tile">宅男新漫</string>
+    <string name="home_item_1_tile">每周火爆新作</string>
+    <string name="home_item_2_tile">宅男爆款 . 每日更新</string>
+    <string name="home_item_3_tile">腐女爆款 . 每日更新</string>
+    <string name="home_item_4_tile">宅男新漫</string>
+    <string name="home_item_5_tile">言情新漫</string>
 
     <string name="home_classify_tab_type">类型</string>
     <string name="home_classify_tab_whole">全部</string>

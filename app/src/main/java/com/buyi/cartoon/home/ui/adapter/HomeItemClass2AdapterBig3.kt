@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
-import com.buyi.cartoon.databinding.HomeItemClass2Binding
+import com.buyi.cartoon.databinding.HomeItemClass2BigBinding
 import com.buyi.cartoon.http.bean.CartoonSimpleInfoBean
 
-class HomeItemClass2Adapter : RecyclerView.Adapter<HomeItemClass2Adapter.ItemVh>() {
-    private val TAG = HomeItemClass2Adapter::class.java.simpleName
+class HomeItemClass2AdapterBig3 : RecyclerView.Adapter<HomeItemClass2AdapterBig3.ItemVh>() {
+    private val TAG = HomeItemClass2AdapterBig3::class.java.simpleName
 
     val srcArray = ArrayList<CartoonSimpleInfoBean>()
 
@@ -30,7 +30,7 @@ class HomeItemClass2Adapter : RecyclerView.Adapter<HomeItemClass2Adapter.ItemVh>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemVh {
         val inflate =
-            HomeItemClass2Binding.inflate(LayoutInflater.from(parent.context), parent, false)
+            HomeItemClass2BigBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ItemVh(inflate)
     }
 
@@ -48,15 +48,15 @@ class HomeItemClass2Adapter : RecyclerView.Adapter<HomeItemClass2Adapter.ItemVh>
     }
 
     override fun getItemCount(): Int {
-        if(srcArray.size > 8){
-            return 8
-        }
+       if(srcArray.size > 6){
+           return 6
+       }
         return srcArray.size
     }
 
 
 
-    class ItemVh(val binding : HomeItemClass2Binding) : ViewHolder(binding.root){
+    class ItemVh(val binding : HomeItemClass2BigBinding) : ViewHolder(binding.root){
 
     }
 }
