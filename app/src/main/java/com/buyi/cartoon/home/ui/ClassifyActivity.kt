@@ -8,6 +8,7 @@ import com.buyi.cartoon.databinding.ActivityClassifyBinding
 import com.buyi.cartoon.home.ui.adapter.HomeClassifyNavItemAdapter
 import com.buyi.cartoon.home.vm.ClassifyVM
 import com.buyi.cartoon.main.base.BaseActivity
+import com.buyi.cartoon.main.utils.ConstantApp
 
 class ClassifyActivity : BaseActivity<ActivityClassifyBinding>() {
 
@@ -25,14 +26,21 @@ class ClassifyActivity : BaseActivity<ActivityClassifyBinding>() {
     }
 
     override fun initAllMembersData(savedInstanceState: Bundle?) {
+        getIntentData()
         initUi()
         initVm()
         getData()
     }
 
+    private fun getIntentData(){
+        typeSel = intent.getIntExtra(ConstantApp.INTENT_CLASSIFY_TYPE,ClassifyVM.TYPE_WHOLE)
+    }
+
     private fun initUi(){
         setPadding(true)
         binding.title.tvTile.text = getString(R.string.home_nav_classify)
+        binding.title.imgBack.setOnClickListener { finish() }
+
         val linearLayoutManager = LinearLayoutManager(this)
         binding.rcvNav.layoutManager = linearLayoutManager
         binding.rcvNav.setHasFixedSize(true)

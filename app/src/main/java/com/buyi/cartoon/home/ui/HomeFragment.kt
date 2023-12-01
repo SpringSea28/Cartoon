@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.buyi.cartoon.R
 import com.buyi.cartoon.databinding.FragmentHomeBinding
 import com.buyi.cartoon.home.ui.adapter.HomeItemClass1Adapter
+import com.buyi.cartoon.home.vm.ClassifyVM
 import com.buyi.cartoon.home.vm.HomeVM
 import com.buyi.cartoon.main.base.BaseFragment
+import com.buyi.cartoon.main.utils.ConstantApp
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
@@ -50,8 +52,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     startActivity(Intent(context,ClassifyActivity::class.java))
                 }
                 R.id.navigation_ranking ->{Log.e(TAG,"ranking")}
-                R.id.navigation_boy ->{Log.e(TAG,"boy")}
-                R.id.navigation_girl ->{Log.e(TAG,"girl")}
+                R.id.navigation_boy ->{
+                    val intent = Intent(context,ClassifyActivity::class.java)
+                    intent.putExtra(ConstantApp.INTENT_CLASSIFY_TYPE,ClassifyVM.TYPE_BOY)
+                    startActivity(intent)
+                }
+                R.id.navigation_girl ->{
+                    val intent = Intent(context,ClassifyActivity::class.java)
+                    intent.putExtra(ConstantApp.INTENT_CLASSIFY_TYPE,ClassifyVM.TYPE_GIRL)
+                    startActivity(intent)
+                }
             }
             return@setOnItemSelectedListener true
         }
