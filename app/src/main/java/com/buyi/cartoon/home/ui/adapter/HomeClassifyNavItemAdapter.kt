@@ -23,7 +23,6 @@ class HomeClassifyNavItemAdapter : RecyclerView.Adapter<HomeClassifyNavItemAdapt
         }
         srcArray.clear()
         srcArray.addAll(data)
-        Log.e(TAG,"setData ${data.size}")
         notifyDataSetChanged()
     }
 

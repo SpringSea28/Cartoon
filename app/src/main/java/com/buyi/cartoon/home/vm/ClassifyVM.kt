@@ -3,7 +3,12 @@ package com.buyi.cartoon.home.vm
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import com.buyi.cartoon.http.bean.ClassifyInfoBean
+import com.buyi.cartoon.http.datasource.HomeClassifyDs
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import java.util.concurrent.TimeUnit
@@ -13,6 +18,15 @@ class ClassifyVM(application: Application) : AndroidViewModel(application) {
 
     val classListLD = MutableLiveData<List<ClassifyInfoBean>>()
     val refreshFinishLD = MutableLiveData<Boolean>()
+
+    val flow = Pager(
+        // Configure how data is loaded by passing additional properties to
+        // PagingConfig, such as prefetchDistance.
+        PagingConfig(pageSize = 20,3)
+    ) {
+        HomeClassifyDs()
+    }.flow
+        .cachedIn(viewModelScope)
 
 
     fun fetchClassList(){

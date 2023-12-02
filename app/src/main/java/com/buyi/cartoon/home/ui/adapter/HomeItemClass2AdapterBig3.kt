@@ -23,7 +23,6 @@ class HomeItemClass2AdapterBig3 : RecyclerView.Adapter<HomeItemClass2AdapterBig3
         }
         srcArray.clear()
         srcArray.addAll(data)
-        Log.e(TAG,"setData ${data.size}")
         notifyDataSetChanged()
     }
 
