@@ -7,15 +7,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.buyi.cartoon.R
 import com.buyi.cartoon.databinding.ActivityRankingBinding
 import com.buyi.cartoon.home.ui.adapter.HomeClassifyContentAdapter
+import com.buyi.cartoon.home.ui.adapter.HomeRankingContentAdapter
 import com.buyi.cartoon.home.ui.adapter.HomeRankingLabelItemAdapter
-import com.buyi.cartoon.home.vm.ClassifyVM
+import com.buyi.cartoon.home.vm.RankingVM
 import com.buyi.cartoon.http.bean.ClassifyInfoBean
 import com.buyi.cartoon.main.base.BaseActivity
-import com.buyi.cartoon.main.utils.ConstantApp
 import com.example.pagingdatademo.mvvm.ui.adapter.LoadStateFooterAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -25,11 +24,11 @@ class RankingActivity : BaseActivity<ActivityRankingBinding>() {
     override val TAG: String
         get() = RankingActivity::class.simpleName!!
 
-    private val classifyVm:ClassifyVM by viewModels()
+    private val rankingVM:RankingVM by viewModels()
     private val labelAdapter: HomeRankingLabelItemAdapter = HomeRankingLabelItemAdapter()
 
 
-    private val contentAdapter = HomeClassifyContentAdapter()
+    private val contentAdapter = HomeRankingContentAdapter()
     private val footerAdapter = LoadStateFooterAdapter {
         contentAdapter.retry()
     }
@@ -56,6 +55,7 @@ class RankingActivity : BaseActivity<ActivityRankingBinding>() {
         labelList.add(ClassifyInfoBean(4,getString(R.string.home_ranking_label_4)))
         labelList.add(ClassifyInfoBean(5,getString(R.string.home_ranking_label_5)))
         labelAdapter.setData(labelList)
+        labelAdapter.updateSel(1)
         val gridLayoutManager = GridLayoutManager(this,5)
         binding.rcvLabel.layoutManager = gridLayoutManager
         binding.rcvLabel.setHasFixedSize(true)
@@ -100,10 +100,9 @@ class RankingActivity : BaseActivity<ActivityRankingBinding>() {
     }
 
     private fun getData(){
-        classifyVm.fetchClassList()
 
-        lifecycleScope.launch {
-            classifyVm.flow.collectLatest {
+        val job = lifecycleScope.launch {
+            rankingVM.flow.collectLatest {
                 contentAdapter.submitData(it)
             }
         }

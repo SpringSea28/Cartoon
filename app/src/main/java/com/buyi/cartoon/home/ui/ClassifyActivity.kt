@@ -147,7 +147,7 @@ class ClassifyActivity : BaseActivity<ActivityClassifyBinding>() {
     private fun getData(){
         classifyVm.fetchClassList()
         classifyVm.fetchCartoonList(typeSel,statusSel)
-        lifecycleScope.launch {
+        val job = lifecycleScope.launch {
             classifyVm.flow.collectLatest {
                 contentAdapter.submitData(it)
             }
