@@ -35,6 +35,9 @@
         <activity
             android:name=".home.ui.ClassifyActivity"
             android:exported="false"/>
+        <activity
+            android:name=".home.ui.RankingActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>

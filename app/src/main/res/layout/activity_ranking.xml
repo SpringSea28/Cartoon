@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="0dp"
+    android:background="@color/white">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="201dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@mipmap/ranking_bg"
+        android:scaleType="fitXY"/>
+
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:id="@+id/title"
+        layout="@layout/level_2_lay_title"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/status_bar_height"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_label"
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        android:background="@drawable/bg_14_top_white"/>
+
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/rcv_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/white">
+        <com.scwang.smart.refresh.header.MaterialHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_cartoon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

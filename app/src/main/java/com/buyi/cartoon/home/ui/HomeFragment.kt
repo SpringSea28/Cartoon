@@ -51,7 +51,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 R.id.navigation_classify ->{
                     startActivity(Intent(context,ClassifyActivity::class.java))
                 }
-                R.id.navigation_ranking ->{Log.e(TAG,"ranking")}
+                R.id.navigation_ranking ->{
+                    startActivity(Intent(context,RankingActivity::class.java))
+                }
                 R.id.navigation_boy ->{
                     val intent = Intent(context,ClassifyActivity::class.java)
                     intent.putExtra(ConstantApp.INTENT_CLASSIFY_TYPE,ClassifyVM.TYPE_BOY)
