@@ -56,6 +56,7 @@ class HomeRankingContentAdapter:PagingDataAdapter<DemoReqData.DataBean.DatasBean
             holder.binding.tvRankingNumber.setBackgroundResource(R.drawable.bg_9_4d000000)
             holder.binding.tvRankingNumber.setTextColor(context.getColor(R.color.main_color_pink))
         }
+        holder.binding.llLabel.removeAllViews()
         val text1 = datasBean?.author
         addTextView(context,text1,holder.binding.llLabel)
         val text2 = datasBean?.chapterName
