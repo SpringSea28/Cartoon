@@ -19,6 +19,8 @@ class HomeItemClass1Adapter : RecyclerView.Adapter<HomeItemClass1Adapter.ItemVh>
     val GRID_3 = 2
 
     var onItemClickListener: ((position: Int)->Unit) = { _ -> }
+    var onItemMoreClickListener: ((position: Int,homeRecommendItemBean:HomeRecommendItemBean)->Unit)
+            = { _,_ -> }
 
     fun setData(data:List<HomeRecommendItemBean>){
         srcArray.clear()
@@ -71,7 +73,7 @@ class HomeItemClass1Adapter : RecyclerView.Adapter<HomeItemClass1Adapter.ItemVh>
         }
 
         holder.binding.tvMore.setOnClickListener {
-
+            onItemMoreClickListener.invoke(holder.bindingAdapterPosition,srcArray[holder.bindingAdapterPosition])
         }
         holder.binding.tvReplace.setOnClickListener {
             homeVM.fetchRecommendList(srcArray[holder.adapterPosition].id)

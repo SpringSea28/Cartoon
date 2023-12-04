@@ -2,10 +2,8 @@ package com.example.pagingdatademo.mvvm.ui.adapter
 
 import android.util.Log
 import android.view.ViewGroup
-import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
-import androidx.recyclerview.widget.RecyclerView
 
 class LoadStateFooterAdapter(private val retry: () -> Unit) :
     LoadStateAdapter<LoadStateViewHolder>() {

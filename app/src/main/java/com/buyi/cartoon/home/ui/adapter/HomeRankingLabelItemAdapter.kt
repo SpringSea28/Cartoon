@@ -1,12 +1,10 @@
 package com.buyi.cartoon.home.ui.adapter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.buyi.cartoon.databinding.HomeClassifyNavItemBinding
 import com.buyi.cartoon.databinding.HomeRankingLabelItemBinding
 import com.buyi.cartoon.http.bean.ClassifyInfoBean
 

@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -16,8 +17,8 @@ import com.buyi.cartoon.databinding.HomeRankingContentItemBinding
 import com.buyi.cartoon.http.bean.DemoReqData
 import com.buyi.cartoon.main.utils.Tools
 
-class HomeRankingContentAdapter:PagingDataAdapter<DemoReqData.DataBean.DatasBean,
-        HomeRankingContentAdapter.ItemVh>(object :
+class HomeMoreContentAdapter:PagingDataAdapter<DemoReqData.DataBean.DatasBean,
+        HomeMoreContentAdapter.ItemVh>(object :
     DiffUtil.ItemCallback<DemoReqData.DataBean.DatasBean>() {
     override fun areItemsTheSame(
         oldItem: DemoReqData.DataBean.DatasBean,
@@ -41,19 +42,8 @@ class HomeRankingContentAdapter:PagingDataAdapter<DemoReqData.DataBean.DatasBean
         holder.binding.tvTitle.text = datasBean?.title
         holder.binding.tvRankingNumber.text = "${position+1}"
         val context = holder.binding.root.context
-        if(position == 0){
-            holder.binding.tvRankingNumber.setBackgroundResource(R.mipmap.num1)
-            holder.binding.tvRankingNumber.setTextColor(context.getColor(R.color.white))
-        }else if(position ==1){
-            holder.binding.tvRankingNumber.setBackgroundResource(R.mipmap.num2)
-            holder.binding.tvRankingNumber.setTextColor(context.getColor(R.color.white))
-        }else if(position ==2){
-            holder.binding.tvRankingNumber.setBackgroundResource(R.mipmap.num3)
-            holder.binding.tvRankingNumber.setTextColor(context.getColor(R.color.white))
-        }else{
-            holder.binding.tvRankingNumber.setBackgroundResource(R.drawable.bg_9_4d000000)
-            holder.binding.tvRankingNumber.setTextColor(context.getColor(R.color.main_color_pink))
-        }
+        holder.binding.tvRankingNumber.visibility = View.GONE
+
         holder.binding.llLabel.removeAllViews()
         val text1 = datasBean?.author
         addTextView(context,text1,holder.binding.llLabel)

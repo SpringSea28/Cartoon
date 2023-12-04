@@ -13,8 +13,6 @@ import android.view.WindowManager;
 
 import androidx.annotation.RequiresApi;
 
-import com.tencent.mmkv.MMKV;
-
 public class StatusBarAdaptation {
 
     public static void initStatusBar(Activity context,View rootView){

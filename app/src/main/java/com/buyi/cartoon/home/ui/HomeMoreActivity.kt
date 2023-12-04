@@ -5,63 +5,51 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.buyi.cartoon.R
-import com.buyi.cartoon.databinding.ActivityRankingBinding
-import com.buyi.cartoon.home.ui.adapter.HomeRankingContentAdapter
-import com.buyi.cartoon.home.ui.adapter.HomeRankingLabelItemAdapter
+import com.buyi.cartoon.databinding.ActivityHomeMoreBinding
+import com.buyi.cartoon.home.bean.HomeRecommendItemBean
+import com.buyi.cartoon.home.ui.adapter.HomeMoreContentAdapter
 import com.buyi.cartoon.home.vm.RankingVM
-import com.buyi.cartoon.http.bean.ClassifyInfoBean
 import com.buyi.cartoon.main.base.BaseActivity
+import com.buyi.cartoon.main.utils.ConstantApp
 import com.example.pagingdatademo.mvvm.ui.adapter.LoadStateFooterAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class RankingActivity : BaseActivity<ActivityRankingBinding>() {
+class HomeMoreActivity : BaseActivity<ActivityHomeMoreBinding>() {
 
     override val TAG: String
-        get() = RankingActivity::class.simpleName!!
+        get() = HomeMoreActivity::class.simpleName!!
+
+    private var recommendItemBean:HomeRecommendItemBean? = null
 
     private val rankingVM:RankingVM by viewModels()
-    private val labelAdapter: HomeRankingLabelItemAdapter = HomeRankingLabelItemAdapter()
 
 
-    private val contentAdapter = HomeRankingContentAdapter()
+    private val contentAdapter = HomeMoreContentAdapter()
     private val footerAdapter = LoadStateFooterAdapter {
         contentAdapter.retry()
     }
 
-    override fun getBindingView(): ActivityRankingBinding {
-        return ActivityRankingBinding.inflate(layoutInflater)
+    override fun getBindingView(): ActivityHomeMoreBinding {
+        return ActivityHomeMoreBinding.inflate(layoutInflater)
     }
 
     override fun initAllMembersData(savedInstanceState: Bundle?) {
+        getIntentData()
         initUi()
         initVm()
         getData()
     }
 
-    private fun initUi(){
-        setPadding(false)
-        binding.title.tvTile.text = getString(R.string.home_nav_ranking)
-        binding.title.imgBack.setOnClickListener { finish() }
+    private fun getIntentData(){
+        recommendItemBean = intent.getParcelableExtra(ConstantApp.INTENT_HOME_MORE_ITEM)
+    }
 
-        val labelList = ArrayList<ClassifyInfoBean>()
-        labelList.add(ClassifyInfoBean(1,getString(R.string.home_ranking_label_1)))
-        labelList.add(ClassifyInfoBean(2,getString(R.string.home_ranking_label_2)))
-        labelList.add(ClassifyInfoBean(3,getString(R.string.home_ranking_label_3)))
-        labelList.add(ClassifyInfoBean(4,getString(R.string.home_ranking_label_4)))
-        labelList.add(ClassifyInfoBean(5,getString(R.string.home_ranking_label_5)))
-        labelAdapter.setData(labelList)
-        labelAdapter.updateSel(1)
-        val gridLayoutManager = GridLayoutManager(this,5)
-        binding.rcvLabel.layoutManager = gridLayoutManager
-        binding.rcvLabel.setHasFixedSize(true)
-        binding.rcvLabel.adapter = labelAdapter
-        labelAdapter.onItemClickListener = { pos, selId ->
-            labelAdapter.updateSel(selId)
-        }
+    private fun initUi(){
+        setPadding(true)
+        binding.title.tvTile.text = recommendItemBean?.title
+        binding.title.imgBack.setOnClickListener { finish() }
 
 
         binding.rcvCartoon.layoutManager= LinearLayoutManager(this)

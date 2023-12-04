@@ -38,6 +38,9 @@
         <activity
             android:name=".home.ui.RankingActivity"
             android:exported="false"/>
+        <activity
+            android:name=".home.ui.HomeMoreActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>

@@ -2,13 +2,13 @@ package com.buyi.cartoon.main
 
 import android.os.Bundle
 import android.view.ViewGroup
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.core.view.children
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.buyi.cartoon.R
 import com.buyi.cartoon.databinding.ActivityMainBinding
 import com.buyi.cartoon.main.base.BaseActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
