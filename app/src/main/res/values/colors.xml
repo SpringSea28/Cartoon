@@ -22,6 +22,9 @@
     <color name="home_classify_content_item_content_col">#FF767676</color>
     <color name="home_classify_content_item_divider_line_col">#FFE6E6E6</color>
 
+    <color name="search_hint_edt_bg_color">#FFF7F7F7</color>
+    <color name="search_history_label_text">#FF6D6D6D</color>
+
     #FFFB709C
 
 </resources>

@@ -109,4 +109,7 @@ dependencies {
     testImplementation "androidx.paging:paging-common:$paging_version"
     // optional - RxJava3 support
     implementation "androidx.paging:paging-rxjava3:$paging_version"
+
+
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
 }

@@ -41,6 +41,9 @@
         <activity
             android:name=".home.ui.HomeMoreActivity"
             android:exported="false"/>
+        <activity
+            android:name=".home.ui.SearchActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>

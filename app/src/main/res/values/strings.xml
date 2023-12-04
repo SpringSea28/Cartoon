@@ -37,6 +37,10 @@
     <string name="home_ranking_label_4">完结榜</string>
     <string name="home_ranking_label_5">评分榜</string>
 
+    <string name="search">搜索</string>
+    <string name="cancel">取消</string>
+    <string name="search_history">最近在搜</string>
+
 
     <string name="collect_empty">亲，您的收藏为空</string>
     <string name="collect_title">我的收藏</string>

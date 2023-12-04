@@ -37,8 +37,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun initUi(){
+        initSearch()
         initUiClassTab()
         initUiRecommend()
+    }
+
+    private fun initSearch(){
+        binding.clTitle.setOnClickListener {
+            startActivity(Intent(context,SearchActivity::class.java))
+        }
     }
 
     private fun initUiClassTab(){
