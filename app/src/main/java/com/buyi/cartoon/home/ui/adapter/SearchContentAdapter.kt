@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.buyi.cartoon.R
 import com.buyi.cartoon.databinding.HomeRankingContentItemBinding
 import com.buyi.cartoon.http.bean.DemoReqData
+import com.buyi.cartoon.main.utils.TextColorExpandTools
 import com.buyi.cartoon.main.utils.Tools
 
 class SearchContentAdapter:PagingDataAdapter<DemoReqData.DataBean.DatasBean,
@@ -24,7 +25,7 @@ class SearchContentAdapter:PagingDataAdapter<DemoReqData.DataBean.DatasBean,
         oldItem: DemoReqData.DataBean.DatasBean,
         newItem: DemoReqData.DataBean.DatasBean
     ): Boolean {
-        return oldItem.id == newItem.id
+        return false
     }
 
     @SuppressLint("DiffUtilEquals")
@@ -32,7 +33,7 @@ class SearchContentAdapter:PagingDataAdapter<DemoReqData.DataBean.DatasBean,
         oldItem: DemoReqData.DataBean.DatasBean,
         newItem: DemoReqData.DataBean.DatasBean
     ): Boolean {
-        return oldItem == newItem
+        return false
     }
 }) {
 
@@ -40,6 +41,7 @@ class SearchContentAdapter:PagingDataAdapter<DemoReqData.DataBean.DatasBean,
 
     fun updateKey(key:String){
         this.key = key
+        notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: ItemVh, position: Int) {
@@ -55,11 +57,21 @@ class SearchContentAdapter:PagingDataAdapter<DemoReqData.DataBean.DatasBean,
         addTextView(context,text1,holder.binding.llLabel)
         val text2 = datasBean?.chapterName
         addTextView(context,text2,holder.binding.llLabel)
+        if(!datasBean?.title.isNullOrEmpty() && !key.isNullOrEmpty()) {
+            TextColorExpandTools.setPrompt(
+                holder.binding.tvTitle,
+                datasBean?.title!!, key!!, R.color.main_color_pink
+            )
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemVh {
         val inflater = HomeRankingContentItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ItemVh(inflater)
+    }
+
+    override fun getItemCount(): Int {
+        return super.getItemCount()
     }
 
     class ItemVh(val binding : HomeRankingContentItemBinding) : RecyclerView.ViewHolder(binding.root){

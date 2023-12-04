@@ -76,10 +76,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
                 if(label.isNullOrEmpty()){
                     return@setOnEditorActionListener false
                 }
-                val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                if (inputMethodManager.isActive) {
-                    inputMethodManager.hideSoftInputFromWindow(this.currentFocus?.windowToken, 0)
-                }
+                hideSoftInput()
                 searchLabel(label)
             }
             return@setOnEditorActionListener false
@@ -100,6 +97,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
         binding.rcvHistory.setHasFixedSize(true)
         binding.rcvHistory.adapter = labelAdapter
         labelAdapter.onItemClickListener = { pos, label ->
+            hideSoftInput()
             searchLabel(label)
         }
 
@@ -132,8 +130,16 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
 
     private fun searchLabel(label:String){
         binding.clHistory.visibility = View.GONE
+        contentAdapter.updateKey(label)
         searchingVM.addLabel(label)
         fetchCartoon(label)
+    }
+
+    private fun hideSoftInput(){
+        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        if (inputMethodManager.isActive) {
+            inputMethodManager.hideSoftInputFromWindow(this.currentFocus?.windowToken, 0)
+        }
     }
 
 
