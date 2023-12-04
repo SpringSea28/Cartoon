@@ -7,13 +7,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.buyi.cartoon.http.bean.ClassifyInfoBean
+import com.buyi.cartoon.http.bean.DemoReqData
 import com.buyi.cartoon.http.datasource.HomeClassifyDs
 import com.buyi.cartoon.main.utils.ConstantApp
 import com.tencent.mmkv.MMKV
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
+import kotlinx.coroutines.flow.Flow
 import java.util.concurrent.TimeUnit
 
 
@@ -25,22 +28,18 @@ class SearchingVM(application: Application) : AndroidViewModel(application) {
     val refreshFinishLD = MutableLiveData<Boolean>()
     val historyLabelLd = MutableLiveData<List<String>?>()
 
-    val flow = Pager(
-        // Configure how data is loaded by passing additional properties to
-        // PagingConfig, such as prefetchDistance.
-        PagingConfig(pageSize = 20,3)
-    ) {
-        HomeClassifyDs()
-    }.flow
-        .cachedIn(viewModelScope)
 
 
-    fun fetchCartoonList(type:Int?, status:Int?){
-        val subscribe = Observable.timer(1000, TimeUnit.MILLISECONDS)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
 
-            }
+    fun fetchCartoonList(): Flow<PagingData<DemoReqData.DataBean.DatasBean>>{
+        var flow = Pager(
+            // Configure how data is loaded by passing additional properties to
+            // PagingConfig, such as prefetchDistance.
+            PagingConfig(pageSize = 20,3)
+        ) {
+            HomeClassifyDs()
+        }.flow
+        return flow
     }
 
     fun fetchLabel(){

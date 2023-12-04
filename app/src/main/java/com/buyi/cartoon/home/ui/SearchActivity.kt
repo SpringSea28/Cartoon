@@ -5,24 +5,17 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.buyi.cartoon.R
-import com.buyi.cartoon.databinding.ActivityRankingBinding
 import com.buyi.cartoon.databinding.ActivitySearchBinding
-import com.buyi.cartoon.home.ui.adapter.HomeRankingContentAdapter
-import com.buyi.cartoon.home.ui.adapter.HomeRankingLabelItemAdapter
+import com.buyi.cartoon.home.ui.adapter.SearchContentAdapter
 import com.buyi.cartoon.home.ui.adapter.SearchingLabelItemAdapter
-import com.buyi.cartoon.home.vm.RankingVM
 import com.buyi.cartoon.home.vm.SearchingVM
-import com.buyi.cartoon.http.bean.ClassifyInfoBean
 import com.buyi.cartoon.main.base.BaseActivity
 import com.example.pagingdatademo.mvvm.ui.adapter.LoadStateFooterAdapter
 import com.google.android.flexbox.FlexDirection
@@ -41,7 +34,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
     private val labelAdapter: SearchingLabelItemAdapter = SearchingLabelItemAdapter()
 
 
-    private val contentAdapter = HomeRankingContentAdapter()
+    private val contentAdapter = SearchContentAdapter()
     private val footerAdapter = LoadStateFooterAdapter {
         contentAdapter.retry()
     }
@@ -76,20 +69,23 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
                 }
             }
         })
-        binding.edtSearch.setOnKeyListener { view, keyCode, keyEvent ->
-            if (keyCode == KeyEvent.KEYCODE_ENTER && keyCode != KeyEvent.ACTION_UP) {
+
+        binding.edtSearch.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val label = binding.edtSearch.text.toString()
                 if(label.isNullOrEmpty()){
-                    return@setOnKeyListener false
+                    return@setOnEditorActionListener false
                 }
                 val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 if (inputMethodManager.isActive) {
                     inputMethodManager.hideSoftInputFromWindow(this.currentFocus?.windowToken, 0)
                 }
                 searchLabel(label)
-                return@setOnKeyListener true
-            } else return@setOnKeyListener false
+            }
+            return@setOnEditorActionListener false
+
         }
+        binding.edtSearch.requestFocus()
         binding.imgCancel.setOnClickListener {
             binding.edtSearch.text = null
         }
@@ -161,7 +157,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
     private fun fetchCartoon(key:String){
         dataJob?.cancel()
         dataJob = lifecycleScope.launch {
-            searchingVM.flow.collectLatest {
+            searchingVM.fetchCartoonList().collectLatest {
                 contentAdapter.submitData(it)
             }
         }
