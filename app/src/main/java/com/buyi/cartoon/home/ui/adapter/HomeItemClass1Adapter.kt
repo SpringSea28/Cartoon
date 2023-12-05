@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.buyi.cartoon.databinding.HomeItemClass1Binding
 import com.buyi.cartoon.home.bean.HomeRecommendItemBean
 import com.buyi.cartoon.home.vm.HomeVM
+import com.buyi.cartoon.http.bean.CartoonSimpleInfoBean
 
 class HomeItemClass1Adapter : RecyclerView.Adapter<HomeItemClass1Adapter.ItemVh>() {
 
@@ -18,7 +19,7 @@ class HomeItemClass1Adapter : RecyclerView.Adapter<HomeItemClass1Adapter.ItemVh>
     val GRID_4 = 1
     val GRID_3 = 2
 
-    var onItemClickListener: ((position: Int)->Unit) = { _ -> }
+    var onItemClickListener: ((position: Int, cartoonSimpleInfoBean:CartoonSimpleInfoBean)->Unit) = { _,_ -> }
     var onItemMoreClickListener: ((position: Int,homeRecommendItemBean:HomeRecommendItemBean)->Unit)
             = { _,_ -> }
 
@@ -59,6 +60,7 @@ class HomeItemClass1Adapter : RecyclerView.Adapter<HomeItemClass1Adapter.ItemVh>
         if(getItemViewType(position) == GRID_4) {
             val gridLayoutManager = GridLayoutManager(context, 4)
             val itemAdapter: HomeItemClass2Adapter = HomeItemClass2Adapter()
+            itemAdapter.onItemClickListener = this.onItemClickListener
             holder.binding.recyclerView.layoutManager = gridLayoutManager
             holder.binding.recyclerView.setHasFixedSize(true)
             holder.binding.recyclerView.adapter = itemAdapter
@@ -66,6 +68,7 @@ class HomeItemClass1Adapter : RecyclerView.Adapter<HomeItemClass1Adapter.ItemVh>
         }else{
             val gridLayoutManager = GridLayoutManager(context, 3)
             val itemAdapter = HomeItemClass2AdapterBig3()
+            itemAdapter.onItemClickListener = this.onItemClickListener
             holder.binding.recyclerView.layoutManager = gridLayoutManager
             holder.binding.recyclerView.setHasFixedSize(true)
             holder.binding.recyclerView.adapter = itemAdapter

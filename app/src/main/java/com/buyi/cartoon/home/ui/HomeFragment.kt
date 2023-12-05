@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.buyi.cartoon.R
 import com.buyi.cartoon.databinding.FragmentHomeBinding
+import com.buyi.cartoon.detail.ui.CartoonDetailActivity
 import com.buyi.cartoon.home.ui.adapter.HomeItemClass1Adapter
 import com.buyi.cartoon.home.vm.ClassifyVM
 import com.buyi.cartoon.home.vm.HomeVM
@@ -76,6 +77,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun initUiRecommend(){
+        recommendAdapter.onItemClickListener = {position, cartoonSimpleInfoBean ->
+            val intent = Intent(context,CartoonDetailActivity::class.java)
+            intent.putExtra(ConstantApp.INTENT_CARTOON_DETAIL,cartoonSimpleInfoBean)
+            startActivity(intent)
+        }
         val linearLayoutManager = LinearLayoutManager(context)
         binding.recyclerView.layoutManager = linearLayoutManager
         binding.recyclerView.setHasFixedSize(true)

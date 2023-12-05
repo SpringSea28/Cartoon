@@ -14,7 +14,7 @@ class HomeItemClass2Adapter : RecyclerView.Adapter<HomeItemClass2Adapter.ItemVh>
 
     val srcArray = ArrayList<CartoonSimpleInfoBean>()
 
-    var onItemClickListener: ((position: Int)->Unit) = { _ -> }
+    var onItemClickListener: ((position: Int,cartoonSimpleInfoBean:CartoonSimpleInfoBean)->Unit) = { _,_ -> }
 
     fun setData(data:List<CartoonSimpleInfoBean>?){
         if(data == null){
@@ -40,7 +40,7 @@ class HomeItemClass2Adapter : RecyclerView.Adapter<HomeItemClass2Adapter.ItemVh>
             .centerCrop()
             .into(holder.binding.imgCover)
         holder.binding.root.setOnClickListener {
-            onItemClickListener.invoke(holder.adapterPosition)
+            onItemClickListener.invoke(holder.bindingAdapterPosition,srcArray[holder.bindingAdapterPosition])
         }
 
     }

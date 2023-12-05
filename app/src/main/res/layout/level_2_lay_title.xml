@@ -36,8 +36,6 @@
         android:paddingEnd="17sp"
         android:paddingTop="11dp"
         android:paddingBottom="11dp"
-        android:paddingStart="17dp"
-        android:src="@mipmap/setting_black"
-        android:visibility="invisible"/>
+        android:paddingStart="17dp"/>
 
 </RelativeLayout>
