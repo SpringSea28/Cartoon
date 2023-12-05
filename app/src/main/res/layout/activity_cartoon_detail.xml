@@ -26,20 +26,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="1.0"
                 layout="@layout/cartoon_detail_top_part"/>
-            <include layout="@layout/level_2_lay_title"
+            <RelativeLayout
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/title_height"
                 app:layout_collapseMode="pin"
-                />
+                android:layout_marginTop="@dimen/status_bar_height"/>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/rv_demo1_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <TextView
             android:layout_width="match_parent"
             android:text="这是一个滚动布局"
