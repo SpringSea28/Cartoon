@@ -56,9 +56,6 @@ class DetailChapterAdapter : RecyclerView.Adapter<DetailChapterAdapter.ItemVh>()
     }
 
     override fun getItemCount(): Int {
-        if(srcArray.size > 8){
-            return 8
-        }
         return srcArray.size
     }
 

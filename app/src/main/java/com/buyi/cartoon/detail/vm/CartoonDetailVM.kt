@@ -11,6 +11,7 @@ import com.buyi.cartoon.R
 import com.buyi.cartoon.home.bean.HomeRecommendItemBean
 import com.buyi.cartoon.http.bean.CartoonDetailBean
 import com.buyi.cartoon.http.bean.CartoonSimpleInfoBean
+import com.buyi.cartoon.http.bean.CommentBean
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import java.util.concurrent.TimeUnit
@@ -23,6 +24,8 @@ class CartoonDetailVM(application: Application) : AndroidViewModel(application) 
     val readingChapterLd = MutableLiveData<Int>()
     val collectLd = MutableLiveData<Boolean>()
     val collectSucLd = MutableLiveData<Boolean>()
+    val commentListLd = MutableLiveData<List<CommentBean>>()
+    val commentList = ArrayList<CommentBean>()
 
     val testUrl = arrayOf(
         "https://img1.baidu.com/it/u=225041176,855892897&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=1422",
@@ -41,6 +44,15 @@ class CartoonDetailVM(application: Application) : AndroidViewModel(application) 
             .subscribe {
                 test()
             }
+    }
+
+    fun fetchComment(){
+        val subscribe = Observable.timer(1000, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                testComment()
+            }
+
     }
 
     fun setCollect(){
@@ -90,5 +102,55 @@ class CartoonDetailVM(application: Application) : AndroidViewModel(application) 
         collectLd.postValue(true)
     }
 
+    private fun testComment(){
+        val reply1 = CommentBean.CommentReply()
+        reply1.id = 1
+        reply1.nickname = "kkk"
+        reply1.reply= "alksdjlasjdflaskjdfklasjklfdjaslkdjflaskdjflaskjdfkaslkdfsdafasd"
+        val reply2 = CommentBean.CommentReply()
+        reply2.id = 2
+        reply2.nickname = "zzz"
+        reply2.reply= "alksdjlasjdflaskjdfk"
+
+        val replyList1 = ArrayList<CommentBean.CommentReply>()
+        replyList1.add(reply1)
+
+        val replyList2 = ArrayList<CommentBean.CommentReply>()
+        replyList2.add(reply1)
+        replyList2.add(reply2)
+
+        val commentBean1 = CommentBean()
+        commentBean1.id = 1
+        commentBean1.nickname = "没有昵称"
+        commentBean1.comment  = "忍者无敌卡卡卡卡"
+        commentBean1.date = "2023-12-06"
+
+        val commentBean2 = CommentBean()
+        commentBean2.id = 2
+        commentBean2.nickname = "没有昵称2"
+        commentBean2.comment  = "哇哈哈哈"
+        commentBean2.date = "2023-12-06"
+        commentBean2.commentReplyList = replyList1
+        commentBean2.like = 0
+        commentBean2.likeNum = 100
+
+        val commentBean3 = CommentBean()
+        commentBean3.id = 2
+        commentBean3.nickname = "没有昵称3"
+        commentBean3.comment  = "你好哇"
+        commentBean3.date = "2023-12-06"
+        commentBean3.commentReplyList = replyList2
+        commentBean3.like = 1
+        commentBean3.likeNum = 250
+
+
+        commentList.add(commentBean1)
+        commentList.add(commentBean2)
+        commentList.add(commentBean3)
+        commentList.add(commentBean1)
+        commentList.add(commentBean2)
+        commentList.add(commentBean3)
+        commentListLd.postValue(commentList)
+    }
 
 }

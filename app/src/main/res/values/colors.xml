@@ -27,5 +27,8 @@
 
     <color name="toast_bg">#B3000000</color>
     <color name="confirm">#FF999999</color>
+    <color name="detail_comment_date">#FF7B7B7B</color>
+    <color name="detail_comment">#FF4A4A4A</color>
+    <color name="detail_comment_like_inactive">#FF979797</color>
 
 </resources>

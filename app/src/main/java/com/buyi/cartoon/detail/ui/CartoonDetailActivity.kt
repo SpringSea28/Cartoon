@@ -6,10 +6,12 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.buyi.cartoon.R
 import com.buyi.cartoon.databinding.ActivityCartoonDetailBinding
 import com.buyi.cartoon.detail.ui.adapter.DetailChapterAdapter
+import com.buyi.cartoon.detail.ui.adapter.DetailCommentAdapter
 import com.buyi.cartoon.detail.ui.adapter.DetailLabelItemAdapter
 import com.buyi.cartoon.detail.vm.CartoonDetailVM
 import com.buyi.cartoon.http.bean.CartoonSimpleInfoBean
@@ -29,9 +31,11 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
         get() = CartoonDetailActivity::class.simpleName!!
 
     private var cartoonSimpleInfoBean:CartoonSimpleInfoBean? = null
-    private val cartoonDetailVM:CartoonDetailVM by viewModels()
     private val detailChapterAdapter = DetailChapterAdapter()
     private val labelAdapter = DetailLabelItemAdapter()
+    private val detailCommentAdapter = DetailCommentAdapter()
+
+    private val cartoonDetailVM:CartoonDetailVM by viewModels()
 
     override fun getBindingView(): ActivityCartoonDetailBinding {
         return ActivityCartoonDetailBinding.inflate(layoutInflater)
@@ -60,7 +64,6 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
         binding.clTop.title.imgRight.setImageResource(R.mipmap.share)
 
         val gridLayoutManager = GridLayoutManager(this, 3)
-
         detailChapterAdapter.onItemClickListener = {position, chapterInfo ->
 
         }
@@ -82,6 +85,15 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
             }else {
                 cartoonDetailVM.setCollect()
             }
+        }
+
+        val linearLayoutManager = LinearLayoutManager(this)
+        binding.rcvComment.layoutManager = linearLayoutManager
+        binding.rcvComment.setHasFixedSize(true)
+        binding.rcvComment.adapter = detailCommentAdapter
+
+        binding.refresh.setOnLoadMoreListener {
+            cartoonDetailVM.fetchComment()
         }
     }
 
@@ -133,10 +145,15 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
                 dialog.showDialog(supportFragmentManager)
             }
         }
+        cartoonDetailVM.commentListLd.observe(this){
+            binding.refresh.finishLoadMore()
+            detailCommentAdapter.setData(it)
+        }
     }
 
     private fun fetchData(){
         cartoonDetailVM.fetchDetail()
+        cartoonDetailVM.fetchComment()
     }
 
     private fun addStars(score:Float?){
@@ -169,4 +186,5 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
         }
         dialog.showDialog(supportFragmentManager)
     }
+
 }
