@@ -1,6 +1,7 @@
 package com.buyi.cartoon.detail.ui
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -58,7 +59,7 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
 
     private fun initUi(){
         setPadding(false)
-        binding.clTop.title.imgBack.setImageResource(R.mipmap.go_back_round)
+        binding.clTop.title.imgBack.setImageResource(R.mipmap.go_back_white)
         binding.clTop.title.imgBack.setOnClickListener{finish()}
         binding.clTop.title.tvTile.text = null
         binding.clTop.title.imgRight.setImageResource(R.mipmap.share)
@@ -94,6 +95,11 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
 
         binding.refresh.setOnLoadMoreListener {
             cartoonDetailVM.fetchComment()
+        }
+
+        binding.clBottom.tvChapter.setOnClickListener {
+            val intent = Intent(this@CartoonDetailActivity,ReadingActivity::class.java)
+            startActivity(intent)
         }
     }
 
