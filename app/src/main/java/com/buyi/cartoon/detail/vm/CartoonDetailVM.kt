@@ -22,6 +22,7 @@ class CartoonDetailVM(application: Application) : AndroidViewModel(application) 
     val cartoonDetailBeanLd = MutableLiveData<CartoonDetailBean>()
     val readingChapterLd = MutableLiveData<Int>()
     val collectLd = MutableLiveData<Boolean>()
+    val collectSucLd = MutableLiveData<Boolean>()
 
     val testUrl = arrayOf(
         "https://img1.baidu.com/it/u=225041176,855892897&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=1422",
@@ -47,6 +48,7 @@ class CartoonDetailVM(application: Application) : AndroidViewModel(application) 
             collectLd.postValue(false)
         }else{
             collectLd.postValue(true)
+            collectSucLd.postValue(true)
         }
     }
 

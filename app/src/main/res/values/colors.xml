@@ -26,5 +26,6 @@
     <color name="search_history_label_text">#FF6D6D6D</color>
 
     <color name="toast_bg">#B3000000</color>
+    <color name="confirm">#FF999999</color>
 
 </resources>

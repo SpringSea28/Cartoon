@@ -14,6 +14,7 @@ import com.buyi.cartoon.detail.ui.adapter.DetailLabelItemAdapter
 import com.buyi.cartoon.detail.vm.CartoonDetailVM
 import com.buyi.cartoon.http.bean.CartoonSimpleInfoBean
 import com.buyi.cartoon.main.base.BaseActivity
+import com.buyi.cartoon.main.dialog.ConfirmDialog
 import com.buyi.cartoon.main.dialog.ToastDialog
 import com.buyi.cartoon.main.utils.ConstantApp
 import com.buyi.cartoon.main.utils.Tools
@@ -76,7 +77,11 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
         binding.clBottom.tvChapter.text = getString(R.string.detail_start_read,1)
 
         binding.clBottom.clCollect.setOnClickListener {
-            cartoonDetailVM.setCollect()
+            if(cartoonDetailVM.collectLd.value == true){
+                cancelCollect()
+            }else {
+                cartoonDetailVM.setCollect()
+            }
         }
     }
 
@@ -120,6 +125,8 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
 
         cartoonDetailVM.collectLd.observe(this){
             binding.clBottom.imgCollect.isSelected = it
+        }
+        cartoonDetailVM.collectSucLd.observe(this){
             if(it){
                 val dialog = ToastDialog()
                 dialog.message = getString(R.string.detail_collect_suc)
@@ -150,5 +157,16 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
         layoutParam.marginEnd = Tools.dip2px(context,3.0f)
         star.setImageResource(R.mipmap.star_ico)
         linearLayout.addView(star,layoutParam)
+    }
+
+    private fun cancelCollect(){
+        val dialog = ConfirmDialog()
+        dialog.title = getString(R.string.detail_collect_cancel_title)
+        dialog.leftStr = getString(R.string.detail_collect_cancel)
+        dialog.rightStr = getString(R.string.detail_collect_confirm)
+        dialog.leftListener = {
+            cartoonDetailVM.setCollect()
+        }
+        dialog.showDialog(supportFragmentManager)
     }
 }
