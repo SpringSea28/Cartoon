@@ -118,7 +118,7 @@
             android:paddingEnd="15dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:src="@mipmap/delete_ic"
+            android:src="@mipmap/det_ico"
             android:visibility="visible"/>
 
         <androidx.recyclerview.widget.RecyclerView

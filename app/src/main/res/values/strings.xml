@@ -48,6 +48,8 @@
     <string name="detail_more_serialization">更新到%d章></string>
     <string name="detail_more_over">查看全部章节</string>
     <string name="detail_author">作者：%s</string>
+    <string name="detail_comment">评论</string>
+    <string name="detail_start_read">开始阅读 第%d章</string>
 
 
     <string name="collect_empty">亲，您的收藏为空</string>

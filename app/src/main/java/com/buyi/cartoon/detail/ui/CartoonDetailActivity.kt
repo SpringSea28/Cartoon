@@ -2,12 +2,8 @@ package com.buyi.cartoon.detail.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.util.TypedValue
-import android.view.Gravity
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
@@ -16,7 +12,6 @@ import com.buyi.cartoon.databinding.ActivityCartoonDetailBinding
 import com.buyi.cartoon.detail.ui.adapter.DetailChapterAdapter
 import com.buyi.cartoon.detail.ui.adapter.DetailLabelItemAdapter
 import com.buyi.cartoon.detail.vm.CartoonDetailVM
-import com.buyi.cartoon.home.ui.adapter.HomeItemClass2AdapterBig3
 import com.buyi.cartoon.http.bean.CartoonSimpleInfoBean
 import com.buyi.cartoon.main.base.BaseActivity
 import com.buyi.cartoon.main.utils.ConstantApp
