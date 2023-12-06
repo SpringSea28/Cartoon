@@ -27,7 +27,7 @@
         android:textStyle="bold"
         android:gravity="start"
         android:textSize="12sp"
-        android:textColor="@color/main_text_col"
+        android:textColor="@color/detail_chapter_item_text_color_selector"
         android:maxLines="1"
         android:ellipsize="end"
         android:text=""/>

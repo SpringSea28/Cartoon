@@ -50,6 +50,8 @@
     <string name="detail_author">作者：%s</string>
     <string name="detail_comment">评论</string>
     <string name="detail_start_read">开始阅读 第%d章</string>
+    <string name="detail_collect">收藏</string>
+    <string name="detail_collect_suc">收藏成功</string>
 
 
     <string name="collect_empty">亲，您的收藏为空</string>

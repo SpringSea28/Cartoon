@@ -20,6 +20,8 @@ import kotlin.random.Random
 class CartoonDetailVM(application: Application) : AndroidViewModel(application) {
 
     val cartoonDetailBeanLd = MutableLiveData<CartoonDetailBean>()
+    val readingChapterLd = MutableLiveData<Int>()
+    val collectLd = MutableLiveData<Boolean>()
 
     val testUrl = arrayOf(
         "https://img1.baidu.com/it/u=225041176,855892897&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=1422",
@@ -40,6 +42,14 @@ class CartoonDetailVM(application: Application) : AndroidViewModel(application) 
             }
     }
 
+    fun setCollect(){
+        if(collectLd.value == true){
+            collectLd.postValue(false)
+        }else{
+            collectLd.postValue(true)
+        }
+    }
+
 
     private fun test(){
         val detailBean = CartoonDetailBean()
@@ -58,10 +68,12 @@ class CartoonDetailVM(application: Application) : AndroidViewModel(application) 
 
         val chapterInfos = ArrayList<CartoonDetailBean.ChapterInfo>()
         val chapter1 = CartoonDetailBean.ChapterInfo()
+        chapter1.id = 1
         chapter1.name = "自由飞翔"
         chapter1.imgUrl = testUrl[3]
         chapter1.time = "2023-10-5"
         val chapter2 = CartoonDetailBean.ChapterInfo()
+        chapter2.id = 2
         chapter2.name = "我了歌曲"
         chapter2.imgUrl = testUrl[4]
         chapter2.time = "2023-12-5"
@@ -72,6 +84,8 @@ class CartoonDetailVM(application: Application) : AndroidViewModel(application) 
         detailBean.chapterInfos = chapterInfos
 
         cartoonDetailBeanLd.postValue(detailBean)
+        readingChapterLd.postValue(2)
+        collectLd.postValue(true)
     }
 
 

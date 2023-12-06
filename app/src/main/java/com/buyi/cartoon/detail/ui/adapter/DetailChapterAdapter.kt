@@ -16,12 +16,19 @@ class DetailChapterAdapter : RecyclerView.Adapter<DetailChapterAdapter.ItemVh>()
 
     var onItemClickListener: ((position: Int,CartoonDetailBean.ChapterInfo)->Unit) = { _,_ -> }
 
+    var reading:Int? = null
+
     fun setData(data:List<CartoonDetailBean.ChapterInfo>?){
         if(data == null){
             return
         }
         srcArray.clear()
         srcArray.addAll(data)
+        notifyDataSetChanged()
+    }
+
+    fun updateReadingChapter(reading:Int){
+        this.reading = reading
         notifyDataSetChanged()
     }
 
@@ -43,6 +50,8 @@ class DetailChapterAdapter : RecyclerView.Adapter<DetailChapterAdapter.ItemVh>()
         holder.binding.root.setOnClickListener {
             onItemClickListener.invoke(holder.bindingAdapterPosition,srcArray[holder.bindingAdapterPosition])
         }
+
+        holder.binding.tvChapter.isSelected = reading == srcArray[position].id
 
     }
 

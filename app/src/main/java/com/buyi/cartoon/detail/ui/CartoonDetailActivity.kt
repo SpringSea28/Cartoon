@@ -14,6 +14,7 @@ import com.buyi.cartoon.detail.ui.adapter.DetailLabelItemAdapter
 import com.buyi.cartoon.detail.vm.CartoonDetailVM
 import com.buyi.cartoon.http.bean.CartoonSimpleInfoBean
 import com.buyi.cartoon.main.base.BaseActivity
+import com.buyi.cartoon.main.dialog.ToastDialog
 import com.buyi.cartoon.main.utils.ConstantApp
 import com.buyi.cartoon.main.utils.Tools
 import com.google.android.flexbox.FlexDirection
@@ -72,7 +73,11 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
         binding.clTop.rcvLabel.layoutManager = flexboxLayoutManager
         binding.clTop.rcvLabel.setHasFixedSize(true)
         binding.clTop.rcvLabel.adapter = labelAdapter
+        binding.clBottom.tvChapter.text = getString(R.string.detail_start_read,1)
 
+        binding.clBottom.clCollect.setOnClickListener {
+            cartoonDetailVM.setCollect()
+        }
     }
 
     private fun initVm(){
@@ -107,6 +112,19 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
             detailChapterAdapter.setData(it.chapterInfos)
             labelAdapter.setData(it.labels)
             addStars(it.score)
+        }
+        cartoonDetailVM.readingChapterLd.observe(this){
+            detailChapterAdapter.updateReadingChapter(it)
+            binding.clBottom.tvChapter.text = getString(R.string.detail_start_read,it)
+        }
+
+        cartoonDetailVM.collectLd.observe(this){
+            binding.clBottom.imgCollect.isSelected = it
+            if(it){
+                val dialog = ToastDialog()
+                dialog.message = getString(R.string.detail_collect_suc)
+                dialog.showDialog(supportFragmentManager)
+            }
         }
     }
 

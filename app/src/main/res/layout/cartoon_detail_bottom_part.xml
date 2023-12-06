@@ -18,6 +18,29 @@
         android:background="@drawable/bg_22_gradient_pink"
         android:layout_marginStart="15dp"
         app:layout_constraintHorizontal_weight="1">
+        
+        <ImageView
+            android:id="@+id/img_collect"
+            android:layout_width="19dp"
+            android:layout_height="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_collect"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/detail_collect_icon_selector"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            android:layout_marginEnd="4dp"/>
+        <TextView
+            android:id="@+id/tv_collect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/img_collect"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:text="@string/detail_collect"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

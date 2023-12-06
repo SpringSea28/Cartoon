@@ -36,17 +36,20 @@ class CartoonDetailBean() : Parcelable {
 
 
     class ChapterInfo():Parcelable{
+        var id:Int? = null
         var imgUrl:String? = null
         var name:String? = null
         var time:String? = null
 
         constructor(parcel: Parcel) : this() {
+            id = parcel.readValue(Int::class.java.classLoader) as? Int
             imgUrl = parcel.readString()
             name = parcel.readString()
             time = parcel.readString()
         }
 
         override fun writeToParcel(parcel: Parcel, flags: Int) {
+            parcel.writeValue(id)
             parcel.writeString(imgUrl)
             parcel.writeString(name)
             parcel.writeString(time)
