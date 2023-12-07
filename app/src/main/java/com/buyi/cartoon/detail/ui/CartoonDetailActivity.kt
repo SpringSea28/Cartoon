@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,6 +38,7 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
     private val detailCommentAdapter = DetailCommentAdapter()
 
     private val cartoonDetailVM:CartoonDetailVM by viewModels()
+    private var chapter:Int = -1
 
     override fun getBindingView(): ActivityCartoonDetailBinding {
         return ActivityCartoonDetailBinding.inflate(layoutInflater)
@@ -55,6 +57,7 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
 
     private fun getIntentData(){
         cartoonSimpleInfoBean = intent.getParcelableExtra(ConstantApp.INTENT_CARTOON_DETAIL)
+        chapter = intent.getIntExtra(ConstantApp.INTENT_CHAPTER,1)
     }
 
     private fun initUi(){
@@ -78,7 +81,7 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
         binding.clTop.rcvLabel.layoutManager = flexboxLayoutManager
         binding.clTop.rcvLabel.setHasFixedSize(true)
         binding.clTop.rcvLabel.adapter = labelAdapter
-        binding.clBottom.tvChapter.text = getString(R.string.detail_start_read,1)
+        binding.clBottom.tvChapter.text = getString(R.string.detail_start_read,chapter)
 
         binding.clBottom.clCollect.setOnClickListener {
             if(cartoonDetailVM.collectLd.value == true){
@@ -100,7 +103,7 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
         binding.clBottom.tvChapter.setOnClickListener {
             val intent = Intent(this@CartoonDetailActivity,ReadingActivity::class.java)
             intent.putExtra(ConstantApp.INTENT_CHAPTER,cartoonDetailVM.readingChapterLd.value)
-            startActivity(intent)
+            readingLaunch.launch(intent)
         }
     }
 
@@ -192,6 +195,16 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
             cartoonDetailVM.setCollect()
         }
         dialog.showDialog(supportFragmentManager)
+    }
+
+    private val readingLaunch = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        if(it.resultCode == RESULT_OK){
+            val chapter = it.data?.getIntExtra(ConstantApp.INTENT_CHAPTER,-1)
+            if(chapter!= null && chapter > 0){
+                this.chapter = chapter
+                cartoonDetailVM.readingChapterLd.postValue(chapter)
+            }
+        }
     }
 
 }

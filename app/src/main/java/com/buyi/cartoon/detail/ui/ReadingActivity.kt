@@ -9,6 +9,7 @@ import android.view.View
 import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -60,10 +61,11 @@ class ReadingActivity : BaseActivity<ActivityCartoonReadingBinding>() {
 
     private fun initUi(){
         Log.e(TAG,"initUi showMenu : $showMenu")
+        onBackPressedDispatcher.addCallback(this,onBackPress)
         showMenu()
         showMask()
         binding.title.imgBack.setImageResource(R.mipmap.go_back_white)
-        binding.title.imgBack.setOnClickListener{finish()}
+        binding.title.imgBack.setOnClickListener{onBackPress.handleOnBackPressed()}
         binding.title.tvTile.text = getString(R.string.reading_chapter,chapter)
         binding.title.tvTile.setTextColor(getColor(R.color.white))
         binding.title.imgRight.setImageResource(R.mipmap.more_white)
@@ -144,6 +146,7 @@ class ReadingActivity : BaseActivity<ActivityCartoonReadingBinding>() {
             return
         }
         chapter -= 1
+        binding.title.tvTile.text = getString(R.string.reading_chapter,chapter)
         fetchCartoon(chapter)
     }
 
@@ -154,6 +157,7 @@ class ReadingActivity : BaseActivity<ActivityCartoonReadingBinding>() {
             return
         }
         chapter += 1
+        binding.title.tvTile.text = getString(R.string.reading_chapter,chapter)
         fetchCartoon(chapter)
     }
 
@@ -183,6 +187,15 @@ class ReadingActivity : BaseActivity<ActivityCartoonReadingBinding>() {
                 binding.title.tvTile.text = getString(R.string.reading_chapter,chapter)
                 fetchCartoon(chapter)
             }
+        }
+    }
+
+    private val onBackPress = object : OnBackPressedCallback(true){
+        override fun handleOnBackPressed() {
+            val intent = Intent()
+            intent.putExtra(ConstantApp.INTENT_CHAPTER,chapter)
+            setResult(RESULT_OK,intent)
+            finish()
         }
     }
 }
