@@ -99,6 +99,7 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
 
         binding.clBottom.tvChapter.setOnClickListener {
             val intent = Intent(this@CartoonDetailActivity,ReadingActivity::class.java)
+            intent.putExtra(ConstantApp.INTENT_CHAPTER,cartoonDetailVM.readingChapterLd.value)
             startActivity(intent)
         }
     }

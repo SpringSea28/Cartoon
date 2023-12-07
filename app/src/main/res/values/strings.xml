@@ -62,6 +62,7 @@
     <string name="reading_comment_hint">发表您牛逼哄哄的言论吐槽</string>
     <string name="reading_previous">上一章</string>
     <string name="reading_next">下一章</string>
+    <string name="reading_chapter">第%d章</string>
 
     <string name="collect_empty">亲，您的收藏为空</string>
     <string name="collect_title">我的收藏</string>

@@ -5,7 +5,13 @@ import androidx.paging.PagingState
 import com.buyi.cartoon.http.bean.DemoReqData
 import com.buyi.cartoon.http.respority.DataRespority
 
-class HomeClassifyDs: PagingSource<Int, DemoReqData.DataBean.DatasBean>() {
+class HomeClassifyDs(): PagingSource<Int, DemoReqData.DataBean.DatasBean>() {
+
+    private var startPos = 0
+
+    constructor(startPos:Int):this(){
+        this.startPos = startPos
+    }
     override fun getRefreshKey(state: PagingState<Int, DemoReqData.DataBean.DatasBean>): Int? {
         // Try to find the page key of the closest page to anchorPosition from
         // either the prevKey or the nextKey; you need to handle nullability
@@ -25,7 +31,7 @@ class HomeClassifyDs: PagingSource<Int, DemoReqData.DataBean.DatasBean>() {
             //页码未定义置为1
             var currentPage = params.key ?: 1
             //仓库层请求数据
-            var demoReqData = DataRespority().loadData(currentPage)
+            var demoReqData = DataRespority().loadData(currentPage+startPos)
             //当前页码 小于 总页码 页面加1
             var nextPage = if (currentPage < demoReqData?.data?.pageCount ?: 0) {
                 currentPage + 1

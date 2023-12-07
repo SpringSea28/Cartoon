@@ -6,6 +6,9 @@ class ConstantApp {
         const val INTENT_HOME_MORE_ITEM = "INTENT_HOME_MORE_ITEM"
         const val INTENT_CARTOON_DETAIL = "INTENT_CARTOON_DETAIL"
 
+        const val INTENT_CHAPTER = "INTENT_CHAPTER"
+
         const val KEY_SEARCH_HISTORY = "KEY_SEARCH_HISTORY"
+
     }
 }

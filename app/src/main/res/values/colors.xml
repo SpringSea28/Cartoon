@@ -31,4 +31,6 @@
     <color name="detail_comment">#FF4A4A4A</color>
     <color name="detail_comment_like_inactive">#FF979797</color>
 
+    <color name="reading_mask">#40000000</color>
+
 </resources>
