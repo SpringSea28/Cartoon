@@ -51,6 +51,10 @@
         <activity
             android:name=".detail.ui.ReadingActivity"
             android:exported="false"/>
+        <activity
+            android:name=".detail.ui.WriteCommentActivity"
+            android:exported="false"
+            android:windowSoftInputMode="stateVisible"/>
     </application>
 
 </manifest>

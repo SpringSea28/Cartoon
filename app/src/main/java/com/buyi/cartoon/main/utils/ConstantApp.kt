@@ -8,6 +8,8 @@ class ConstantApp {
 
         const val INTENT_CHAPTER = "INTENT_CHAPTER"
 
+        const val KEY_USER_INFO = "KEY_USER_INFO"
+
         const val KEY_SEARCH_HISTORY = "KEY_SEARCH_HISTORY"
 
     }
