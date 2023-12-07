@@ -74,6 +74,12 @@
     <string name="comment_write_publish_suc">发布成功</string>
     <string name="comment_write_publish_fail">发布失败</string>
 
+    <string name="chapter_directory_title">本书目录</string>
+    <string name="chapter_more_serialization">更新到%d章</string>
+    <string name="chapter_directory_free_reading">免费阅读</string>
+    <string name="sort_up">升序</string>
+    <string name="sort_down">降序</string>
+
     <string name="collect_empty">亲，您的收藏为空</string>
     <string name="collect_title">我的收藏</string>
 </resources>

@@ -9,7 +9,9 @@ import android.view.View
 import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -168,6 +170,19 @@ class ReadingActivity : BaseActivity<ActivityCartoonReadingBinding>() {
     }
 
     private fun goDirectory(){
+        val intent = Intent(this,ChapterDirectoryActivity::class.java)
+        intent.putExtra(ConstantApp.INTENT_CHAPTER,chapter)
+        directoryLaunch.launch(intent)
+    }
 
+    private val directoryLaunch = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        if(it.resultCode == RESULT_OK){
+            val chapter = it.data?.getIntExtra(ConstantApp.INTENT_CHAPTER,-1)
+            if(chapter!= null && chapter > 0){
+                this.chapter = chapter
+                binding.title.tvTile.text = getString(R.string.reading_chapter,chapter)
+                fetchCartoon(chapter)
+            }
+        }
     }
 }

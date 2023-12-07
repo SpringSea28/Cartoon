@@ -55,6 +55,9 @@
             android:name=".detail.ui.WriteCommentActivity"
             android:exported="false"
             android:windowSoftInputMode="stateVisible"/>
+        <activity
+            android:name=".detail.ui.ChapterDirectoryActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>
