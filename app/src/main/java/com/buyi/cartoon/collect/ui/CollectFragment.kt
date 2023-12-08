@@ -95,8 +95,7 @@ class CollectFragment : BaseFragment<FragmentCollectBinding>() {
     }
 
     private fun getData(){
-        if(collectVm.offset ==0)
-            collectVm.refresh()
+        collectVm.refresh()
     }
 
 

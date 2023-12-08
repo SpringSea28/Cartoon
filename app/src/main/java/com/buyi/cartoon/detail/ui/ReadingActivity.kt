@@ -23,6 +23,7 @@ import com.buyi.cartoon.R
 import com.buyi.cartoon.account.util.UserManager
 import com.buyi.cartoon.databinding.ActivityCartoonReadingBinding
 import com.buyi.cartoon.databinding.ActivityMainBinding
+import com.buyi.cartoon.db.DbManager
 import com.buyi.cartoon.detail.ui.adapter.ReadingCartoonAdapter
 import com.buyi.cartoon.detail.vm.ReadingVM
 import com.buyi.cartoon.main.base.BaseActivity
@@ -139,7 +140,9 @@ class ReadingActivity : BaseActivity<ActivityCartoonReadingBinding>() {
                 readingAdapter.submitData(it)
             }
         }
+        cartoonId?.let { readingVM.updateCollectReadingChapter(it,chapter) }
     }
+
 
     private fun previousChapter(){
         if(chapter < 1){

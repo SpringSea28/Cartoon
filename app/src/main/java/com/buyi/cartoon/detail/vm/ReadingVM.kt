@@ -8,6 +8,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.buyi.cartoon.db.DbManager
 import com.buyi.cartoon.http.bean.ClassifyInfoBean
 import com.buyi.cartoon.http.bean.DemoReqData
 import com.buyi.cartoon.http.datasource.HomeClassifyDs
@@ -39,6 +40,14 @@ class ReadingVM(application: Application) : AndroidViewModel(application) {
             HomeClassifyDs(startPos)
         }.flow
         return flow
+    }
+
+    fun updateCollectReadingChapter(cartoonId:Int,chapter:Int){
+        val collectById = DbManager.getCollectById(-1, cartoonId.toLong())
+        if(collectById != null){
+            collectById.lastReadingChapter = chapter
+            DbManager.updatCollectSync(collectById)
+        }
     }
 
 
