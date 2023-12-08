@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.buyi.cartoon.R
+import com.buyi.cartoon.collect.data.CollectUpdateBean
 import com.buyi.cartoon.collect.ui.adapter.CollectAdapter
 import com.buyi.cartoon.collect.vm.CollectVm
 import com.buyi.cartoon.databinding.FragmentCollectBinding
@@ -103,15 +104,19 @@ class CollectFragment : BaseFragment<FragmentCollectBinding>() {
         if(it.resultCode == AppCompatActivity.RESULT_OK){
             val chapter = it.data?.getIntExtra(ConstantApp.INTENT_CHAPTER,-1)
             val cartoonId = it.data?.getIntExtra(ConstantApp.INTENT_CARTOON_ID,-1)
+            Log.i(TAG,"return cartoonId $cartoonId")
+            Log.i(TAG,"return chapter $chapter")
             if(cartoonId == null || cartoonId<0){
                 return@registerForActivityResult
             }
             if(chapter!= null && chapter > 0){
-                val collect = collectVm.getCollect(cartoonId)
-                collect?.lastReadingChapter = chapter
-
-                val data = ArrayList(collectVm.collectList)
-                contentAdapter.submitList(data)
+                val pos = collectVm.updateCollectReading(cartoonId,chapter)
+                if(pos!=null ) {
+                    val updateContent = CollectUpdateBean<Int>()
+                    updateContent.type = CollectUpdateBean.TYPE_READING_CHAPTER
+                    updateContent.content = chapter
+                    contentAdapter.notifyItemChanged(pos,updateContent)
+                }
             }
         }
     }

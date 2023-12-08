@@ -1,6 +1,5 @@
 package com.buyi.cartoon.collect.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -8,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.buyi.cartoon.R
+import com.buyi.cartoon.collect.data.CollectUpdateBean
 import com.buyi.cartoon.databinding.CollectContentItemBinding
 import com.buyi.cartoon.db.CollectBean
 import com.buyi.cartoon.main.utils.ConstantApp
@@ -34,7 +34,6 @@ class CollectAdapter:RecyclerView.Adapter<
                     && oldItem.lastReadingChapterTitle == newItem.lastReadingChapterTitle
                     && oldItem.lastUpdateChapter == newItem.lastUpdateChapter
                     && oldItem.status == newItem.status
-
             return same
         }
 
@@ -64,7 +63,9 @@ class CollectAdapter:RecyclerView.Adapter<
             collectBean.lastReadingChapterTitle)
 
         TextColorExpandTools.setPrompt(holder.binding.tvLastReading,lastReadingText,
-            R.color.main_color_pink,"${collectBean.lastReadingChapter}","${collectBean.lastReadingChapterTitle}")
+            R.color.main_color_pink,
+            "${collectBean.lastReadingChapter}",
+            "${collectBean.lastReadingChapterTitle}")
 
         val latestChapter = context.getString(R.string.collect_latest_content,collectBean.lastUpdateChapter)
         TextColorExpandTools.setPrompt(holder.binding.tvLatestChapter,latestChapter,
@@ -79,6 +80,25 @@ class CollectAdapter:RecyclerView.Adapter<
 
         holder.binding.tvContinueRead.setOnClickListener {
             onItemClickListener.invoke(position,collectBean)
+        }
+    }
+
+    override fun onBindViewHolder(holder: ItemVh, position: Int, payloads: MutableList<Any>) {
+        if(!payloads.isEmpty()){
+            val collectBean = mDiffer.currentList[position]
+            val context = holder.binding.root.context
+            val payload = payloads.get(0) as CollectUpdateBean<*>
+            if(payload.type == CollectUpdateBean.TYPE_READING_CHAPTER){
+                val lastReadingText = context.getString(R.string.collect_last_reading_content,
+                    payload.content as Int,
+                    collectBean.lastReadingChapterTitle)
+                TextColorExpandTools.setPrompt(holder.binding.tvLastReading,lastReadingText,
+                    R.color.main_color_pink,
+                    "${collectBean.lastReadingChapter}",
+                    "${collectBean.lastReadingChapterTitle}")
+            }
+        }else{
+            onBindViewHolder(holder,position)
         }
     }
 

@@ -69,10 +69,12 @@ class CollectVm(application: Application) : AndroidViewModel(application) {
 
     }
 
-    fun getCollect(id:Int):CollectBean?{
+    fun updateCollectReading(cartoonId:Int,readingChapter:Int):Int?{
+        var i = 0
         for (item in collectList){
-            if(item.id == id){
-                return item
+            if(item.id == cartoonId){
+                item.lastReadingChapter = readingChapter
+                return i++
             }
         }
         return null
