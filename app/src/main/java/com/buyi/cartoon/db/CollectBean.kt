@@ -10,8 +10,6 @@ import androidx.room.PrimaryKey
 class CollectBean() : Parcelable {
     @PrimaryKey(autoGenerate = true)
     var rowid: Long? = null
-    @ColumnInfo(name = "ble_name")
-    var bleName:String?= null
     @ColumnInfo(name = "id_server")
     var id:Int? = null
     @ColumnInfo(name = "img_url")
@@ -32,7 +30,6 @@ class CollectBean() : Parcelable {
 
     constructor(parcel: Parcel) : this() {
         rowid = parcel.readValue(Long::class.java.classLoader) as? Long
-        bleName = parcel.readString()
         id = parcel.readValue(Int::class.java.classLoader) as? Int
         imgUrl = parcel.readString()
         name = parcel.readString()
@@ -45,7 +42,6 @@ class CollectBean() : Parcelable {
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeValue(rowid)
-        parcel.writeString(bleName)
         parcel.writeValue(id)
         parcel.writeString(imgUrl)
         parcel.writeString(name)
@@ -60,6 +56,10 @@ class CollectBean() : Parcelable {
         return 0
     }
 
+    override fun toString(): String {
+        return "CollectBean(rowid=$rowid, id=$id, imgUrl=$imgUrl, name=$name, lastReadingChapter=$lastReadingChapter, lastReadingChapterTitle=$lastReadingChapterTitle, lastUpdateChapter=$lastUpdateChapter, status=$status, userId=$userId)"
+    }
+
     companion object CREATOR : Parcelable.Creator<CollectBean> {
         override fun createFromParcel(parcel: Parcel): CollectBean {
             return CollectBean(parcel)
@@ -69,6 +69,7 @@ class CollectBean() : Parcelable {
             return arrayOfNulls(size)
         }
     }
+
 
 
 }

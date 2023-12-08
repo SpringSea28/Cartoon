@@ -87,7 +87,7 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
             if(cartoonDetailVM.collectLd.value == true){
                 cancelCollect()
             }else {
-                cartoonDetailVM.setCollect()
+                cartoonDetailVM.setCollect(cartoonSimpleInfoBean)
             }
         }
 
@@ -164,6 +164,7 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
     private fun fetchData(){
         cartoonDetailVM.fetchDetail()
         cartoonDetailVM.fetchComment()
+        cartoonDetailVM.fetchCollect(cartoonSimpleInfoBean)
     }
 
     private fun addStars(score:Float?){
@@ -192,7 +193,7 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
         dialog.leftStr = getString(R.string.detail_collect_cancel)
         dialog.rightStr = getString(R.string.detail_collect_confirm)
         dialog.leftListener = {
-            cartoonDetailVM.setCollect()
+            cartoonDetailVM.setCollect(cartoonSimpleInfoBean)
         }
         dialog.showDialog(supportFragmentManager)
     }

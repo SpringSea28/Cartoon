@@ -5,9 +5,12 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.buyi.cartoon.R
+import com.buyi.cartoon.db.CollectBean
+import com.buyi.cartoon.db.DbManager
 import com.buyi.cartoon.home.bean.HomeRecommendItemBean
 import com.buyi.cartoon.http.bean.CartoonDetailBean
 import com.buyi.cartoon.http.bean.CartoonSimpleInfoBean
@@ -19,6 +22,8 @@ import kotlin.random.Random
 
 
 class CartoonDetailVM(application: Application) : AndroidViewModel(application) {
+
+    private val TAG = CartoonDetailVM::class.java.simpleName
 
     val cartoonDetailBeanLd = MutableLiveData<CartoonDetailBean>()
     val readingChapterLd = MutableLiveData<Int>()
@@ -55,10 +60,29 @@ class CartoonDetailVM(application: Application) : AndroidViewModel(application) 
 
     }
 
-    fun setCollect(){
+    fun fetchCollect(simpleInfoBean: CartoonSimpleInfoBean?){
+        testCollect(simpleInfoBean)
+    }
+
+    fun setCollect(simpleInfoBean: CartoonSimpleInfoBean?){
+        if(simpleInfoBean?.id == null){
+            Log.e(TAG,"setCollect id null")
+            return
+        }
         if(collectLd.value == true){
+            DbManager.delCollectSync(simpleInfoBean.id!!.toLong())
             collectLd.postValue(false)
         }else{
+            val collectBean = CollectBean()
+            collectBean.id = simpleInfoBean.id
+            collectBean.name = simpleInfoBean.title
+            collectBean.imgUrl = testUrl[0]
+            collectBean.lastReadingChapter = 2
+            collectBean.lastReadingChapterTitle = "woyebuzhidao"
+            collectBean.lastUpdateChapter = 16
+            collectBean.status = 1
+            collectBean.userId = -1
+            DbManager.insertCollectSync(collectBean)
             collectLd.postValue(true)
             collectSucLd.postValue(true)
         }
@@ -99,7 +123,18 @@ class CartoonDetailVM(application: Application) : AndroidViewModel(application) 
 
         cartoonDetailBeanLd.postValue(detailBean)
         readingChapterLd.postValue(2)
-        collectLd.postValue(true)
+    }
+
+    private fun testCollect(simpleInfoBean: CartoonSimpleInfoBean?){
+        if(simpleInfoBean?.id == null){
+            Log.e(TAG,"query collect id null")
+            return
+        }
+        val collectById = DbManager.getCollectById(-1, simpleInfoBean?.id!!.toLong())
+        if(collectById != null)
+            collectLd.postValue(true)
+        else
+            collectLd.postValue(false)
     }
 
     private fun testComment(){

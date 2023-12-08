@@ -1,8 +1,10 @@
 package com.buyi.cartoon.db
 
+import androidx.paging.PagingSource
 import androidx.room.Room
 import com.buyi.cartoon.main.CartoonApp
 import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 
 object DbManager {
@@ -29,20 +31,32 @@ object DbManager {
         return db.collectDao().deleteCollectSync(collectBean)
     }
 
+    fun delCollectSync(id: Long) : Int {
+        return db.collectDao().deleteCollectSync(id)
+    }
+
     fun updatCollectSync(collectBean: CollectBean) : Int {
         return db.collectDao().updateCollectSync(collectBean)
     }
 
-    fun loadAllCollect(userId: Long): Single<List<CollectBean>> {
-        return db.collectDao().loadAllCollect(userId)
+    fun loadAllCollect(offset:Int,limit:Int,userId: Long): Single<List<CollectBean>> {
+        return db.collectDao().loadAllCollect(offset,limit,userId)
     }
 
-    fun loadAllCollectSync(userId: Long):List<CollectBean>{
-        return db.collectDao().loadAllCollectSync(userId)
+    fun loadAllCollectSync(offset:Int,limit:Int,userId: Long):List<CollectBean>{
+        return db.collectDao().loadAllCollectSync(offset,limit,userId)
+    }
+
+    fun loadAllCollectPs(userId: Long): PagingSource<Int, CollectBean> {
+        return db.collectDao().loadAllCollectPs(userId)
     }
 
     fun getCollect(userId: Long,rowId: Long): CollectBean?{
         return db.collectDao().getCollect(userId,rowId)
+    }
+
+    fun getCollectById(userId: Long,id: Long): CollectBean?{
+        return db.collectDao().getCollectById(userId,id)
     }
 
 
