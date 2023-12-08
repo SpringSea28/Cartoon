@@ -18,10 +18,10 @@ interface CollectDao {
     @Delete
     fun deleteCollect(vararg collectBean: CollectBean): Completable
 
-    @Query("select * from collect where user_id =:userId LIMIT :limit OFFSET :offset")
+    @Query("select * from collect where user_id =:userId ORDER BY rowid DESC LIMIT :limit OFFSET :offset ")
     fun loadAllCollect(offset:Int,limit:Int,userId: Long): Single<List<CollectBean>>
 
-    @Query("select * from collect where user_id =:userId  LIMIT :limit OFFSET :offset")
+    @Query("select * from collect where user_id =:userId  LIMIT :limit OFFSET :offset ")
     fun loadAllCollectSync(offset:Int,limit:Int,userId: Long): List<CollectBean>
 
     @Query("select * from collect where user_id =:userId")

@@ -56,6 +56,7 @@ class CollectAdapter:RecyclerView.Adapter<
         val context = holder.binding.root.context
         Glide.with(context)
             .load(collectBean.imgUrl)
+            .centerCrop()
             .into(holder.binding.imgCover)
         holder.binding.tvTitle.text = collectBean.name
         val lastReadingText = context.getString(R.string.collect_last_reading_content,
@@ -63,9 +64,7 @@ class CollectAdapter:RecyclerView.Adapter<
             collectBean.lastReadingChapterTitle)
 
         TextColorExpandTools.setPrompt(holder.binding.tvLastReading,lastReadingText,
-            "${collectBean.lastReadingChapter}",R.color.main_color_pink)
-        TextColorExpandTools.setPrompt(holder.binding.tvLastReading,lastReadingText,
-            "${collectBean.lastReadingChapterTitle}",R.color.main_color_pink)
+            R.color.main_color_pink,"${collectBean.lastReadingChapter}","${collectBean.lastReadingChapterTitle}")
 
         val latestChapter = context.getString(R.string.collect_latest_content,collectBean.lastUpdateChapter)
         TextColorExpandTools.setPrompt(holder.binding.tvLatestChapter,latestChapter,
@@ -78,6 +77,9 @@ class CollectAdapter:RecyclerView.Adapter<
             holder.binding.tvStatus.text = context.getString(R.string.collect_chapter_over)
         }
 
+        holder.binding.tvContinueRead.setOnClickListener {
+            onItemClickListener.invoke(position,collectBean)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemVh {

@@ -38,6 +38,7 @@ class ReadingActivity : BaseActivity<ActivityCartoonReadingBinding>() {
         get() = ReadingActivity::class.simpleName!!
 
     private var chapter:Int = 1
+    private var cartoonId:Int? = null
     private var showMenu = true
     private var nightMode = false
 
@@ -57,6 +58,7 @@ class ReadingActivity : BaseActivity<ActivityCartoonReadingBinding>() {
 
     private fun getIntentData(){
         chapter = intent.getIntExtra(ConstantApp.INTENT_CHAPTER,1)
+        cartoonId = intent.getIntExtra(ConstantApp.INTENT_CARTOON_ID,-1)
     }
 
     private fun initUi(){
@@ -194,6 +196,7 @@ class ReadingActivity : BaseActivity<ActivityCartoonReadingBinding>() {
         override fun handleOnBackPressed() {
             val intent = Intent()
             intent.putExtra(ConstantApp.INTENT_CHAPTER,chapter)
+            intent.putExtra(ConstantApp.INTENT_CARTOON_ID,cartoonId)
             setResult(RESULT_OK,intent)
             finish()
         }

@@ -37,6 +37,39 @@ object TextColorExpandTools {
         avoidHintColor(textView)
     }
 
+    fun setPrompt(
+        textView: TextView, text: String,  colorId: Int,vararg keys:String
+    ) {
+        if(keys.isEmpty()){
+            return
+        }
+        val spanned = SpannableStringBuilder(text)
+        for (key in keys ){
+            val start: Int =
+                text.indexOf(key)
+            if(start <0 ){
+                break
+            }
+
+            spanned.setSpan(
+                ForegroundColorSpan(
+                    ContextCompat.getColor(
+                        textView.context,
+                        colorId
+                    )
+                ),
+                start,
+                start + key.length,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+
+
+        textView.text = spanned
+        textView.movementMethod = LinkMovementMethod.getInstance()
+        avoidHintColor(textView)
+    }
+
 
     private fun avoidHintColor(view: View) {
         if (view is TextView) view.highlightColor =

@@ -15,8 +15,10 @@ import com.buyi.cartoon.home.bean.HomeRecommendItemBean
 import com.buyi.cartoon.http.bean.CartoonDetailBean
 import com.buyi.cartoon.http.bean.CartoonSimpleInfoBean
 import com.buyi.cartoon.http.bean.CommentBean
+import com.buyi.cartoon.main.eventbus.MsgEvent
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
+import org.greenrobot.eventbus.EventBus
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
@@ -72,6 +74,10 @@ class CartoonDetailVM(application: Application) : AndroidViewModel(application) 
         if(collectLd.value == true){
             DbManager.delCollectSync(simpleInfoBean.id!!.toLong())
             collectLd.postValue(false)
+            val msgEvent = MsgEvent()
+            msgEvent.msgType = MsgEvent.COLLECT_REMOVE
+            msgEvent.msgObject = simpleInfoBean.id
+            EventBus.getDefault().post(msgEvent)
         }else{
             val collectBean = CollectBean()
             collectBean.id = simpleInfoBean.id
@@ -85,6 +91,10 @@ class CartoonDetailVM(application: Application) : AndroidViewModel(application) 
             DbManager.insertCollectSync(collectBean)
             collectLd.postValue(true)
             collectSucLd.postValue(true)
+            val msgEvent = MsgEvent()
+            msgEvent.msgType = MsgEvent.COLLECT_ADD
+            msgEvent.msgObject = collectBean
+            EventBus.getDefault().post(msgEvent)
         }
     }
 
