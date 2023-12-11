@@ -37,8 +37,9 @@ class HomeVM(application: Application) : AndroidViewModel(application) {
         val subscribe = Observable.timer(1000, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                test()
+
             }
+        test()
     }
 
     fun fetchRecommendList(id:Int?){

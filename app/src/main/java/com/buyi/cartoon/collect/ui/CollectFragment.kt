@@ -36,6 +36,24 @@ class CollectFragment : BaseFragment<FragmentCollectBinding>() {
         Log.e(TAG, "onDestroy")
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.e(TAG, "onDestroyView")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putBoolean("restore",true)
+        super.onSaveInstanceState(outState)
+        Log.e(TAG,"onSaveInstanceState")
+    }
+
+    private var restore:Boolean? = null
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        restore = savedInstanceState?.getBoolean("restore")
+        Log.e(TAG,"onViewStateRestored")
+    }
+
 
     override fun getBindingView(
         inflater: LayoutInflater,

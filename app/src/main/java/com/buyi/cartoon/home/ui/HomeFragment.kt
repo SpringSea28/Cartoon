@@ -2,6 +2,7 @@ package com.buyi.cartoon.home.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -119,7 +120,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun fetchData(){
+        if(restore == true){
+            return
+        }
         homeVM.fetchRecommendList()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putBoolean("restore",true)
+        super.onSaveInstanceState(outState)
+        Log.e(TAG,"onSaveInstanceState")
+    }
+
+    private var restore:Boolean? = null
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        restore = savedInstanceState?.getBoolean("restore")
+        Log.e(TAG,"onViewStateRestored")
     }
 }
 

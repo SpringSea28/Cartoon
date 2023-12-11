@@ -19,7 +19,10 @@
 
     <fragment
         android:id="@+id/navigation_my"
-        android:name="com.buyi.cartoon.ui.notifications.NotificationsFragment"
+        android:name="com.buyi.cartoon.my.ui.MyFragment"
         android:label="@string/title_my"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_my" />
+
+
+
 </navigation>

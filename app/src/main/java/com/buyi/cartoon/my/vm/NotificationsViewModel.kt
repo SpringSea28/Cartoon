@@ -1,4 +1,4 @@
-package com.buyi.cartoon.ui.notifications
+package com.buyi.cartoon.my.vm
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
