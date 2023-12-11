@@ -65,6 +65,12 @@ class CollectVm(application: Application) : AndroidViewModel(application) {
                     break
                 }
             }
+        }else if(event.msgType == MsgEvent.COLLECT_UPDATE){
+            val cartoonId = event.msgObject as Int
+            val collectById = DbManager.getCollectById(-1, cartoonId.toLong())
+            if(collectById != null){
+                collectById.lastReadingChapter?.let { updateCollectReading(cartoonId, it) }
+            }
         }
 
     }

@@ -59,5 +59,17 @@ object DbManager {
         return db.collectDao().getCollectById(userId,id)
     }
 
+    fun insertLastReadingChapter(lastReadingChapterBean: LastReadingChapterBean):Long{
+        return db.lastReadingChapterDao().insertLastReadingChapterSync(lastReadingChapterBean)
+    }
+
+    fun getLastReadingChapterById(userId: Long,id: Long): LastReadingChapterBean?{
+        return db.lastReadingChapterDao().getLastReadingChapterById(userId,id)
+    }
+
+    fun updateLastReadingChapterSync(lastReadingChapterBean: LastReadingChapterBean): Int{
+        return db.lastReadingChapterDao().updateLastReadingChapterSync(lastReadingChapterBean)
+    }
+
 
 }

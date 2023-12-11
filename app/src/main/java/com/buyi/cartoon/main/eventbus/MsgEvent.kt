@@ -7,8 +7,9 @@ class MsgEvent() {
 
 
     companion object{
-        val COLLECT_ADD = 0
-        val COLLECT_REMOVE = 1
+        const val COLLECT_ADD = 0
+        const val COLLECT_REMOVE = 1
+        const val COLLECT_UPDATE = 2
     }
 
     override fun toString(): String {

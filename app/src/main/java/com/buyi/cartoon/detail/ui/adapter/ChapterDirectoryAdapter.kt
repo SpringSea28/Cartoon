@@ -67,7 +67,7 @@ class ChapterDirectoryAdapter : RecyclerView.Adapter<ChapterDirectoryAdapter.Ite
             .centerCrop()
             .into(holder.binding.imgCover)
         holder.binding.tvReading.setOnClickListener {
-            onItemClickListener.invoke(holder.bindingAdapterPosition,srcArray[holder.bindingAdapterPosition])
+            onItemClickListener.invoke(position,srcArray[position])
         }
 
         holder.binding.tvChapter.isSelected = reading == srcArray[position].id

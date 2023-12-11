@@ -140,7 +140,10 @@ class ReadingActivity : BaseActivity<ActivityCartoonReadingBinding>() {
                 readingAdapter.submitData(it)
             }
         }
-        cartoonId?.let { readingVM.updateCollectReadingChapter(it,chapter) }
+        cartoonId?.let {
+            readingVM.updateCollectReadingChapter(it,chapter)
+            readingVM.updateLastReadingChapter(it,chapter)
+        }
     }
 
 

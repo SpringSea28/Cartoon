@@ -28,7 +28,7 @@ class CartoonDetailVM(application: Application) : AndroidViewModel(application) 
     private val TAG = CartoonDetailVM::class.java.simpleName
 
     val cartoonDetailBeanLd = MutableLiveData<CartoonDetailBean>()
-    val readingChapterLd = MutableLiveData<Int>()
+    val readingChapterLd = MutableLiveData<Int>(1)
     val collectLd = MutableLiveData<Boolean>()
     val collectSucLd = MutableLiveData<Boolean>()
     val commentListLd = MutableLiveData<List<CommentBean>>()
@@ -66,6 +66,10 @@ class CartoonDetailVM(application: Application) : AndroidViewModel(application) 
         testCollect(simpleInfoBean)
     }
 
+    fun fetchReadingChapter(simpleInfoBean: CartoonSimpleInfoBean?){
+        testReadingChapter(simpleInfoBean)
+    }
+
     fun setCollect(simpleInfoBean: CartoonSimpleInfoBean?){
         if(simpleInfoBean?.id == null){
             Log.e(TAG,"setCollect id null")
@@ -83,7 +87,7 @@ class CartoonDetailVM(application: Application) : AndroidViewModel(application) 
             collectBean.id = simpleInfoBean.id
             collectBean.name = simpleInfoBean.title
             collectBean.imgUrl = testUrl[0]
-            collectBean.lastReadingChapter = 2
+            collectBean.lastReadingChapter = readingChapterLd.value
             collectBean.lastReadingChapterTitle = "woyebuzhidao"
             collectBean.lastUpdateChapter = 16
             collectBean.status = 1
@@ -125,14 +129,18 @@ class CartoonDetailVM(application: Application) : AndroidViewModel(application) 
         chapter2.name = "我了歌曲"
         chapter2.imgUrl = testUrl[4]
         chapter2.time = "2023-12-5"
+        val chapter3 = CartoonDetailBean.ChapterInfo()
+        chapter3.id = 3
+        chapter3.name = "嘎嘎嘎"
+        chapter3.imgUrl = testUrl[5]
+        chapter3.time = "2023-12-5"
         chapterInfos.add(chapter1)
         chapterInfos.add(chapter2)
-        chapterInfos.add(chapter1)
+        chapterInfos.add(chapter3)
 
         detailBean.chapterInfos = chapterInfos
 
         cartoonDetailBeanLd.postValue(detailBean)
-        readingChapterLd.postValue(2)
     }
 
     private fun testCollect(simpleInfoBean: CartoonSimpleInfoBean?){
@@ -145,6 +153,17 @@ class CartoonDetailVM(application: Application) : AndroidViewModel(application) 
             collectLd.postValue(true)
         else
             collectLd.postValue(false)
+    }
+
+    private fun testReadingChapter(simpleInfoBean: CartoonSimpleInfoBean?){
+        if(simpleInfoBean?.id == null){
+            Log.e(TAG,"query testReadingChapter id null")
+            return
+        }
+        val lastReadingChapterBean = DbManager.getLastReadingChapterById(-1, simpleInfoBean?.id!!.toLong())
+        Log.e(TAG,"query testReadingChapter $lastReadingChapterBean")
+        if(lastReadingChapterBean != null)
+            readingChapterLd.postValue(lastReadingChapterBean.lastReadingChapter)
     }
 
     private fun testComment(){

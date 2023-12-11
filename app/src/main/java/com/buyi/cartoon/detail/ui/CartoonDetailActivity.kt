@@ -69,11 +69,16 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
 
         val gridLayoutManager = GridLayoutManager(this, 3)
         detailChapterAdapter.onItemClickListener = {position, chapterInfo ->
-
+            cartoonDetailVM.readingChapterLd.postValue(chapterInfo.id)
+            goReading(cartoonSimpleInfoBean?.id,chapterInfo.id)
         }
         binding.clTop.rcvChapter.layoutManager = gridLayoutManager
         binding.clTop.rcvChapter.setHasFixedSize(true)
         binding.clTop.rcvChapter.adapter = detailChapterAdapter
+
+        binding.clTop.tvMore.setOnClickListener {
+            goDirectory()
+        }
 
         val flexboxLayoutManager = FlexboxLayoutManager(this)
         flexboxLayoutManager.flexDirection = FlexDirection.ROW
@@ -81,6 +86,8 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
         binding.clTop.rcvLabel.layoutManager = flexboxLayoutManager
         binding.clTop.rcvLabel.setHasFixedSize(true)
         binding.clTop.rcvLabel.adapter = labelAdapter
+
+
         binding.clBottom.tvChapter.text = getString(R.string.detail_start_read,chapter)
 
         binding.clBottom.clCollect.setOnClickListener {
@@ -91,6 +98,11 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
             }
         }
 
+        binding.clBottom.tvChapter.setOnClickListener {
+            goReading(cartoonSimpleInfoBean?.id,cartoonDetailVM.readingChapterLd.value)
+        }
+
+
         val linearLayoutManager = LinearLayoutManager(this)
         binding.rcvComment.layoutManager = linearLayoutManager
         binding.rcvComment.setHasFixedSize(true)
@@ -100,15 +112,10 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
             cartoonDetailVM.fetchComment()
         }
 
-        binding.clBottom.tvChapter.setOnClickListener {
-            val intent = Intent(this@CartoonDetailActivity,ReadingActivity::class.java)
-            intent.putExtra(ConstantApp.INTENT_CHAPTER,cartoonDetailVM.readingChapterLd.value)
-            intent.putExtra(ConstantApp.INTENT_CARTOON_ID,cartoonSimpleInfoBean?.id)
-            readingLaunch.launch(intent)
-        }
     }
 
     private fun initVm(){
+        cartoonDetailVM.readingChapterLd.postValue(chapter)
         cartoonDetailVM.cartoonDetailBeanLd.observe(this){
             Glide.with(this@CartoonDetailActivity)
                 .load(it.imgUrl)
@@ -142,6 +149,7 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
             addStars(it.score)
         }
         cartoonDetailVM.readingChapterLd.observe(this){
+            this.chapter = it
             detailChapterAdapter.updateReadingChapter(it)
             binding.clBottom.tvChapter.text = getString(R.string.detail_start_read,it)
         }
@@ -166,6 +174,7 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
         cartoonDetailVM.fetchDetail()
         cartoonDetailVM.fetchComment()
         cartoonDetailVM.fetchCollect(cartoonSimpleInfoBean)
+        cartoonDetailVM.fetchReadingChapter(cartoonSimpleInfoBean)
     }
 
     private fun addStars(score:Float?){
@@ -203,10 +212,33 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
         if(it.resultCode == RESULT_OK){
             val chapter = it.data?.getIntExtra(ConstantApp.INTENT_CHAPTER,-1)
             if(chapter!= null && chapter > 0){
-                this.chapter = chapter
                 cartoonDetailVM.readingChapterLd.postValue(chapter)
             }
         }
     }
+
+    private fun goReading(cartoonId:Int?,chapter:Int?){
+        val intent = Intent(this@CartoonDetailActivity,ReadingActivity::class.java)
+        intent.putExtra(ConstantApp.INTENT_CHAPTER,chapter)
+        intent.putExtra(ConstantApp.INTENT_CARTOON_ID,cartoonId)
+        readingLaunch.launch(intent)
+    }
+
+    private fun goDirectory(){
+        val intent = Intent(this,ChapterDirectoryActivity::class.java)
+        intent.putExtra(ConstantApp.INTENT_CHAPTER,chapter)
+        directoryLaunch.launch(intent)
+    }
+
+    private val directoryLaunch = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        if(it.resultCode == RESULT_OK){
+            val chapter = it.data?.getIntExtra(ConstantApp.INTENT_CHAPTER,-1)
+            if(chapter!= null && chapter > 0){
+                cartoonDetailVM.readingChapterLd.postValue(chapter)
+                goReading(cartoonSimpleInfoBean?.id,chapter)
+            }
+        }
+    }
+
 
 }

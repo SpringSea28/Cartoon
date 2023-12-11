@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "0d9a6e8ac5912b178666b6e478aa2d48",
+    "identityHash": "2eea0441dceddbfe2e3503689f6dbfa3",
     "entities": [
       {
         "tableName": "collect",
@@ -71,12 +71,62 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "last_reading_chapter",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`rowid` INTEGER PRIMARY KEY AUTOINCREMENT, `id_server` INTEGER, `cartoon_name` TEXT, `last_reading_chapter` INTEGER, `last_reading_chapter_title` TEXT, `user_id` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "rowid",
+            "columnName": "rowid",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id_server",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "cartoon_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "lastReadingChapter",
+            "columnName": "last_reading_chapter",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "lastReadingChapterTitle",
+            "columnName": "last_reading_chapter_title",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "user_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "rowid"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0d9a6e8ac5912b178666b6e478aa2d48')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2eea0441dceddbfe2e3503689f6dbfa3')"
     ]
   }
 }
