@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+   <androidx.constraintlayout.utils.widget.ImageFilterView
+       android:id="@+id/img_login_icon"
+       android:layout_width="84dp"
+       android:layout_height="84dp"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintVertical_bias = "0.2"
+       android:src="@mipmap/login_icon"/>
+
+   <ImageView
+       android:id="@+id/img_close"
+       android:layout_width="34dp"
+       android:layout_height="34dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintBottom_toTopOf="@id/img_login_icon"
+       android:padding="10dp"
+       android:layout_marginEnd="10dp"
+       android:src="@mipmap/shut_down"/>
+
+   <com.buyi.cartoon.my.ui.widget.CustomConstraintLayout
+       android:id="@+id/cl_account_secret"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       app:layout_constraintTop_toBottomOf="@id/img_login_icon"
+       app:layout_constraintStart_toStartOf="parent"
+       android:layout_marginTop="29dp"
+       android:alpha="1">
+
+
+      <EditText
+          android:id="@+id/edt_phone"
+          android:layout_width="match_parent"
+          android:layout_height="52dp"
+          android:layout_marginStart="35dp"
+          android:layout_marginTop="29dp"
+          android:layout_marginEnd="35dp"
+          android:background="@null"
+          android:gravity="start|center_vertical"
+          android:hint="@string/login_phone"
+          android:textColorHint="#FFCCCCCC"
+          android:textColor="@color/main_text_col"
+          android:textSize="16sp"
+          app:layout_constraintBottom_toTopOf="@id/line_phone"
+          app:layout_constraintStart_toStartOf="parent"
+          android:inputType="phone"
+          android:maxLines="1"/>
+
+      <View
+          android:id="@+id/line_phone"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:layout_marginStart="35dp"
+          android:layout_marginEnd="35dp"
+          android:background="@color/home_classify_content_item_divider_line_col"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/edt_phone" />
+
+
+      <EditText
+          android:id="@+id/edt_code"
+          android:layout_width="0dp"
+          android:layout_height="52dp"
+          android:layout_marginStart="35dp"
+          android:layout_marginEnd="35dp"
+          android:background="@null"
+          android:gravity="start|center_vertical"
+          android:hint="@string/login_code"
+          android:textColor="@color/main_text_col"
+          android:textColorHint="#FFCCCCCC"
+          android:textSize="16sp"
+          app:layout_constraintTop_toBottomOf="@id/edt_phone"
+          app:layout_constraintEnd_toStartOf="@id/tv_verification"
+          app:layout_constraintStart_toStartOf="parent"
+          android:inputType="number"
+          android:maxLines="1"/>
+
+      <TextView
+          android:id="@+id/tv_verification"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          app:layout_constraintBottom_toBottomOf="@id/edt_code"
+          app:layout_constraintTop_toTopOf="@id/edt_code"
+          app:layout_constraintEnd_toEndOf="parent"
+          android:layout_marginEnd="39dp"
+          android:paddingStart="15dp"
+          android:paddingEnd="15dp"
+          android:paddingTop="6dp"
+          android:paddingBottom="6dp"
+          android:text="@string/login_get_code"
+          android:textSize="14sp"
+          android:textColor="@color/white"
+          android:background="@drawable/bg_16_pink"/>
+
+      <View
+          android:id="@+id/line_secret"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:layout_marginStart="35dp"
+          android:layout_marginEnd="35dp"
+          android:background="@color/home_classify_content_item_divider_line_col"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/edt_code"/>
+
+   </com.buyi.cartoon.my.ui.widget.CustomConstraintLayout>
+
+
+   <ImageView
+       android:id="@+id/img_agree"
+       android:layout_width="31dp"
+       android:layout_height="31dp"
+       android:padding="10dp"
+       app:layout_constraintTop_toBottomOf="@id/cl_account_secret"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toStartOf="@id/tv_agree"
+       android:layout_marginTop="20dp"
+       android:layout_marginStart="35dp"
+       android:src="@drawable/login_agree_selector"/>
+
+   <TextView
+       android:id="@+id/tv_agree"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       app:layout_constraintTop_toTopOf="@id/img_agree"
+       app:layout_constraintBottom_toBottomOf="@id/img_agree"
+       app:layout_constraintStart_toEndOf="@id/img_agree"
+       android:layout_marginEnd="10dp"
+       android:text="@string/login_agree"/>
+
+   <TextView
+       android:id="@+id/tv_login"
+       style="@style/BtnStyle"
+      app:layout_constraintTop_toBottomOf="@id/tv_agree"
+      app:layout_constraintStart_toStartOf="parent"
+      android:layout_marginTop="24dp"
+       android:text="@string/login"/>
+
+
+   <TextView
+       android:id="@+id/tv_other"
+       style="@style/TvStyle"
+       app:layout_constraintTop_toBottomOf="@id/tv_login"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       android:layout_marginTop="38dp"
+       android:text="@string/login_other"/>
+
+   <View
+       android:layout_width="0dp"
+       android:layout_height="1dp"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toStartOf="@id/tv_other"
+       app:layout_constraintTop_toTopOf="@id/tv_other"
+       app:layout_constraintBottom_toBottomOf="@id/tv_other"
+       android:layout_marginStart="51dp"
+       android:layout_marginEnd="10dp"
+       android:background="#FFC1C1C1"/>
+
+   <View
+       android:layout_width="0dp"
+       android:layout_height="1dp"
+       app:layout_constraintStart_toEndOf="@id/tv_other"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintTop_toTopOf="@id/tv_other"
+       app:layout_constraintBottom_toBottomOf="@id/tv_other"
+       android:layout_marginStart="10dp"
+       android:layout_marginEnd="51dp"
+       android:background="#FFC1C1C1"/>
+   
+   <ImageView
+       android:id="@+id/img_wechat"
+       android:layout_width="48dp"
+       android:layout_height="48dp"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintTop_toBottomOf="@id/tv_other"
+       android:layout_marginTop="17dp"
+       android:src="@mipmap/icon_wechat"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

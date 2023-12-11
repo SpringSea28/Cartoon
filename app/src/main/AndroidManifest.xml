@@ -58,6 +58,13 @@
         <activity
             android:name=".detail.ui.ChapterDirectoryActivity"
             android:exported="false"/>
+
+        <activity
+            android:name=".account.ui.LoginActivity"
+            android:exported="false"/>
+
+        <activity android:name=".my.ui.WebViewActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>

@@ -24,4 +24,23 @@
         <item name="android:background">@drawable/home_classify_nav_tab2_bg_selector</item>
     </style>
 
+    <style name="BtnStyle"  >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">44dp</item>
+        <item name="android:layout_marginStart">35dp</item>
+        <item name="android:layout_marginEnd">35dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/bg_22_pink</item>
+    </style>
+
+    <style name="TvStyle"  >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/main_text_col</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>
