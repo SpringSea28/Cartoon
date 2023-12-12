@@ -27,14 +27,7 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
     }
 
     override fun initAllMembersData(savedInstanceState: Bundle?) {
-        val token = UserManager.getToken()
-        if(token.isNullOrEmpty()){
-            binding.groupLogin.visibility = View.INVISIBLE
-            binding.tvLogin.visibility = View.VISIBLE
-        }else{
-            binding.groupLogin.visibility = View.VISIBLE
-            binding.tvLogin.visibility = View.INVISIBLE
-        }
+        updateLogin()
         binding.tvLogin.setOnClickListener {
             loginLaunch.launch(Intent(context, LoginActivity::class.java))
         }
@@ -64,10 +57,21 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
         }
 
         binding.imgSet.setOnClickListener {
-            startActivity(Intent(context,SettingActivity::class.java))
+            settingLaunch.launch(Intent(context,SettingActivity::class.java))
         }
 
         binding.tvVersion.text = getVersion()
+    }
+
+    private fun updateLogin(){
+        val token = UserManager.getToken()
+        if(token.isNullOrBlank()){
+            binding.groupLogin.visibility = View.INVISIBLE
+            binding.tvLogin.visibility = View.VISIBLE
+        }else{
+            binding.groupLogin.visibility = View.VISIBLE
+            binding.tvLogin.visibility = View.INVISIBLE
+        }
     }
 
 
@@ -88,6 +92,19 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
             val chapter = it.data?.getIntExtra(ConstantApp.INTENT_LOGIN_RESULT,-1)
             if(chapter!= null && chapter > 0){
 
+            }
+        }
+    }
+
+    private val settingLaunch = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        if(it.resultCode == AppCompatActivity.RESULT_OK){
+            val logout = it.data?.getBooleanExtra(SettingActivity.LOGIN_OUT,false)
+            if(logout == true){
+                updateLogin()
+            }
+            val accountCancel = it.data?.getBooleanExtra(SettingActivity.ACCOUNT_CANCEL,false)
+            if(accountCancel == true){
+                updateLogin()
             }
         }
     }

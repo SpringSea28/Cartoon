@@ -145,7 +145,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tv_login"
+        android:id="@+id/tv_login_out"
         style="@style/BtnStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

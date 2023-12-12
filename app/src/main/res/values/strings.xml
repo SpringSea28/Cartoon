@@ -133,6 +133,10 @@
     <string name="setting_young">青少年模式</string>
     <string name="setting_account_cancel">账号注销</string>
     <string name="setting_title">设置</string>
+    <string name="setting_login_out_title">提示</string>
+    <string name="setting_login_out_msg">您确定要退出登录吗？</string>
+    <string name="setting_account_cancel_title">是否确认注销此账号</string>
+    <string name="setting_account_cancel_msg">注销后将清除所有数据</string>
 
     <string name="url_privacy">"https://www.baidu.com"</string>
     <string name="url_user_protocol">"https://www.baidu.com"</string>
