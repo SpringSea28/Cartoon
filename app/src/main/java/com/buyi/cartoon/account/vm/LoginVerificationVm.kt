@@ -56,6 +56,12 @@ class LoginVerificationVm(application: Application) : AndroidViewModel(applicati
 
     fun getVerification(phone: String){
         startTimer()
+        val subscribe = Observable.timer(1000, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                codeSucLd.postValue(true)
+                codeId = "123456"
+            }
 //        HttpReqManager.instance.getVerificationCode(phone).subscribe(
 //            object : CustomObserver<VerificationCodeHttpBean>() {
 //            override fun onCustomNext(result: VerificationCodeHttpBean) {
@@ -82,6 +88,11 @@ class LoginVerificationVm(application: Application) : AndroidViewModel(applicati
             codeIdErrorLd.postValue(true)
             return
         }
+        val subscribe = Observable.timer(1000, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                loginResultLd.postValue(true)
+            }
 //        HttpReqManager.instance.verificationLogin(phone,verification, codeId!!).subscribe(
 //            object : CustomObserver<BaseHttpBean2<String>>() {
 //                override fun onCustomNext(result: BaseHttpBean2<String>) {

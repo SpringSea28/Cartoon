@@ -122,4 +122,7 @@ dependencies {
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
 
     implementation("org.greenrobot:eventbus:3.3.1")
+
+
+    api 'com.tencent.mm.opensdk:wechat-sdk-android:6.8.0'
 }

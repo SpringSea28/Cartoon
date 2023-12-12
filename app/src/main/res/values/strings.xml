@@ -108,4 +108,18 @@
     <string name="login_agree_title_privacy">隐私协议</string>
     <string name="login">登录</string>
     <string name="login_other">其他登录</string>
+
+    <string name="network_error">网络异常，请稍后重试</string>
+    <string name="code_id_error">验证码错误，请稍后重试</string>
+
+    <string name="errcode_success">发送成功</string>
+    <string name="errcode_cancel">发送取消</string>
+    <string name="errcode_deny">发送被拒绝</string>
+    <string name="errcode_unsupported">不支持错误</string>
+    <string name="errcode_unknown">发送返回</string>
+    <string name="login_wx_null">请先安装微信</string>
+    <string name="login_wx_fail">微信授权登录失败</string>
+    <string name="login_phone_empty">请先输入手机号码</string>
+    <string name="login_phone_verification_empty">请先输入验证码</string>
+
 </resources>

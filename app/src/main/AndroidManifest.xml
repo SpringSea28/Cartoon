@@ -5,6 +5,10 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET"/>
 
+    <queries>
+        <package android:name="com.tencent.mm" />
+    </queries>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -65,6 +69,17 @@
 
         <activity android:name=".my.ui.WebViewActivity"
             android:exported="false"/>
+
+
+
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:exported="true"
+            android:taskAffinity="com.buyi.cartoon"
+            android:launchMode="singleTask">
+        </activity>
     </application>
 
 </manifest>
