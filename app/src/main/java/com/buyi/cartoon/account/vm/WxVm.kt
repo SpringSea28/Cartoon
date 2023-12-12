@@ -1,4 +1,4 @@
-package com.buyi.cartoon.account.ui
+package com.buyi.cartoon.account.vm
 
 import android.app.Application
 import android.content.BroadcastReceiver

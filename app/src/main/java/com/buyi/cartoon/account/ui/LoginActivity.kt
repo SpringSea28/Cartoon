@@ -6,15 +6,18 @@ import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.buyi.cartoon.R
 import com.buyi.cartoon.account.vm.LoginVerificationVm
+import com.buyi.cartoon.account.vm.WxVm
 import com.buyi.cartoon.databinding.ActivityLoginBinding
 import com.buyi.cartoon.main.base.BaseActivity
 import com.buyi.cartoon.main.dialog.ToastDialog
+import com.buyi.cartoon.main.utils.ConstantApp
 import com.buyi.cartoon.main.utils.TextColorExpandTools
 import com.buyi.cartoon.my.ui.WebViewActivity
-import com.tencent.mmkv.MMKV
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
@@ -70,7 +73,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         }
         loginVerificationVm.loginResultLd.observe(this){
             if(it){
-                Log.e(TAG,"Login success")
+                goBindingSex()
             }
         }
 
@@ -127,6 +130,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         }
 
         loginVerificationVm.login(phone,verification)
+    }
+
+
+    private fun goBindingSex(){
+        val intent = Intent(this,BindSexActivity::class.java)
+        bindingSexLaunch.launch(intent)
     }
 
 
@@ -190,5 +199,15 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         }
         wxVm.accessTokenGet(intent)
 
+    }
+
+
+    private val bindingSexLaunch = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        if(it.resultCode == AppCompatActivity.RESULT_OK){
+            val chapter = it.data?.getIntExtra(ConstantApp.INTENT_LOGIN_RESULT,-1)
+            if(chapter!= null && chapter > 0){
+
+            }
+        }
     }
 }

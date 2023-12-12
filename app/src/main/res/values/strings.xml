@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Cartoon</string>
+    <string name="app_name">果耽</string>
     <string name="title_collect">收藏</string>
     <string name="title_home">首页</string>
     <string name="title_my">我的</string>
@@ -121,5 +121,11 @@
     <string name="login_wx_fail">微信授权登录失败</string>
     <string name="login_phone_empty">请先输入手机号码</string>
     <string name="login_phone_verification_empty">请先输入验证码</string>
+
+    <string name="login_binding_sex_text_1">欢迎来到“果耽”</string>
+    <string name="login_binding_sex_text_2">很高兴认识你，快选择你的性别吧</string>
+    <string name="sex_male">男</string>
+    <string name="sex_female">女</string>
+    <string name="sex_unknown">不告诉你</string>
 
 </resources>
