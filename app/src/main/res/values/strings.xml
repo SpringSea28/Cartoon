@@ -107,6 +107,7 @@
     <string name="login_agree_title_user_protocol">用户协议</string>
     <string name="login_agree_title_privacy">隐私协议</string>
     <string name="login">登录</string>
+    <string name="login_out">退出</string>
     <string name="login_other">其他登录</string>
 
     <string name="network_error">网络异常，请稍后重试</string>
@@ -127,5 +128,15 @@
     <string name="sex_male">男</string>
     <string name="sex_female">女</string>
     <string name="sex_unknown">不告诉你</string>
+
+    <string name="setting_cache">清除缓存</string>
+    <string name="setting_young">青少年模式</string>
+    <string name="setting_account_cancel">账号注销</string>
+    <string name="setting_title">设置</string>
+
+    <string name="url_privacy">"https://www.baidu.com"</string>
+    <string name="url_user_protocol">"https://www.baidu.com"</string>
+    <string name="url_about_us">"https://www.baidu.com"</string>
+    <string name="url_feedback">"https://www.baidu.com"</string>
 
 </resources>

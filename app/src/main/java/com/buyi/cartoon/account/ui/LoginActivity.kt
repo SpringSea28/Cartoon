@@ -161,7 +161,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         WebViewActivity.startActivity(
             this,
             getString(R.string.login_agree_title_user_protocol),
-            "https://www.baidu.com"
+            getString(R.string.url_user_protocol)
         )
     }
 
@@ -169,7 +169,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         WebViewActivity.startActivity(
             this,
             getString(R.string.login_agree_title_privacy),
-            "https://www.baidu.com"
+            getString(R.string.url_privacy)
         )
 
     }

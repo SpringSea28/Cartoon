@@ -65,7 +65,8 @@
 
         <activity
             android:name=".account.ui.LoginActivity"
-            android:exported="false"/>
+            android:exported="false"
+            android:launchMode="singleTask"/>
 
         <activity
             android:name=".account.ui.BindSexActivity"
@@ -74,6 +75,10 @@
 
         <activity
             android:name=".my.ui.BrownActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".my.ui.SettingActivity"
             android:exported="false"/>
 
         <activity android:name=".my.ui.WebViewActivity"
