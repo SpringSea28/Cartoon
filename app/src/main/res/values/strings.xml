@@ -138,6 +138,11 @@
     <string name="setting_account_cancel_title">是否确认注销此账号</string>
     <string name="setting_account_cancel_msg">注销后将清除所有数据</string>
 
+    <string name="person_title">个人信息</string>
+    <string name="person_header">头像</string>
+    <string name="person_account">账号</string>
+    <string name="person_nick_name">昵称</string>
+
     <string name="url_privacy">"https://www.baidu.com"</string>
     <string name="url_user_protocol">"https://www.baidu.com"</string>
     <string name="url_about_us">"https://www.baidu.com"</string>

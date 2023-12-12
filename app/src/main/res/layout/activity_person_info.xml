@@ -20,21 +20,25 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="#FFF4F5F9"/>
 
-
+    <View
+        android:id="@+id/line_top"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        android:background="#E6E6E6"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:background="@color/white"
         android:orientation="vertical"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
-        app:layout_constraintTop_toBottomOf="@id/title">
+        app:layout_constraintTop_toBottomOf="@id/line_top">
         <RelativeLayout
-            android:id="@+id/rl_cache"
+            android:id="@+id/rl_header"
             android:layout_width="match_parent"
-            android:layout_height="62dp"
+            android:layout_height="90dp"
             android:paddingStart="13dp"
             android:paddingEnd="15dp">
 
@@ -44,25 +48,25 @@
                 android:layout_centerVertical="true"
                 android:textSize="15sp"
                 android:textColor="@color/main_text_col"
-                android:text="@string/setting_cache"/>
+                android:text="@string/person_header"/>
 
             <ImageView
                 android:layout_width="21dp"
                 android:layout_height="21dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
-                android:src="@mipmap/list_arrow_icon"/>
+                android:src="@mipmap/list_arrow_icon"
+                android:visibility="invisible"/>
 
-            <TextView
-                android:id="@+id/tv_cache"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+
+            <ImageView
+                android:id="@+id/img_header"
+                android:layout_width="67dp"
+                android:layout_height="67dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="23dp"
-                android:textSize="15sp"
-                android:textColor="@color/main_text_col"
-                android:text=""/>
+                android:layout_marginEnd="30dp"
+                android:src="@mipmap/user_iamge_70px" />
 
             <View
                 android:layout_width="match_parent"
@@ -71,7 +75,7 @@
                 android:background="@color/home_classify_content_item_divider_line_col"/>
         </RelativeLayout>
         <RelativeLayout
-            android:id="@+id/rl_young"
+            android:id="@+id/rl_account"
             android:layout_width="match_parent"
             android:layout_height="62dp"
             android:paddingStart="13dp"
@@ -84,22 +88,16 @@
                 android:layout_marginStart="0dp"
                 android:textSize="15sp"
                 android:textColor="@color/main_text_col"
-                android:text="@string/setting_young"/>
+                android:text="@string/person_account"/>
 
-            <ImageView
-                android:layout_width="21dp"
-                android:layout_height="21dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:src="@mipmap/list_arrow_icon"/>
 
             <TextView
-                android:id="@+id/tv_young"
+                android:id="@+id/tv_account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="23dp"
+                android:layout_marginEnd="0dp"
                 android:textSize="15sp"
                 android:textColor="@color/main_text_col"
                 android:text=""/>
@@ -112,7 +110,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/rl_account_cancel"
+            android:id="@+id/rl_nick_name"
             android:layout_width="match_parent"
             android:layout_height="62dp"
             android:paddingStart="13dp"
@@ -125,16 +123,26 @@
                 android:layout_marginStart="0dp"
                 android:textSize="15sp"
                 android:textColor="@color/main_text_col"
-                android:text="@string/setting_account_cancel"/>
-
+                android:text="@string/person_nick_name"/>
 
             <ImageView
-                android:id="@+id/img_in_arrow"
                 android:layout_width="21dp"
                 android:layout_height="21dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:src="@mipmap/list_arrow_icon"/>
+
+            <TextView
+                android:id="@+id/tv_nick_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="23dp"
+                android:textSize="13sp"
+                android:textColor="#949494"
+                android:text=""/>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -144,11 +152,4 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_login_out"
-        style="@style/BtnStyle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="30dp"
-        android:text="@string/login_out"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
