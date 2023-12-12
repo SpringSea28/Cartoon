@@ -1,6 +1,7 @@
-package com.buyi.cartoon.db
+package com.buyi.cartoon.db.dao
 
 import androidx.room.*
+import com.buyi.cartoon.db.bean.LastReadingChapterBean
 import io.reactivex.rxjava3.core.Completable
 
 @Dao

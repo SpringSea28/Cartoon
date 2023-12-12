@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.buyi.cartoon.R
 import com.buyi.cartoon.databinding.CollectContentItemBinding
-import com.buyi.cartoon.db.CollectBean
+import com.buyi.cartoon.db.bean.CollectBean
 import com.buyi.cartoon.main.utils.ConstantApp
 import com.buyi.cartoon.main.utils.TextColorExpandTools
 import com.buyi.cartoon.main.utils.Tools

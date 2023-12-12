@@ -1,17 +1,11 @@
 package com.buyi.cartoon.detail.vm
 
 import android.app.Application
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.os.Build
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.buyi.cartoon.R
-import com.buyi.cartoon.db.CollectBean
 import com.buyi.cartoon.db.DbManager
-import com.buyi.cartoon.home.bean.HomeRecommendItemBean
+import com.buyi.cartoon.db.bean.CollectBean
 import com.buyi.cartoon.http.bean.CartoonDetailBean
 import com.buyi.cartoon.http.bean.CartoonSimpleInfoBean
 import com.buyi.cartoon.http.bean.CommentBean
@@ -20,7 +14,6 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import org.greenrobot.eventbus.EventBus
 import java.util.concurrent.TimeUnit
-import kotlin.random.Random
 
 
 class CartoonDetailVM(application: Application) : AndroidViewModel(application) {

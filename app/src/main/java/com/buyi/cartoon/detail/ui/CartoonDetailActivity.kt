@@ -221,6 +221,7 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
         val intent = Intent(this@CartoonDetailActivity,ReadingActivity::class.java)
         intent.putExtra(ConstantApp.INTENT_CHAPTER,chapter)
         intent.putExtra(ConstantApp.INTENT_CARTOON_ID,cartoonId)
+        intent.putExtra(ConstantApp.INTENT_CARTOON_DETAIL,cartoonSimpleInfoBean)
         readingLaunch.launch(intent)
     }
 

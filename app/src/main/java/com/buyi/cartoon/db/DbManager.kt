@@ -1,10 +1,13 @@
 package com.buyi.cartoon.db
 
 import androidx.paging.PagingSource
+import androidx.room.Delete
 import androidx.room.Room
+import com.buyi.cartoon.db.bean.BrownBean
+import com.buyi.cartoon.db.bean.CollectBean
+import com.buyi.cartoon.db.bean.LastReadingChapterBean
 import com.buyi.cartoon.main.CartoonApp
 import io.reactivex.rxjava3.core.Completable
-import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 
 object DbManager {
@@ -72,4 +75,27 @@ object DbManager {
     }
 
 
+    fun insertBrown(vararg brownBean: BrownBean) : LongArray? {
+        return db.brownDao().insertBrown(*brownBean)
+    }
+
+    fun updateBrown(vararg brownBean: BrownBean) : Int {
+        return db.brownDao().updateBrown(*brownBean)
+    }
+
+    fun delBrown(vararg brownBean: BrownBean) : Int {
+        return db.brownDao().deleteBrown(*brownBean)
+    }
+
+    fun loadAllBrown(offset:Int,limit:Int,userId: Long): List<BrownBean> {
+        return db.brownDao().loadAllBrown(offset,limit,userId)
+    }
+
+    fun loadAllBrown(userId: Long): List<BrownBean> {
+        return db.brownDao().loadAllBrown(userId)
+    }
+
+    fun getBrownById(userId: Long,id: Long): BrownBean?{
+        return db.brownDao().getBrownById(userId,id)
+    }
 }

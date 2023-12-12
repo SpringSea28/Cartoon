@@ -26,6 +26,7 @@ import com.buyi.cartoon.databinding.ActivityMainBinding
 import com.buyi.cartoon.db.DbManager
 import com.buyi.cartoon.detail.ui.adapter.ReadingCartoonAdapter
 import com.buyi.cartoon.detail.vm.ReadingVM
+import com.buyi.cartoon.http.bean.CartoonSimpleInfoBean
 import com.buyi.cartoon.main.base.BaseActivity
 import com.buyi.cartoon.main.utils.ConstantApp
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -39,6 +40,7 @@ class ReadingActivity : BaseActivity<ActivityCartoonReadingBinding>() {
         get() = ReadingActivity::class.simpleName!!
 
     private var chapter:Int = 1
+    private var simpleInfoBean:CartoonSimpleInfoBean? = null
     private var cartoonId:Int? = null
     private var showMenu = true
     private var nightMode = false
@@ -60,6 +62,7 @@ class ReadingActivity : BaseActivity<ActivityCartoonReadingBinding>() {
     private fun getIntentData(){
         chapter = intent.getIntExtra(ConstantApp.INTENT_CHAPTER,1)
         cartoonId = intent.getIntExtra(ConstantApp.INTENT_CARTOON_ID,-1)
+        simpleInfoBean = intent.getParcelableExtra(ConstantApp.INTENT_CARTOON_DETAIL)
     }
 
     private fun initUi(){
@@ -143,6 +146,11 @@ class ReadingActivity : BaseActivity<ActivityCartoonReadingBinding>() {
         cartoonId?.let {
             readingVM.updateCollectReadingChapter(it,chapter)
             readingVM.updateLastReadingChapter(it,chapter)
+        }
+        if(simpleInfoBean != null) {
+            readingVM.updateBrown(simpleInfoBean, chapter)
+        }else{
+            readingVM.updateBrown(cartoonId,chapter)
         }
     }
 

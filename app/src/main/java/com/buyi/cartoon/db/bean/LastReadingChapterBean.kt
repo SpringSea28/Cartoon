@@ -1,4 +1,4 @@
-package com.buyi.cartoon.db
+package com.buyi.cartoon.db.bean
 
 import android.os.Parcel
 import android.os.Parcelable

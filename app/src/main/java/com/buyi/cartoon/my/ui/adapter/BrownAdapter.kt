@@ -1,4 +1,4 @@
-package com.buyi.cartoon.collect.ui.adapter
+package com.buyi.cartoon.my.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,26 +9,26 @@ import com.bumptech.glide.Glide
 import com.buyi.cartoon.R
 import com.buyi.cartoon.collect.data.CollectUpdateBean
 import com.buyi.cartoon.databinding.CollectContentItemBinding
-import com.buyi.cartoon.db.bean.CollectBean
+import com.buyi.cartoon.db.bean.BrownBean
 import com.buyi.cartoon.main.utils.ConstantApp
 import com.buyi.cartoon.main.utils.TextColorExpandTools
 
-class CollectAdapter:RecyclerView.Adapter<
-        CollectAdapter.ItemVh>() {
+class BrownAdapter:RecyclerView.Adapter<
+        BrownAdapter.ItemVh>() {
 
-    private val TAG = CollectAdapter::class.java.simpleName
+    private val TAG = BrownAdapter::class.java.simpleName
 
-    var onItemClickListener: ((position: Int, CollectBean)->Unit) = { _, _ -> }
+    var onItemClickListener: ((position: Int, BrownBean)->Unit) = { _, _ -> }
 
 
     //1. 声明 DiffUtil.ItemCallback 回调
-    private val itemCallback = object : DiffUtil.ItemCallback<CollectBean>() {
-        override fun areItemsTheSame(oldItem: CollectBean, newItem: CollectBean): Boolean {
+    private val itemCallback = object : DiffUtil.ItemCallback<BrownBean>() {
+        override fun areItemsTheSame(oldItem: BrownBean, newItem: BrownBean): Boolean {
             val same =  oldItem.id == newItem.id
             return same
         }
 
-        override fun areContentsTheSame(oldItem: CollectBean, newItem: CollectBean): Boolean {
+        override fun areContentsTheSame(oldItem: BrownBean, newItem: BrownBean): Boolean {
             val same = oldItem.name == newItem.name
                     && oldItem.lastReadingChapter == newItem.lastReadingChapter
                     && oldItem.lastReadingChapterTitle == newItem.lastReadingChapterTitle
@@ -40,9 +40,9 @@ class CollectAdapter:RecyclerView.Adapter<
     }
 
     //2. 创建 AsyncListDiff 对象
-    private val mDiffer = AsyncListDiffer<CollectBean>(this, itemCallback)
+    private val mDiffer = AsyncListDiffer<BrownBean>(this, itemCallback)
 
-    fun submitList(collectList: List<CollectBean>) {
+    fun submitList(collectList: List<BrownBean>) {
         //3. 提交新数据列表
         mDiffer.submitList(collectList)
     }
@@ -51,51 +51,51 @@ class CollectAdapter:RecyclerView.Adapter<
 
 
     override fun onBindViewHolder(holder: ItemVh, position: Int) {
-        val collectBean = mDiffer.currentList[position]
+        val BrownBean = mDiffer.currentList[position]
         val context = holder.binding.root.context
         Glide.with(context)
-            .load(collectBean.imgUrl)
+            .load(BrownBean.imgUrl)
             .centerCrop()
             .into(holder.binding.imgCover)
-        holder.binding.tvTitle.text = collectBean.name
+        holder.binding.tvTitle.text = BrownBean.name
         val lastReadingText = context.getString(R.string.collect_last_reading_content,
-            collectBean.lastReadingChapter,
-            collectBean.lastReadingChapterTitle)
+            BrownBean.lastReadingChapter,
+            BrownBean.lastReadingChapterTitle)
 
         TextColorExpandTools.setPrompt(holder.binding.tvLastReading,lastReadingText,
             R.color.main_color_pink,
-            "${collectBean.lastReadingChapter}",
-            "${collectBean.lastReadingChapterTitle}")
+            "${BrownBean.lastReadingChapter}",
+            "${BrownBean.lastReadingChapterTitle}")
 
-        val latestChapter = context.getString(R.string.collect_latest_content,collectBean.lastUpdateChapter)
+        val latestChapter = context.getString(R.string.collect_latest_content,BrownBean.lastUpdateChapter)
         TextColorExpandTools.setPrompt(holder.binding.tvLatestChapter,latestChapter,
-            "${collectBean.lastUpdateChapter}",R.color.main_color_pink)
+            "${BrownBean.lastUpdateChapter}",R.color.main_color_pink)
 
-        holder.binding.tvStatus.isSelected = collectBean.status == ConstantApp.CARTOON_STATUS_LOADING
-        if(collectBean.status == ConstantApp.CARTOON_STATUS_LOADING){
+        holder.binding.tvStatus.isSelected = BrownBean.status == ConstantApp.CARTOON_STATUS_LOADING
+        if(BrownBean.status == ConstantApp.CARTOON_STATUS_LOADING){
             holder.binding.tvStatus.text = context.getString(R.string.collect_chapter_loading)
         }else{
             holder.binding.tvStatus.text = context.getString(R.string.collect_chapter_over)
         }
 
         holder.binding.tvContinueRead.setOnClickListener {
-            onItemClickListener.invoke(position,collectBean)
+            onItemClickListener.invoke(position,BrownBean)
         }
     }
 
     override fun onBindViewHolder(holder: ItemVh, position: Int, payloads: MutableList<Any>) {
         if(!payloads.isEmpty()){
-            val collectBean = mDiffer.currentList[position]
+            val BrownBean = mDiffer.currentList[position]
             val context = holder.binding.root.context
             val payload = payloads.get(0) as CollectUpdateBean<*>
             if(payload.type == CollectUpdateBean.TYPE_READING_CHAPTER){
                 val lastReadingText = context.getString(R.string.collect_last_reading_content,
                     payload.content as Int,
-                    collectBean.lastReadingChapterTitle)
+                    BrownBean.lastReadingChapterTitle)
                 TextColorExpandTools.setPrompt(holder.binding.tvLastReading,lastReadingText,
                     R.color.main_color_pink,
-                    "${collectBean.lastReadingChapter}",
-                    "${collectBean.lastReadingChapterTitle}")
+                    "${BrownBean.lastReadingChapter}",
+                    "${BrownBean.lastReadingChapterTitle}")
             }
         }else{
             onBindViewHolder(holder,position)

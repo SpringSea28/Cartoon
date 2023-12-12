@@ -15,14 +15,9 @@ import com.buyi.cartoon.collect.data.CollectUpdateBean
 import com.buyi.cartoon.collect.ui.adapter.CollectAdapter
 import com.buyi.cartoon.collect.vm.CollectVm
 import com.buyi.cartoon.databinding.FragmentCollectBinding
-import com.buyi.cartoon.db.CollectBean
 import com.buyi.cartoon.detail.ui.ReadingActivity
 import com.buyi.cartoon.main.base.BaseFragment
-import com.buyi.cartoon.main.eventbus.MsgEvent
 import com.buyi.cartoon.main.utils.ConstantApp
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 
 class CollectFragment : BaseFragment<FragmentCollectBinding>() {
 

@@ -1,10 +1,9 @@
-package com.buyi.cartoon.db
+package com.buyi.cartoon.db.dao
 
-import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagingSource
 import androidx.room.*
+import com.buyi.cartoon.db.bean.CollectBean
 import io.reactivex.rxjava3.core.Completable
-import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 
 @Dao
@@ -25,7 +24,7 @@ interface CollectDao {
     fun loadAllCollectSync(offset:Int,limit:Int,userId: Long): List<CollectBean>
 
     @Query("select * from collect where user_id =:userId")
-    fun loadAllCollectPs(userId: Long): PagingSource<Int,CollectBean>
+    fun loadAllCollectPs(userId: Long): PagingSource<Int, CollectBean>
 
     @Query("select * from collect where user_id =:userId and rowid ==:rowId")
     fun getCollect(userId: Long,rowId: Long): CollectBean?

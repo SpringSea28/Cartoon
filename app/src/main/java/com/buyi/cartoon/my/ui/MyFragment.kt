@@ -36,6 +36,9 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
         binding.tvLogin.setOnClickListener {
             loginLaunch.launch(Intent(context, LoginActivity::class.java))
         }
+        binding.rlBrown.setOnClickListener {
+            startActivity(Intent(context,BrownActivity::class.java))
+        }
 
     }
 
