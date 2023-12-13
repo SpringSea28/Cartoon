@@ -80,6 +80,12 @@
         <activity
             android:name=".my.ui.SettingActivity"
             android:exported="false"/>
+        <activity
+            android:name=".my.ui.SettingYoungActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".my.ui.SettingYoungSecretActivity"
+            android:exported="false"/>
 
         <activity android:name=".my.ui.WebViewActivity"
             android:exported="false"/>

@@ -33,4 +33,7 @@
 
     <color name="reading_mask">#40000000</color>
 
+
+    <color name="setting_young_not_start">#FF949494</color>
+
 </resources>

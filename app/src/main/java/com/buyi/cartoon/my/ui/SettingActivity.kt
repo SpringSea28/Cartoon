@@ -64,6 +64,7 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
             accountCancel()
         }
         binding.rlCache.setOnClickListener { deleteCache() }
+        binding.rlYoung.setOnClickListener { startActivity(Intent(this,SettingYoungActivity::class.java)) }
     }
 
     private fun initVm(){

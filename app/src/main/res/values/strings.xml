@@ -132,6 +132,13 @@
     <string name="setting_cache">清除缓存</string>
     <string name="setting_cache_suc">清除完成</string>
     <string name="setting_young">青少年模式</string>
+    <string name="setting_young_not_start">未开启</string>
+    <string name="setting_young_enter">开启青少年模式</string>
+    <string name="setting_young_secret">设置密码</string>
+    <string name="setting_young_secret_confirm">确认密码</string>
+    <string name="setting_young_secret_different">两次密码不一致</string>
+    <string name="setting_young_secret_hint">启动青少年模式，需先独立设置密码</string>
+    <string name="setting_young_next">下一步</string>
     <string name="setting_account_cancel">账号注销</string>
     <string name="setting_title">设置</string>
     <string name="setting_login_out_title">提示</string>
