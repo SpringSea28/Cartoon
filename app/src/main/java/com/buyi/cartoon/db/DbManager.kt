@@ -42,32 +42,32 @@ object DbManager {
         return db.collectDao().updateCollectSync(collectBean)
     }
 
-    fun loadAllCollect(offset:Int,limit:Int,userId: Long): Single<List<CollectBean>> {
-        return db.collectDao().loadAllCollect(offset,limit,userId)
+    fun loadAllCollect(offset:Int,limit:Int): Single<List<CollectBean>> {
+        return db.collectDao().loadAllCollect(offset,limit)
     }
 
-    fun loadAllCollectSync(offset:Int,limit:Int,userId: Long):List<CollectBean>{
-        return db.collectDao().loadAllCollectSync(offset,limit,userId)
+    fun loadAllCollectSync(offset:Int,limit:Int):List<CollectBean>{
+        return db.collectDao().loadAllCollectSync(offset,limit)
     }
 
-    fun loadAllCollectPs(userId: Long): PagingSource<Int, CollectBean> {
-        return db.collectDao().loadAllCollectPs(userId)
+    fun loadAllCollectPs(): PagingSource<Int, CollectBean> {
+        return db.collectDao().loadAllCollectPs()
     }
 
-    fun getCollect(userId: Long,rowId: Long): CollectBean?{
-        return db.collectDao().getCollect(userId,rowId)
+    fun getCollect(rowId: Long): CollectBean?{
+        return db.collectDao().getCollect(rowId)
     }
 
-    fun getCollectById(userId: Long,id: Long): CollectBean?{
-        return db.collectDao().getCollectById(userId,id)
+    fun getCollectById(id: Long): CollectBean?{
+        return db.collectDao().getCollectById(id)
     }
 
     fun insertLastReadingChapter(lastReadingChapterBean: LastReadingChapterBean):Long{
         return db.lastReadingChapterDao().insertLastReadingChapterSync(lastReadingChapterBean)
     }
 
-    fun getLastReadingChapterById(userId: Long,id: Long): LastReadingChapterBean?{
-        return db.lastReadingChapterDao().getLastReadingChapterById(userId,id)
+    fun getLastReadingChapterById(id: Long): LastReadingChapterBean?{
+        return db.lastReadingChapterDao().getLastReadingChapterById(id)
     }
 
     fun updateLastReadingChapterSync(lastReadingChapterBean: LastReadingChapterBean): Int{
@@ -87,15 +87,15 @@ object DbManager {
         return db.brownDao().deleteBrown(*brownBean)
     }
 
-    fun loadAllBrown(offset:Int,limit:Int,userId: Long): List<BrownBean> {
-        return db.brownDao().loadAllBrown(offset,limit,userId)
+    fun loadAllBrown(offset:Int,limit:Int): List<BrownBean> {
+        return db.brownDao().loadAllBrown(offset,limit)
     }
 
-    fun loadAllBrown(userId: Long): List<BrownBean> {
-        return db.brownDao().loadAllBrown(userId)
+    fun loadAllBrown(): List<BrownBean> {
+        return db.brownDao().loadAllBrown()
     }
 
-    fun getBrownById(userId: Long,id: Long): BrownBean?{
-        return db.brownDao().getBrownById(userId,id)
+    fun getBrownById(id: Long): BrownBean?{
+        return db.brownDao().getBrownById(id)
     }
 }

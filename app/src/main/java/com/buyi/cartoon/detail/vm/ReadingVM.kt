@@ -49,7 +49,7 @@ class ReadingVM(application: Application) : AndroidViewModel(application) {
     }
 
     fun updateCollectReadingChapter(cartoonId:Int,chapter:Int){
-        val collectById = DbManager.getCollectById(-1, cartoonId.toLong())
+        val collectById = DbManager.getCollectById(cartoonId.toLong())
         if(collectById != null){
             collectById.lastReadingChapter = chapter
             DbManager.updatCollectSync(collectById)
@@ -61,7 +61,7 @@ class ReadingVM(application: Application) : AndroidViewModel(application) {
     }
 
     fun updateLastReadingChapter(cartoonId:Int,chapter:Int){
-        val chapterBean = DbManager.getLastReadingChapterById(-1, cartoonId.toLong())
+        val chapterBean = DbManager.getLastReadingChapterById(cartoonId.toLong())
         if(chapterBean == null) {
             val lastReadingChapterBean = LastReadingChapterBean()
             lastReadingChapterBean.id = cartoonId
@@ -83,7 +83,7 @@ class ReadingVM(application: Application) : AndroidViewModel(application) {
             Log.e(TAG, "updateBrown info null")
             return
         }
-        val brownBeanList = DbManager.loadAllBrown(-1)
+        val brownBeanList = DbManager.loadAllBrown()
         var itemExist: BrownBean? = null
         for (item in brownBeanList){
             if(item.id == simpleInfoBean?.id){
@@ -118,7 +118,7 @@ class ReadingVM(application: Application) : AndroidViewModel(application) {
             Log.e(TAG, "updateBrown id null")
             return
         }
-        val brownBean = DbManager.getBrownById(-1, cartoonId.toLong())
+        val brownBean = DbManager.getBrownById(cartoonId.toLong())
         if(brownBean != null){
             brownBean.updateTime = Calendar.getInstance().timeInMillis
             brownBean.lastReadingChapter  =chapter

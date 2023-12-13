@@ -43,7 +43,7 @@ class BrownVm(application: Application) : AndroidViewModel(application) {
     }
 
     fun fetchBrown(){
-        val data = DbManager.loadAllBrown(offset, 20, -1)
+        val data = DbManager.loadAllBrown(offset, 20)
         brownListLd.postValue(data)
 
     }

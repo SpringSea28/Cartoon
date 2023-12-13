@@ -17,20 +17,20 @@ interface CollectDao {
     @Delete
     fun deleteCollect(vararg collectBean: CollectBean): Completable
 
-    @Query("select * from collect where user_id =:userId ORDER BY rowid DESC LIMIT :limit OFFSET :offset ")
-    fun loadAllCollect(offset:Int,limit:Int,userId: Long): Single<List<CollectBean>>
+    @Query("select * from collect ORDER BY rowid DESC LIMIT :limit OFFSET :offset ")
+    fun loadAllCollect(offset:Int,limit:Int): Single<List<CollectBean>>
 
-    @Query("select * from collect where user_id =:userId  LIMIT :limit OFFSET :offset ")
-    fun loadAllCollectSync(offset:Int,limit:Int,userId: Long): List<CollectBean>
+    @Query("select * from collect  LIMIT :limit OFFSET :offset ")
+    fun loadAllCollectSync(offset:Int,limit:Int): List<CollectBean>
 
-    @Query("select * from collect where user_id =:userId")
-    fun loadAllCollectPs(userId: Long): PagingSource<Int, CollectBean>
+    @Query("select * from collect ")
+    fun loadAllCollectPs(): PagingSource<Int, CollectBean>
 
-    @Query("select * from collect where user_id =:userId and rowid ==:rowId")
-    fun getCollect(userId: Long,rowId: Long): CollectBean?
+    @Query("select * from collect where rowid ==:rowId")
+    fun getCollect(rowId: Long): CollectBean?
 
-    @Query("select * from collect where user_id =:userId and id_server ==:id")
-    fun getCollectById(userId: Long,id: Long): CollectBean?
+    @Query("select * from collect where id_server ==:id")
+    fun getCollectById(id: Long): CollectBean?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCollectSync(collect: CollectBean): Long

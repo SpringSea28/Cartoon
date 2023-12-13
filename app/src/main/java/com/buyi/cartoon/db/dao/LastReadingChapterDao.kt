@@ -15,8 +15,8 @@ interface LastReadingChapterDao {
     @Delete
     fun deleteLastReadingChapter(vararg lastReadingChapterBean: LastReadingChapterBean): Completable
 
-    @Query("select * from last_reading_chapter where user_id =:userId and id_server ==:id")
-    fun getLastReadingChapterById(userId: Long,id: Long): LastReadingChapterBean?
+    @Query("select * from last_reading_chapter where id_server ==:id")
+    fun getLastReadingChapterById(id: Long): LastReadingChapterBean?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertLastReadingChapterSync(lastReadingChapterBean: LastReadingChapterBean): Long

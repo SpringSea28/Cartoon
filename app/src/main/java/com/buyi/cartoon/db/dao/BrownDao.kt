@@ -15,14 +15,14 @@ interface BrownDao {
     @Delete
     fun deleteBrown(vararg brownBean: BrownBean): Int
 
-    @Query("select * from brown where user_id =:userId ORDER BY update_time DESC LIMIT :limit OFFSET :offset ")
-    fun loadAllBrown(offset:Int,limit:Int,userId: Long): List<BrownBean>
+    @Query("select * from brown ORDER BY update_time DESC LIMIT :limit OFFSET :offset ")
+    fun loadAllBrown(offset:Int,limit:Int): List<BrownBean>
 
-    @Query("select * from brown where user_id =:userId ORDER BY update_time ASC")
-    fun loadAllBrown(userId: Long): List<BrownBean>
+    @Query("select * from brown ORDER BY update_time ASC")
+    fun loadAllBrown(): List<BrownBean>
 
 
-    @Query("select * from brown where user_id =:userId and id_server ==:id")
-    fun getBrownById(userId: Long,id: Long): BrownBean?
+    @Query("select * from brown where id_server ==:id")
+    fun getBrownById(id: Long): BrownBean?
     
 }

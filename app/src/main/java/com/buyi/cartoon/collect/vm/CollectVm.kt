@@ -59,7 +59,7 @@ class CollectVm(application: Application) : AndroidViewModel(application) {
             }
         }else if(event.msgType == MsgEvent.COLLECT_UPDATE){
             val cartoonId = event.msgObject as Int
-            val collectById = DbManager.getCollectById(-1, cartoonId.toLong())
+            val collectById = DbManager.getCollectById( cartoonId.toLong())
             if(collectById != null){
                 collectById.lastReadingChapter?.let { updateCollectReading(cartoonId, it) }
             }
@@ -79,7 +79,7 @@ class CollectVm(application: Application) : AndroidViewModel(application) {
     }
 
     fun fetchCollect(){
-        val single = DbManager.loadAllCollect(offset, 10, -1)
+        val single = DbManager.loadAllCollect(offset, 10)
 
         single.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

@@ -141,7 +141,7 @@ class CartoonDetailVM(application: Application) : AndroidViewModel(application) 
             Log.e(TAG,"query collect id null")
             return
         }
-        val collectById = DbManager.getCollectById(-1, simpleInfoBean?.id!!.toLong())
+        val collectById = DbManager.getCollectById(simpleInfoBean?.id!!.toLong())
         if(collectById != null)
             collectLd.postValue(true)
         else
@@ -153,7 +153,7 @@ class CartoonDetailVM(application: Application) : AndroidViewModel(application) 
             Log.e(TAG,"query testReadingChapter id null")
             return
         }
-        val lastReadingChapterBean = DbManager.getLastReadingChapterById(-1, simpleInfoBean?.id!!.toLong())
+        val lastReadingChapterBean = DbManager.getLastReadingChapterById(simpleInfoBean?.id!!.toLong())
         Log.e(TAG,"query testReadingChapter $lastReadingChapterBean")
         if(lastReadingChapterBean != null)
             readingChapterLd.postValue(lastReadingChapterBean.lastReadingChapter)

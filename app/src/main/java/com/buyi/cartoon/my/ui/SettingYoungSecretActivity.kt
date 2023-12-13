@@ -1,5 +1,6 @@
 package com.buyi.cartoon.my.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import com.buyi.cartoon.R
@@ -46,6 +47,9 @@ class SettingYoungSecretActivity : BaseActivity<ActivitySettingYoungSecretBindin
                 }else if(step == 2){
                     secretSecond = binding.edtSecret.text.toString()
                     if(secretFirst == secretSecond){
+                        val intent = Intent()
+                        intent.putExtra(EXTRA_SECRET_SET_RESULT,true)
+                        setResult(RESULT_OK,intent)
                         finish()
                     }else{
                         Toast.makeText(this,
@@ -61,6 +65,11 @@ class SettingYoungSecretActivity : BaseActivity<ActivitySettingYoungSecretBindin
 
     private fun initVm(){
 
+    }
+
+
+    companion object{
+        const val EXTRA_SECRET_SET_RESULT = "EXTRA_SECRET_SET_RESULT"
     }
 
 }
