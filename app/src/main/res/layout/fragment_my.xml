@@ -51,14 +51,18 @@
 
     <TextView
         android:id="@+id/tv_nickname"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tv_phone"
         app:layout_constraintStart_toEndOf="@id/img_header"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="5dp"
         android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:textSize="12sp"
         android:textColor="@color/white"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:text=""/>
 
     <androidx.constraintlayout.widget.Group

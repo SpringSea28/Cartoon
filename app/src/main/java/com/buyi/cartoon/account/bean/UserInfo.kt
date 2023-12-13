@@ -11,6 +11,7 @@ class UserInfo() : Parcelable {
     var gender:Int? = null
     var status:Int? = null
     var signature:String? = null
+    var birthdate:String? = null
 
     var id:Long? = null
     var loginTime:String? = null
@@ -19,7 +20,6 @@ class UserInfo() : Parcelable {
     var wechatOpenid:String? = null
     var wechatUnionid:String? = null
 
-
     constructor(parcel: Parcel) : this() {
         token = parcel.readString()
         avatar = parcel.readString()
@@ -27,7 +27,7 @@ class UserInfo() : Parcelable {
         gender = parcel.readValue(Int::class.java.classLoader) as? Int
         status = parcel.readValue(Int::class.java.classLoader) as? Int
         signature = parcel.readString()
-
+        birthdate = parcel.readString()
         id = parcel.readValue(Long::class.java.classLoader) as? Long
         loginTime = parcel.readString()
         phone = parcel.readString()
@@ -43,7 +43,7 @@ class UserInfo() : Parcelable {
         parcel.writeValue(gender)
         parcel.writeValue(status)
         parcel.writeString(signature)
-
+        parcel.writeString(birthdate)
         parcel.writeValue(id)
         parcel.writeString(loginTime)
         parcel.writeString(phone)

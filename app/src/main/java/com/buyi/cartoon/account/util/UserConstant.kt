@@ -7,4 +7,5 @@ object UserConstant {
     const val SEX_UNKNOWN = 3
 
     const val EXTRA_SEX = "EXTRA_SEX"
+    const val EXTRA_NICK_NAME = "EXTRA_NICK_NAME"
 }

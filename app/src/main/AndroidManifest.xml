@@ -71,6 +71,14 @@
         <activity
             android:name=".account.ui.BindSexActivity"
             android:exported="false"/>
+        <activity
+            android:name=".account.ui.PersonInfoActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".account.ui.NickNameActivity"
+            android:exported="false"
+            android:windowSoftInputMode="stateVisible"/>
 
 
         <activity

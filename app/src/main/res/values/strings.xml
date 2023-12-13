@@ -150,6 +150,13 @@
     <string name="person_header">头像</string>
     <string name="person_account">账号</string>
     <string name="person_nick_name">昵称</string>
+    <string name="person_sex">性别</string>
+    <string name="person_birthdate">生日</string>
+    <string name="person_account_bind">账号绑定</string>
+    <string name="person_unset">未设置</string>
+    <string name="person_nick_name_write_hint">写下您高贵的昵称吧</string>
+    <string name="person_nick_name_publish_suc">修改成功</string>
+    <string name="person_nick_name_publish_fail">修改失败</string>
 
     <string name="url_privacy">"https://www.baidu.com"</string>
     <string name="url_user_protocol">"https://www.baidu.com"</string>

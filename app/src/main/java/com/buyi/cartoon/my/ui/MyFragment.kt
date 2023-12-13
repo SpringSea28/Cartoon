@@ -10,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.buyi.cartoon.R
 import com.buyi.cartoon.account.ui.LoginActivity
+import com.buyi.cartoon.account.ui.PersonInfoActivity
 import com.buyi.cartoon.account.util.UserConstant
 import com.buyi.cartoon.account.util.UserManager
 import com.buyi.cartoon.databinding.FragmentMyBinding
@@ -32,6 +33,9 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
         binding.tvLogin.setOnClickListener {
             loginLaunch.launch(Intent(context, LoginActivity::class.java))
         }
+        binding.tvPhone.setOnClickListener { goPersonInfo() }
+        binding.tvNickname.setOnClickListener { goPersonInfo() }
+        binding.imgHeader.setOnClickListener { goPersonInfo() }
         binding.rlBrown.setOnClickListener {
             startActivity(Intent(context,BrownActivity::class.java))
         }
@@ -62,6 +66,15 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
         }
 
         binding.tvVersion.text = getVersion()
+    }
+
+    private fun goPersonInfo(){
+        val token = UserManager.getToken()
+        if(token.isNullOrBlank()){
+            return
+        }else{
+            infoLaunch.launch(Intent(requireContext(),PersonInfoActivity::class.java))
+        }
     }
 
     private fun updateLogin(){
@@ -117,6 +130,15 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
             val accountCancel = it.data?.getBooleanExtra(SettingActivity.ACCOUNT_CANCEL,false)
             if(accountCancel == true){
                 updateLogin()
+            }
+        }
+    }
+
+    private val infoLaunch = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        if(it.resultCode == AppCompatActivity.RESULT_OK){
+            val nickName = it.data?.getStringExtra(UserConstant.EXTRA_NICK_NAME)
+            if(!nickName.isNullOrBlank()){
+                binding.tvNickname.text = nickName
             }
         }
     }
