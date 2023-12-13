@@ -3,6 +3,8 @@ package com.buyi.cartoon.main
 import android.app.Activity
 import android.app.Application
 import android.content.Intent
+import com.bumptech.glide.Glide
+import com.bumptech.glide.GlideBuilder
 import com.tencent.mmkv.MMKV
 
 class CartoonApp : Application() {
@@ -15,6 +17,7 @@ class CartoonApp : Application() {
         super.onCreate()
         instance = this
         MMKV.initialize(this)
+//        Glide.init(this, GlideBuilder())
     }
 
 

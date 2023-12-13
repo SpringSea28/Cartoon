@@ -130,6 +130,7 @@
     <string name="sex_unknown">不告诉你</string>
 
     <string name="setting_cache">清除缓存</string>
+    <string name="setting_cache_suc">清除完成</string>
     <string name="setting_young">青少年模式</string>
     <string name="setting_account_cancel">账号注销</string>
     <string name="setting_title">设置</string>
