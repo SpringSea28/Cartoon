@@ -87,15 +87,19 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
             val userInfo = UserManager.getUserInfo()
             binding.tvPhone.text = userInfo?.phone
             binding.tvNickname.text = userInfo?.nickName
-            if(userInfo?.gender == UserConstant.SEX_BOY){
-                binding.imgHeader.setImageResource(R.mipmap.male)
-            }else if(userInfo?.gender == UserConstant.SEX_GIRL){
-                binding.imgHeader.setImageResource(R.mipmap.female)
-            }else {
-                binding.imgHeader.setImageResource(R.mipmap.user_iamge_70px)
-            }
+            updateHeader(userInfo?.gender)
             binding.groupLogin.visibility = View.VISIBLE
             binding.tvLogin.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun updateHeader(gender:Int?){
+        if(gender == UserConstant.SEX_BOY){
+            binding.imgHeader.setImageResource(R.mipmap.male)
+        }else if(gender == UserConstant.SEX_GIRL){
+            binding.imgHeader.setImageResource(R.mipmap.female)
+        }else {
+            binding.imgHeader.setImageResource(R.mipmap.user_iamge_70px)
         }
     }
 
@@ -139,6 +143,11 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
             val nickName = it.data?.getStringExtra(UserConstant.EXTRA_NICK_NAME)
             if(!nickName.isNullOrBlank()){
                 binding.tvNickname.text = nickName
+            }
+
+            val sex = it.data?.getIntExtra(UserConstant.EXTRA_SEX,-1)
+            if(sex != null && sex>0){
+                updateHeader(sex)
             }
         }
     }

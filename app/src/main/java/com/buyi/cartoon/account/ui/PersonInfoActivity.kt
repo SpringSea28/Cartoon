@@ -4,21 +4,26 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.viewModels
 import com.buyi.cartoon.R
-import com.buyi.cartoon.account.bean.UserInfo
+import com.buyi.cartoon.account.ui.dialog.GenderBottomDialog
 import com.buyi.cartoon.account.util.UserConstant
 import com.buyi.cartoon.account.util.UserManager
+import com.buyi.cartoon.account.vm.PersonInfoVm
 import com.buyi.cartoon.databinding.ActivityPersonInfoBinding
+import com.buyi.cartoon.db.DbManager
 import com.buyi.cartoon.main.base.BaseActivity
-import com.buyi.cartoon.my.ui.SettingActivity
+
 
 class PersonInfoActivity : BaseActivity<ActivityPersonInfoBinding>() {
 
     override val TAG: String
         get() = PersonInfoActivity::class.simpleName!!
 
+    private val personInfoVm:PersonInfoVm by viewModels()
+
     private var nickNameChange = false
+    private var sexChange = false
 
 
     override fun getBindingView(): ActivityPersonInfoBinding {
@@ -45,6 +50,7 @@ class PersonInfoActivity : BaseActivity<ActivityPersonInfoBinding>() {
 
         binding.rlNickName.setOnClickListener { nickNameLaunch.launch(
             Intent(this, NickNameActivity::class.java)) }
+        binding.rlSex.setOnClickListener { editGender() }
     }
 
     private fun initVm(){
@@ -87,6 +93,20 @@ class PersonInfoActivity : BaseActivity<ActivityPersonInfoBinding>() {
         binding.tvBirthdate.text = birthdate
     }
 
+
+    private fun editGender(){
+        val dialog = GenderBottomDialog()
+        val bundle = Bundle()
+        dialog.arguments = bundle
+        dialog.onGenderClick = {
+            personInfoVm.bindSex(it)
+            updateHeader(it)
+            updateSex(it)
+            nickNameChange = true
+        }
+        dialog.show(supportFragmentManager, "gender")
+    }
+
     private val nickNameLaunch = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
         if(it.resultCode == RESULT_OK){
             val nickName = it.data?.getStringExtra(UserConstant.EXTRA_NICK_NAME)
@@ -100,13 +120,16 @@ class PersonInfoActivity : BaseActivity<ActivityPersonInfoBinding>() {
 
     private val onBackPress = object : OnBackPressedCallback(true){
         override fun handleOnBackPressed() {
-            if(!nickNameChange){
+            if(!nickNameChange && !sexChange){
                 finish()
                 return
             }
             val intent = Intent()
             if(nickNameChange){
                 intent.putExtra(UserConstant.EXTRA_NICK_NAME,binding.tvNickName.text.toString())
+            }
+            if(sexChange){
+                intent.putExtra(UserConstant.EXTRA_SEX,personInfoVm.sex)
             }
 
             setResult(RESULT_OK,intent)
