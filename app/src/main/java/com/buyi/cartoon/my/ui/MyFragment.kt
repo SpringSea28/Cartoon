@@ -10,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.buyi.cartoon.R
 import com.buyi.cartoon.account.ui.LoginActivity
+import com.buyi.cartoon.account.util.UserConstant
 import com.buyi.cartoon.account.util.UserManager
 import com.buyi.cartoon.databinding.FragmentMyBinding
 import com.buyi.cartoon.main.base.BaseFragment
@@ -68,7 +69,18 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
         if(token.isNullOrBlank()){
             binding.groupLogin.visibility = View.INVISIBLE
             binding.tvLogin.visibility = View.VISIBLE
+            binding.imgHeader.setImageResource(R.mipmap.user_iamge_70px)
         }else{
+            val userInfo = UserManager.getUserInfo()
+            binding.tvPhone.text = userInfo?.phone
+            binding.tvNickname.text = userInfo?.nickName
+            if(userInfo?.gender == UserConstant.SEX_BOY){
+                binding.imgHeader.setImageResource(R.mipmap.male)
+            }else if(userInfo?.gender == UserConstant.SEX_GIRL){
+                binding.imgHeader.setImageResource(R.mipmap.female)
+            }else {
+                binding.imgHeader.setImageResource(R.mipmap.user_iamge_70px)
+            }
             binding.groupLogin.visibility = View.VISIBLE
             binding.tvLogin.visibility = View.INVISIBLE
         }
@@ -89,9 +101,9 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
 
     private val loginLaunch = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
         if(it.resultCode == AppCompatActivity.RESULT_OK){
-            val chapter = it.data?.getIntExtra(ConstantApp.INTENT_LOGIN_RESULT,-1)
-            if(chapter!= null && chapter > 0){
-
+            val login = it.data?.getBooleanExtra(LoginActivity.EXTRA_LOGIN_RESULT,false)
+            if(login == true){
+                updateLogin()
             }
         }
     }

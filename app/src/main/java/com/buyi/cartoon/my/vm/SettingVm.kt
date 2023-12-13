@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.buyi.cartoon.account.util.UserManager
 
 class SettingVm(application: Application) : AndroidViewModel(application) {
 
@@ -19,10 +20,12 @@ class SettingVm(application: Application) : AndroidViewModel(application) {
 
 
     fun loginOut(){
+        UserManager.deleteUserInfo()
         loginOutResultLd.postValue(true)
     }
 
     fun accountCancel(){
+        UserManager.deleteUserInfo()
         accountCancelResultLd.postValue(true)
     }
 

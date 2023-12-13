@@ -10,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.buyi.cartoon.R
+import com.buyi.cartoon.account.util.UserConstant
 import com.buyi.cartoon.account.vm.LoginVerificationVm
 import com.buyi.cartoon.account.vm.WxVm
 import com.buyi.cartoon.databinding.ActivityLoginBinding
@@ -203,11 +204,13 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
 
 
     private val bindingSexLaunch = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-        if(it.resultCode == AppCompatActivity.RESULT_OK){
-            val chapter = it.data?.getIntExtra(ConstantApp.INTENT_LOGIN_RESULT,-1)
-            if(chapter!= null && chapter > 0){
+        val intent = Intent()
+        intent.putExtra(EXTRA_LOGIN_RESULT,true)
+        setResult(RESULT_OK,intent)
+        finish()
+    }
 
-            }
-        }
+    companion object{
+        const val EXTRA_LOGIN_RESULT= "EXTRA_LOGIN_RESULT"
     }
 }

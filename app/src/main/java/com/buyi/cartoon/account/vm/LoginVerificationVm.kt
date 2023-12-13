@@ -4,6 +4,8 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.buyi.cartoon.account.bean.UserInfo
+import com.buyi.cartoon.account.util.UserManager
 import com.tencent.mmkv.MMKV
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -91,6 +93,11 @@ class LoginVerificationVm(application: Application) : AndroidViewModel(applicati
         val subscribe = Observable.timer(1000, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
+                val userInfo = UserInfo()
+                userInfo.token = "token"
+                userInfo.phone = phone
+
+                UserManager.saveUserInfo(userInfo)
                 loginResultLd.postValue(true)
             }
 //        HttpReqManager.instance.verificationLogin(phone,verification, codeId!!).subscribe(
