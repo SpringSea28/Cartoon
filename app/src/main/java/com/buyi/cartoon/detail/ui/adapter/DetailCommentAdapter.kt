@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide
 import com.buyi.cartoon.R
 import com.buyi.cartoon.databinding.DetailCommentItemBinding
 import com.buyi.cartoon.http.bean.CommentBean
+import com.buyi.cartoon.main.utils.ConstantApp
 import com.buyi.cartoon.main.utils.TextColorExpandTools
 import com.buyi.cartoon.main.utils.Tools
 
@@ -25,6 +26,8 @@ class DetailCommentAdapter : RecyclerView.Adapter<DetailCommentAdapter.ItemVh>()
     val srcArray = ArrayList<CommentBean>()
 
     var onItemClickListener: ((position: Int,CommentBean)->Unit) = { _,_ -> }
+    var onItemMoreClickListener: ((position: Int,CommentBean)->Unit) = { _,_ -> }
+    var onItemLikeClickListener: ((position: Int,CommentBean,like:Boolean)->Unit) = { _,_,_ -> }
 
 
     fun setData(data:List<CommentBean>?){
@@ -61,9 +64,30 @@ class DetailCommentAdapter : RecyclerView.Adapter<DetailCommentAdapter.ItemVh>()
         }else{
             holder.binding.tvLikeNum.text = ""
         }
-        holder.binding.imgLike.isSelected = commentBean.like == 1
+        holder.binding.imgLike.isSelected = commentBean.like == ConstantApp.CARTOON_COMMENT_LIKE
+
+        holder.binding.imgLike.setOnClickListener {
+            if(srcArray[position].like ==ConstantApp.CARTOON_COMMENT_LIKE){
+                srcArray[position].like = ConstantApp.CARTOON_COMMENT_UNLIKE
+                srcArray[position].likeNum = srcArray[position].likeNum?.minus(1)
+            }else{
+                srcArray[position].like = ConstantApp.CARTOON_COMMENT_LIKE
+                srcArray[position].likeNum = srcArray[position].likeNum?.plus(1) ?:1
+            }
+            holder.binding.imgLike.isSelected =
+                srcArray[position].like == ConstantApp.CARTOON_COMMENT_LIKE
+            if(srcArray[position].likeNum!=null && srcArray[position].likeNum!!> 0){
+                holder.binding.tvLikeNum.text = "${srcArray[position].likeNum}"
+            }else{
+                holder.binding.tvLikeNum.text = ""
+            }
+
+            onItemLikeClickListener.invoke(position,srcArray[position],
+                srcArray[position].like == ConstantApp.CARTOON_COMMENT_LIKE)
+        }
 
         holder.binding.root.setOnClickListener {
+            Log.i(TAG,"Comment")
             onItemClickListener.invoke(holder.bindingAdapterPosition,srcArray[holder.bindingAdapterPosition])
         }
 
@@ -74,9 +98,9 @@ class DetailCommentAdapter : RecyclerView.Adapter<DetailCommentAdapter.ItemVh>()
             return
         }
         holder.binding.llCommentReply.visibility = View.VISIBLE
-        holder.binding.llCommentReply.setOnClickListener {
-            Log.e(TAG,"reply Comment")
-        }
+//        holder.binding.llCommentReply.setOnClickListener {
+//            Log.e(TAG,"reply Comment")
+//        }
         val text = "${replyList[0].nickname}:${replyList[0].reply}"
         val key = "${replyList[0].nickname}:"
         val addTextView = addTextView(context, text, holder.binding.llCommentReply)
@@ -84,6 +108,10 @@ class DetailCommentAdapter : RecyclerView.Adapter<DetailCommentAdapter.ItemVh>()
             addTextView,
             text, key, R.color.main_color_pink
         )
+        addTextView.setOnClickListener {
+            Log.i(TAG,"Comment1")
+            onItemClickListener.invoke(holder.bindingAdapterPosition,srcArray[holder.bindingAdapterPosition])
+        }
         if(replyList.size > 1){
             val text = "${replyList[1].nickname}:${replyList[1].reply}"
             val key = "${replyList[1].nickname}:"
@@ -92,6 +120,10 @@ class DetailCommentAdapter : RecyclerView.Adapter<DetailCommentAdapter.ItemVh>()
                 addTextView,
                 text, key, R.color.main_color_pink
             )
+            addTextView.setOnClickListener {
+                Log.i(TAG,"Comment2")
+                onItemClickListener.invoke(holder.bindingAdapterPosition,srcArray[holder.bindingAdapterPosition])
+            }
         }
 
         run {
@@ -102,7 +134,8 @@ class DetailCommentAdapter : RecyclerView.Adapter<DetailCommentAdapter.ItemVh>()
                 text, text, R.color.main_color_pink
             )
             addTextView.setOnClickListener {
-                Log.e(TAG,"MORE")
+                Log.i(TAG,"MORE")
+                onItemMoreClickListener.invoke(holder.bindingAdapterPosition,srcArray[holder.bindingAdapterPosition])
             }
         }
     }

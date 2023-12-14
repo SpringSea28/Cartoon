@@ -7,10 +7,13 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.buyi.cartoon.R
+import com.buyi.cartoon.account.ui.LoginActivity
+import com.buyi.cartoon.account.util.UserManager
 import com.buyi.cartoon.databinding.ActivityCartoonDetailBinding
 import com.buyi.cartoon.detail.ui.adapter.DetailChapterAdapter
 import com.buyi.cartoon.detail.ui.adapter.DetailCommentAdapter
@@ -107,6 +110,16 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
         binding.rcvComment.layoutManager = linearLayoutManager
         binding.rcvComment.setHasFixedSize(true)
         binding.rcvComment.adapter = detailCommentAdapter
+        detailCommentAdapter.onItemClickListener = {position, commentBean ->
+            goWriteComment()
+        }
+
+        detailCommentAdapter.onItemMoreClickListener = {position, commentBean ->
+
+        }
+        detailCommentAdapter.onItemLikeClickListener = {position, commentBean,like ->
+
+        }
 
         binding.refresh.setOnLoadMoreListener {
             cartoonDetailVM.fetchComment()
@@ -206,6 +219,36 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
             cartoonDetailVM.setCollect(cartoonSimpleInfoBean)
         }
         dialog.showDialog(supportFragmentManager)
+    }
+
+    private fun goMoreComment(){
+
+    }
+
+    private fun goWriteComment(){
+        if(UserManager.getToken().isNullOrBlank()){
+            loginLaunch.launch(Intent(this, LoginActivity::class.java))
+        }else{
+            writeCommentLaunch.launch(Intent(this,WriteCommentActivity::class.java))
+        }
+    }
+
+    private val writeCommentLaunch = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        if(it.resultCode == RESULT_OK){
+            val result = it.data?.getBooleanExtra(WriteCommentActivity.EXTRA_WRITE_COMMENT,false)
+            if(result == true){
+                cartoonDetailVM.fetchComment()
+            }
+        }
+    }
+
+    private val loginLaunch = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        if(it.resultCode == AppCompatActivity.RESULT_OK){
+            val login = it.data?.getBooleanExtra(LoginActivity.EXTRA_LOGIN_RESULT,false)
+            if(login == true){
+                goWriteComment()
+            }
+        }
     }
 
     private val readingLaunch = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){

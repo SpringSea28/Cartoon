@@ -1,5 +1,6 @@
 package com.buyi.cartoon.detail.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.Toast
@@ -51,11 +52,19 @@ class WriteCommentActivity : BaseActivity<ActivityWriteCommentBinding>() {
             if(it){
                 Toast.makeText(this,getString(R.string.comment_write_publish_suc),
                 Toast.LENGTH_SHORT).show()
+                val intent = Intent()
+                intent.putExtra(EXTRA_WRITE_COMMENT,true)
+                setResult(RESULT_OK,intent)
                 finish()
             }else{
                 Toast.makeText(this,getString(R.string.comment_write_publish_fail),
                     Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+
+    companion object{
+        const val EXTRA_WRITE_COMMENT = "EXTRA_WRITE_COMMENT"
     }
 }

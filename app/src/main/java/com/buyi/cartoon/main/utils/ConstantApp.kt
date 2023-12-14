@@ -17,6 +17,9 @@ class ConstantApp {
         const val CARTOON_STATUS_END = 2
         const val CARTOON_STATUS_LOADING = 1
 
+        const val CARTOON_COMMENT_LIKE = 1
+        const val CARTOON_COMMENT_UNLIKE = 2
+
         const val SORT_UP = 1
         const val SORT_DOWN = 2
     }
