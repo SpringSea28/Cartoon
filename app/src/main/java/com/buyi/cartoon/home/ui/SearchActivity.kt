@@ -114,6 +114,11 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
                 }
                 is LoadState.NotLoading -> {
                     Log.d(TAG,"refresh: NotLoading")
+                    if(contentAdapter.itemCount == 0){
+                        binding.searchEmpty.root.visibility = View.VISIBLE
+                    }else{
+                        binding.searchEmpty.root.visibility = View.GONE
+                    }
                 }
                 is LoadState.Error -> {Log.d(TAG,"refresh: Error")
                 }
@@ -165,6 +170,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
         dataJob = lifecycleScope.launch {
             searchingVM.fetchCartoonList().collectLatest {
                 contentAdapter.submitData(it)
+
             }
         }
     }
