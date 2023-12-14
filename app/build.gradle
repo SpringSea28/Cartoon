@@ -41,6 +41,36 @@ android {
         viewBinding true
     }
 
+    signingConfigs {
+        debug {
+            keyAlias 'cartoon'
+            keyPassword '123456'
+            storeFile file('cartoon.jks')
+            storePassword '123456'
+        }
+        release {
+            keyAlias 'cartoon'
+            keyPassword '123456'
+            storeFile file('cartoon.jks')
+            storePassword '123456'
+        }
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            if (variant.buildType.name.equals('release')) {
+                outputFileName = "Cartoon-V${variant.versionName}-${getDate()}.apk"
+            } else if (variant.buildType.name.equals('debug')) {
+                outputFileName = "Cartoon_For_Test-V${variant.versionName}-${getDate()}.apk"
+            }
+
+        }
+    }
+
+}
+
+def getDate() {
+    return new Date().format('MMddHHmm')
 }
 
 dependencies {
