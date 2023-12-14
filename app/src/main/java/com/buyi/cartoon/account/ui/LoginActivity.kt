@@ -14,6 +14,7 @@ import com.buyi.cartoon.account.util.UserConstant
 import com.buyi.cartoon.account.vm.LoginVerificationVm
 import com.buyi.cartoon.account.vm.WxVm
 import com.buyi.cartoon.databinding.ActivityLoginBinding
+import com.buyi.cartoon.main.CartoonApp
 import com.buyi.cartoon.main.base.BaseActivity
 import com.buyi.cartoon.main.dialog.ToastDialog
 import com.buyi.cartoon.main.utils.ConstantApp
@@ -185,7 +186,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
             Toast.makeText(this,getString(R.string.login_wx_null),Toast.LENGTH_SHORT).show()
             return
         }
-
+        CartoonApp.instance().wxFrom = 0
         wxVm.login()
     }
 

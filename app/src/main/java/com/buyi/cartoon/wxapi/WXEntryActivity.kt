@@ -9,6 +9,8 @@ import android.os.Message
 import android.util.Log
 import com.buyi.cartoon.R
 import com.buyi.cartoon.account.ui.LoginActivity
+import com.buyi.cartoon.account.ui.PersonInfoBindWxActivity
+import com.buyi.cartoon.main.CartoonApp
 import com.tencent.mm.opensdk.constants.ConstantsAPI
 import com.tencent.mm.opensdk.modelbase.BaseReq
 import com.tencent.mm.opensdk.modelbase.BaseResp
@@ -49,8 +51,18 @@ class WXEntryActivity : Activity(), IWXAPIEventHandler {
                         accessToken = json.getString("access_token")
                         refreshToken = json.getString("refresh_token")
                         scope = json.getString("scope")
-                        var intent:Intent = Intent(wxEntryActivityWeakReference.get(),
-                                LoginActivity::class.java)
+                        var intent:Intent
+                        if(CartoonApp.instance().wxFrom == 0) {
+                            intent = Intent(
+                                wxEntryActivityWeakReference.get(),
+                                LoginActivity::class.java
+                            )
+                        }else{
+                            intent = Intent(
+                                wxEntryActivityWeakReference.get(),
+                                PersonInfoBindWxActivity::class.java
+                            )
+                        }
                         intent.putExtra("openId", openId)
                         intent.putExtra("accessToken", accessToken)
                         intent.putExtra("refreshToken", refreshToken)
@@ -115,9 +127,14 @@ class WXEntryActivity : Activity(), IWXAPIEventHandler {
         if (resp.getType() == ConstantsAPI.COMMAND_SENDAUTH) {
             val authResp = resp as SendAuth.Resp
             val code = authResp.code
-            var intent:Intent = Intent(this@WXEntryActivity,
-                    LoginActivity::class.java
-            )
+            var intent:Intent
+            if(CartoonApp.instance().wxFrom == 0) {
+                intent = Intent(this@WXEntryActivity,
+                    LoginActivity::class.java)
+            }else{
+                intent = Intent(this@WXEntryActivity,
+                    PersonInfoBindWxActivity::class.java)
+            }
 
             intent.putExtra("code", code)
             intent.putExtra("result",true)
@@ -136,8 +153,14 @@ class WXEntryActivity : Activity(), IWXAPIEventHandler {
     }
 
     private fun fail(){
-        var intent:Intent = Intent(this@WXEntryActivity,
-            LoginActivity::class.java)
+        var intent:Intent
+        if(CartoonApp.instance().wxFrom == 0) {
+            intent = Intent(this@WXEntryActivity,
+                LoginActivity::class.java)
+        }else{
+            intent = Intent(this@WXEntryActivity,
+                PersonInfoBindWxActivity::class.java)
+        }
         intent.putExtra("result",false)
         startActivity(intent)
     }

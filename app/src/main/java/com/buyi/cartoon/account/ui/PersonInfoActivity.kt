@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.core.app.Person
 import com.buyi.cartoon.R
 import com.buyi.cartoon.account.ui.dialog.GenderBottomDialog
 import com.buyi.cartoon.account.util.UserConstant
@@ -51,6 +52,9 @@ class PersonInfoActivity : BaseActivity<ActivityPersonInfoBinding>() {
         binding.rlNickName.setOnClickListener { nickNameLaunch.launch(
             Intent(this, NickNameActivity::class.java)) }
         binding.rlSex.setOnClickListener { editGender() }
+        binding.rlAccountBind.setOnClickListener {
+            startActivity(Intent(this,PersonInfoBindWxActivity::class.java))
+        }
     }
 
     private fun initVm(){

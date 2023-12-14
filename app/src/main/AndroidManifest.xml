@@ -80,6 +80,10 @@
             android:exported="false"
             android:windowSoftInputMode="stateVisible"/>
 
+        <activity
+            android:name=".account.ui.PersonInfoBindWxActivity"
+            android:exported="false"
+            android:launchMode="singleTask"/>
 
         <activity
             android:name=".my.ui.BrownActivity"
@@ -108,6 +112,7 @@
             android:taskAffinity="com.buyi.cartoon"
             android:launchMode="singleTask">
         </activity>
+
     </application>
 
 </manifest>

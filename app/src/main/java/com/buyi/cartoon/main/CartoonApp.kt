@@ -13,6 +13,8 @@ class CartoonApp : Application() {
     private var activities: HashMap<Class<*>, Activity> = LinkedHashMap()
     private var devActivities: HashMap<Class<*>, Activity> = LinkedHashMap()
 
+    var wxFrom: Int = 0
+
     override fun onCreate() {
         super.onCreate()
         instance = this
