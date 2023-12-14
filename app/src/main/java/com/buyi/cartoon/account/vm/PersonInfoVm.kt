@@ -12,6 +12,7 @@ class PersonInfoVm(application: Application) : AndroidViewModel(application) {
     private val TAG = PersonInfoVm::class.java.simpleName
 
     val bindSexResultLd = MutableLiveData<Boolean>()
+    val updateBirthdateResultLd = MutableLiveData<Boolean>()
 
     var sex:Int = UserConstant.SEX_UNKNOWN
 
@@ -29,6 +30,16 @@ class PersonInfoVm(application: Application) : AndroidViewModel(application) {
             UserManager.saveUserInfo(userInfo)
         }
         bindSexResultLd.postValue(true)
+    }
+
+
+    fun updateBirthdate(birthdate:String){
+        val userInfo = UserManager.getUserInfo()
+        userInfo?.birthdate = birthdate
+        userInfo?.let {
+            UserManager.saveUserInfo(userInfo)
+        }
+        updateBirthdateResultLd.postValue(true)
     }
 
 

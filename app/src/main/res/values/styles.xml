@@ -58,4 +58,16 @@
     </style>
 
 
+    <style name="Theme.picker" parent="Theme.AppCompat.Light">
+        <!--分割线颜色-->
+        <item name="colorControlNormal">@color/main_color_pink</item>
+        <item name="android:editTextStyle">@style/Widget.EditText.White</item>
+    </style>
+    <style name="Widget.EditText.White" parent="@android:style/Widget.EditText">
+        <!--文字颜色-->
+        <item name="android:textColor">@color/main_text_col</item>
+    </style>
+
+
+
 </resources>

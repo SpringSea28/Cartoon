@@ -1,5 +1,6 @@
 package com.buyi.cartoon.account.ui
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
@@ -7,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.app.Person
 import com.buyi.cartoon.R
+import com.buyi.cartoon.account.ui.dialog.BirthDateBottomDialog
 import com.buyi.cartoon.account.ui.dialog.GenderBottomDialog
 import com.buyi.cartoon.account.util.UserConstant
 import com.buyi.cartoon.account.util.UserManager
@@ -52,6 +54,7 @@ class PersonInfoActivity : BaseActivity<ActivityPersonInfoBinding>() {
         binding.rlNickName.setOnClickListener { nickNameLaunch.launch(
             Intent(this, NickNameActivity::class.java)) }
         binding.rlSex.setOnClickListener { editGender() }
+        binding.rlBirthdate.setOnClickListener { editBirthDate() }
         binding.rlAccountBind.setOnClickListener {
             startActivity(Intent(this,PersonInfoBindWxActivity::class.java))
         }
@@ -109,6 +112,18 @@ class PersonInfoActivity : BaseActivity<ActivityPersonInfoBinding>() {
             nickNameChange = true
         }
         dialog.show(supportFragmentManager, "gender")
+    }
+
+    private fun editBirthDate(){
+        val dialog = BirthDateBottomDialog()
+        val bundle = Bundle()
+        dialog.arguments = bundle
+        dialog.onBirthdateSel = {year, month, day ->
+            val date = "$year-${month+1}-$day"
+            personInfoVm.updateBirthdate(date)
+            updateBirthdate(date)
+        }
+        dialog.show(supportFragmentManager, "birthdate")
     }
 
     private val nickNameLaunch = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
