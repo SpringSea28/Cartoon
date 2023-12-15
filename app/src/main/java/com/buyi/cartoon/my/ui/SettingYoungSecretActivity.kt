@@ -6,6 +6,8 @@ import android.widget.Toast
 import com.buyi.cartoon.R
 import com.buyi.cartoon.databinding.ActivitySettingYoungSecretBinding
 import com.buyi.cartoon.main.base.BaseActivity
+import com.buyi.cartoon.main.utils.ConstantApp
+import com.tencent.mmkv.MMKV
 
 
 class SettingYoungSecretActivity : BaseActivity<ActivitySettingYoungSecretBinding>() {
@@ -47,6 +49,8 @@ class SettingYoungSecretActivity : BaseActivity<ActivitySettingYoungSecretBindin
                 }else if(step == 2){
                     secretSecond = binding.edtSecret.text.toString()
                     if(secretFirst == secretSecond){
+                        MMKV.defaultMMKV().putString(ConstantApp.KEY_YOUNG_SECRET,secretSecond)
+                        goYoung()
                         val intent = Intent()
                         intent.putExtra(EXTRA_SECRET_SET_RESULT,true)
                         setResult(RESULT_OK,intent)
@@ -67,6 +71,9 @@ class SettingYoungSecretActivity : BaseActivity<ActivitySettingYoungSecretBindin
 
     }
 
+    private fun goYoung(){
+        startActivity(Intent(this,YoungActivity::class.java))
+    }
 
     companion object{
         const val EXTRA_SECRET_SET_RESULT = "EXTRA_SECRET_SET_RESULT"

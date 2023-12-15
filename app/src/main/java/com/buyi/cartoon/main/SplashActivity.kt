@@ -8,6 +8,9 @@ import autodispose2.AutoDispose
 import autodispose2.androidx.lifecycle.AndroidLifecycleScopeProvider
 import com.buyi.cartoon.databinding.ActivitySplashBinding
 import com.buyi.cartoon.main.base.BaseActivity
+import com.buyi.cartoon.main.utils.ConstantApp
+import com.buyi.cartoon.my.ui.YoungActivity
+import com.tencent.mmkv.MMKV
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 
@@ -55,6 +58,11 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
     private fun goMain(){
         startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+        finish()
+    }
+
+    private fun goYoung(){
+        startActivity(Intent(this@SplashActivity, YoungActivity::class.java))
         finish()
     }
 

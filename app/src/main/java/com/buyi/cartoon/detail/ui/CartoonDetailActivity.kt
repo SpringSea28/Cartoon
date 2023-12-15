@@ -1,10 +1,13 @@
 package com.buyi.cartoon.detail.ui
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -30,6 +33,7 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import kotlin.math.ceil
+
 
 class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
 
@@ -248,7 +252,9 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
     private fun onShare(){
         val dialog = ShareBottomDialog()
         dialog.onShareClick = {
-
+            when(it){
+                ConstantApp.SHARE_COPY -> copy()
+            }
         }
         dialog.show(supportFragmentManager,"share")
     }
@@ -293,6 +299,14 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
                 goReading(cartoonSimpleInfoBean?.id,chapter)
             }
         }
+    }
+
+
+    private fun copy(){
+        val cm: ClipboardManager = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+        val mClipData = ClipData.newPlainText("Label", "这里是要复制的文字")
+        cm.setPrimaryClip(mClipData)
+        Toast.makeText(this,getString(R.string.copy_suc),Toast.LENGTH_SHORT).show()
     }
 
 

@@ -13,9 +13,8 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon48_48"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Cartoon"
         android:name=".main.CartoonApp"
@@ -103,6 +102,16 @@
             android:exported="false"/>
 
         <activity android:name=".my.ui.WebViewActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".my.ui.YoungActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".my.ui.YoungDetailActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".my.ui.ExitYoungSecretActivity"
             android:exported="false"/>
 
 

@@ -1,5 +1,6 @@
 package com.buyi.cartoon.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.ViewGroup
@@ -12,7 +13,10 @@ import com.buyi.cartoon.R
 import com.buyi.cartoon.account.util.UserManager
 import com.buyi.cartoon.databinding.ActivityMainBinding
 import com.buyi.cartoon.main.base.BaseActivity
+import com.buyi.cartoon.main.utils.ConstantApp
+import com.buyi.cartoon.my.ui.YoungActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.tencent.mmkv.MMKV
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
@@ -34,5 +38,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val secretFirst = MMKV.defaultMMKV().getString(ConstantApp.KEY_YOUNG_SECRET,null)
+        if(secretFirst.isNullOrBlank()) {
+
+        }else{
+            goYoung()
+        }
+    }
+
+    private fun goYoung(){
+        startActivity(Intent(this, YoungActivity::class.java))
+        finish()
     }
 }

@@ -13,6 +13,8 @@ class ConstantApp {
 
         const val KEY_SEARCH_HISTORY = "KEY_SEARCH_HISTORY"
 
+        const val KEY_YOUNG_SECRET = "KEY_YOUNG_SECRET"
+
 
         const val CARTOON_STATUS_END = 2
         const val CARTOON_STATUS_LOADING = 1

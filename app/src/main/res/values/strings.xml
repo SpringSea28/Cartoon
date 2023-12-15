@@ -147,6 +147,13 @@
     <string name="setting_account_cancel_title">是否确认注销此账号</string>
     <string name="setting_account_cancel_msg">注销后将清除所有数据</string>
 
+    <string name="young_recommend">推荐</string>
+    <string name="young_exit">退出青少年模式</string>
+    <string name="young_detail">文章详情</string>
+    <string name="young_exit_secret">关闭青少年模式</string>
+    <string name="young_exit_secret_hint">请输入密码确认</string>
+    <string name="young_exit_secret_error">密码错误</string>
+
     <string name="person_title">个人信息</string>
     <string name="person_header">头像</string>
     <string name="person_account">账号</string>
@@ -167,6 +174,7 @@
     <string name="share_friend_circle">朋友圈</string>
     <string name="share_qq">QQ</string>
     <string name="share_copy">复制链接</string>
+    <string name="copy_suc">复制成功</string>
 
     <string name="url_privacy">"https://www.baidu.com"</string>
     <string name="url_user_protocol">"https://www.baidu.com"</string>
