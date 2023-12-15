@@ -7,6 +7,7 @@
 
     <queries>
         <package android:name="com.tencent.mm" />
+        <package android:name="com.tencent.mobileqq" />
     </queries>
 
     <application
@@ -50,7 +51,8 @@
             android:windowSoftInputMode="stateVisible"/>
         <activity
             android:name=".detail.ui.CartoonDetailActivity"
-            android:exported="false"/>
+            android:exported="false"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".detail.ui.ReadingActivity"
             android:exported="false"/>
@@ -124,6 +126,24 @@
             android:taskAffinity="com.buyi.cartoon"
             android:launchMode="singleTask">
         </activity>
+
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:noHistory="true"
+            android:launchMode="singleTask"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent102063033" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
     </application>
 

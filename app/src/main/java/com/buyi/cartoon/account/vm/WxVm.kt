@@ -12,6 +12,9 @@ import com.buyi.cartoon.wxapi.ConstantWx
 import com.buyi.cartoon.wxapi.bean.WxUserInfoBean
 import com.tencent.mm.opensdk.constants.ConstantsAPI
 import com.tencent.mm.opensdk.modelmsg.SendAuth
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage
+import com.tencent.mm.opensdk.modelmsg.WXWebpageObject
 import com.tencent.mm.opensdk.openapi.IWXAPI
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 
@@ -96,6 +99,42 @@ class WxVm(application: Application) : AndroidViewModel(application) {
 //            })
     }
 
+    fun showUrlToSession(){
+        val webpage = WXWebpageObject()
+        webpage.webpageUrl = "http://www.qq.com"
+        val msg = WXMediaMessage(webpage)
+        msg.title =
+            "WebPage Title WebPage Title WebPage Title WebPage Title WebPage Title WebPage Title WebPage Title WebPage Title WebPage Title Very Long Very Long Very Long Very Long Very Long Very Long Very Long Very Long Very Long Very Long"
+        msg.description =
+            "WebPage Description WebPage Description WebPage Description WebPage Description WebPage Description WebPage Description WebPage Description WebPage Description WebPage Description Very Long Very Long Very Long Very Long Very Long Very Long Very Long"
+
+        val req = SendMessageToWX.Req()
+        req.transaction = buildTransaction("webpage")
+        req.message = msg
+        req.scene = SendMessageToWX.Req.WXSceneSession
+        api?.sendReq(req)
+    }
+
+    fun showUrlToPyq(){
+        val webpage = WXWebpageObject()
+        webpage.webpageUrl = "http://www.qq.com"
+        val msg = WXMediaMessage(webpage)
+        msg.title =
+            "WebPage Title WebPage Title WebPage Title WebPage Title WebPage Title WebPage Title WebPage Title WebPage Title WebPage Title Very Long Very Long Very Long Very Long Very Long Very Long Very Long Very Long Very Long Very Long"
+        msg.description =
+            "WebPage Description WebPage Description WebPage Description WebPage Description WebPage Description WebPage Description WebPage Description WebPage Description WebPage Description Very Long Very Long Very Long Very Long Very Long Very Long Very Long"
+
+        val req = SendMessageToWX.Req()
+        req.transaction = buildTransaction("webpage")
+        req.message = msg
+        req.scene = SendMessageToWX.Req.WXSceneTimeline
+        api?.sendReq(req)
+    }
+
+    private fun buildTransaction(type: String?): String? {
+        return if (type == null) System.currentTimeMillis()
+            .toString() else type + System.currentTimeMillis()
+    }
 
 
     companion object {

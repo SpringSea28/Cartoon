@@ -4,6 +4,8 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -17,6 +19,7 @@ import com.bumptech.glide.Glide
 import com.buyi.cartoon.R
 import com.buyi.cartoon.account.ui.LoginActivity
 import com.buyi.cartoon.account.util.UserManager
+import com.buyi.cartoon.account.vm.WxVm
 import com.buyi.cartoon.databinding.ActivityCartoonDetailBinding
 import com.buyi.cartoon.detail.ui.adapter.DetailChapterAdapter
 import com.buyi.cartoon.detail.ui.adapter.DetailCommentAdapter
@@ -24,6 +27,7 @@ import com.buyi.cartoon.detail.ui.adapter.DetailLabelItemAdapter
 import com.buyi.cartoon.detail.ui.dialog.ShareBottomDialog
 import com.buyi.cartoon.detail.vm.CartoonDetailVM
 import com.buyi.cartoon.http.bean.CartoonSimpleInfoBean
+import com.buyi.cartoon.main.CartoonApp
 import com.buyi.cartoon.main.base.BaseActivity
 import com.buyi.cartoon.main.dialog.ConfirmDialog
 import com.buyi.cartoon.main.dialog.ToastDialog
@@ -32,6 +36,9 @@ import com.buyi.cartoon.main.utils.Tools
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage
+import com.tencent.mm.opensdk.modelmsg.WXWebpageObject
 import kotlin.math.ceil
 
 
@@ -48,6 +55,8 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
     private val cartoonDetailVM:CartoonDetailVM by viewModels()
     private var chapter:Int = -1
 
+    private val wxVm: WxVm by viewModels()
+
     override fun getBindingView(): ActivityCartoonDetailBinding {
         return ActivityCartoonDetailBinding.inflate(layoutInflater)
     }
@@ -61,6 +70,7 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        regToWx()
     }
 
     private fun getIntentData(){
@@ -253,6 +263,9 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
         val dialog = ShareBottomDialog()
         dialog.onShareClick = {
             when(it){
+                ConstantApp.SHARE_WECHAT -> showWx()
+                ConstantApp.SHARE_PYQ -> showPyq()
+                ConstantApp.SHARE_QQ -> {}
                 ConstantApp.SHARE_COPY -> copy()
             }
         }
@@ -307,6 +320,40 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
         val mClipData = ClipData.newPlainText("Label", "这里是要复制的文字")
         cm.setPrimaryClip(mClipData)
         Toast.makeText(this,getString(R.string.copy_suc),Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showWx(){
+        if(!wxVm.isWxInstalled()){
+            Toast.makeText(this,getString(R.string.login_wx_null),Toast.LENGTH_SHORT).show()
+            return
+        }
+        CartoonApp.instance().wxFrom = 2
+        wxVm.showUrlToSession()
+    }
+
+    private fun showPyq(){
+        if(!wxVm.isWxInstalled()){
+            Toast.makeText(this,getString(R.string.login_wx_null),Toast.LENGTH_SHORT).show()
+            return
+        }
+        CartoonApp.instance().wxFrom = 2
+        wxVm.showUrlToPyq()
+    }
+
+    private fun regToWx() {
+        wxVm.regToWx()
+    }
+
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        val result = intent.getBooleanExtra("result", false)
+        if(!result){
+            Toast.makeText(this,getString(R.string.share_fail),Toast.LENGTH_SHORT).show()
+            return
+        }
+        Toast.makeText(this,getString(R.string.share_suc),Toast.LENGTH_SHORT).show()
     }
 
 

@@ -10,11 +10,13 @@ import android.util.Log
 import com.buyi.cartoon.R
 import com.buyi.cartoon.account.ui.LoginActivity
 import com.buyi.cartoon.account.ui.PersonInfoBindWxActivity
+import com.buyi.cartoon.detail.ui.CartoonDetailActivity
 import com.buyi.cartoon.main.CartoonApp
 import com.tencent.mm.opensdk.constants.ConstantsAPI
 import com.tencent.mm.opensdk.modelbase.BaseReq
 import com.tencent.mm.opensdk.modelbase.BaseResp
 import com.tencent.mm.opensdk.modelmsg.SendAuth
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX
 import com.tencent.mm.opensdk.openapi.IWXAPI
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
@@ -123,6 +125,13 @@ class WXEntryActivity : Activity(), IWXAPIEventHandler {
 
 //        Toast.makeText(this, getString(result) + ", type=" + resp.getType(), Toast.LENGTH_SHORT)
 //            .show()
+        if(resp.type == ConstantsAPI.COMMAND_SENDMESSAGE_TO_WX){
+            val respSend = resp as SendMessageToWX.Resp
+            var intent:Intent = Intent(this@WXEntryActivity,
+                CartoonDetailActivity::class.java)
+            intent.putExtra("result",true)
+            startActivity(intent)
+        }
 
         if (resp.getType() == ConstantsAPI.COMMAND_SENDAUTH) {
             val authResp = resp as SendAuth.Resp
@@ -131,37 +140,42 @@ class WXEntryActivity : Activity(), IWXAPIEventHandler {
             if(CartoonApp.instance().wxFrom == 0) {
                 intent = Intent(this@WXEntryActivity,
                     LoginActivity::class.java)
-            }else{
+                intent.putExtra("code", code)
+                intent.putExtra("result",true)
+                startActivity(intent)
+            }else if(CartoonApp.instance().wxFrom == 1){
                 intent = Intent(this@WXEntryActivity,
                     PersonInfoBindWxActivity::class.java)
-            }
-
-            intent.putExtra("code", code)
-            intent.putExtra("result",true)
-            startActivity(intent)
-//            NetworkUtil.sendWxAPI(
+                intent.putExtra("code", code)
+                intent.putExtra("result",true)
+                startActivity(intent)
+            }else{
+//                NetworkUtil.sendWxAPI(
 //                handler, String.format(
 //                    "https://api.weixin.qq.com/sns/oauth2/access_token?" +
 //                            "appid=%s&secret=%s&code=%s&grant_type=authorization_code",
 //                    "wxd930ea5d5a258f4f",
 //                    "1d6d1d57a3dd063b36d917bc0b44d964",
 //                    code
-//                ), NetworkUtil.GET_TOKEN
-//            )
+//                ), NetworkUtil.GET_TOKEN)
+            }
         }
         finish()
     }
 
     private fun fail(){
-        var intent:Intent
+        var intent:Intent? = null
         if(CartoonApp.instance().wxFrom == 0) {
             intent = Intent(this@WXEntryActivity,
                 LoginActivity::class.java)
-        }else{
+        }else if(CartoonApp.instance().wxFrom == 1){
             intent = Intent(this@WXEntryActivity,
                 PersonInfoBindWxActivity::class.java)
+        }else {
+            intent = Intent(this@WXEntryActivity,
+                CartoonDetailActivity::class.java)
         }
-        intent.putExtra("result",false)
+        intent?.putExtra("result",false)
         startActivity(intent)
     }
 
