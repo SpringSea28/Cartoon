@@ -20,6 +20,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.buyi.cartoon.R
+import com.buyi.cartoon.account.ui.LoginActivity
 import com.buyi.cartoon.account.util.UserManager
 import com.buyi.cartoon.databinding.ActivityCartoonReadingBinding
 import com.buyi.cartoon.databinding.ActivityMainBinding
@@ -77,8 +78,8 @@ class ReadingActivity : BaseActivity<ActivityCartoonReadingBinding>() {
         binding.title.imgRight.setImageResource(R.mipmap.more_white)
 
 
-        binding.clBottom.tvComment.setOnClickListener { goComment() }
-        binding.clBottom.tvPublish.setOnClickListener { goComment() }
+        binding.clBottom.tvComment.setOnClickListener { goWriteComment() }
+        binding.clBottom.tvPublish.setOnClickListener { goWriteComment() }
         binding.clBottom.imgDirectory.setOnClickListener { goDirectory() }
         binding.clBottom.tvPrevious.setOnClickListener { previousChapter() }
         binding.clBottom.tvNext.setOnClickListener { nextChapter() }
@@ -177,16 +178,27 @@ class ReadingActivity : BaseActivity<ActivityCartoonReadingBinding>() {
         fetchCartoon(chapter)
     }
 
-    private fun goComment(){
-//        if(UserManager.getUserId() == null){
-//            Toast.makeText(this,getString(R.string.login_first),
-//                Toast.LENGTH_SHORT).show()
-//
-//            return
-//        }
+    private fun goWriteComment(){
+        if(UserManager.getToken().isNullOrBlank()){
+            loginLaunch.launch(Intent(this, LoginActivity::class.java))
+        }else{
+            writeCommentLaunch.launch(Intent(this,WriteCommentActivity::class.java))
+        }
+    }
 
-        val intent = Intent(this,WriteCommentActivity::class.java)
-        startActivity(intent)
+    private val loginLaunch = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        if(it.resultCode == AppCompatActivity.RESULT_OK){
+            val login = it.data?.getBooleanExtra(LoginActivity.EXTRA_LOGIN_RESULT,false)
+            if(login == true){
+                goWriteComment()
+            }
+        }
+    }
+
+    private val writeCommentLaunch = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        if(it.resultCode == RESULT_OK){
+            val result = it.data?.getBooleanExtra(WriteCommentActivity.EXTRA_WRITE_COMMENT,false)
+        }
     }
 
     private fun goDirectory(){

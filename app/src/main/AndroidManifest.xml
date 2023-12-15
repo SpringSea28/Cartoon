@@ -62,6 +62,9 @@
         <activity
             android:name=".detail.ui.ChapterDirectoryActivity"
             android:exported="false"/>
+        <activity
+            android:name=".detail.ui.CommentDetailActivity"
+            android:exported="false"/>
 
         <activity
             android:name=".account.ui.LoginActivity"

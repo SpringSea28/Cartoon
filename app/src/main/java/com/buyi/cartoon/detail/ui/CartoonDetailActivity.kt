@@ -116,7 +116,7 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
         }
 
         detailCommentAdapter.onItemMoreClickListener = {position, commentBean ->
-
+            goMoreComment()
         }
         detailCommentAdapter.onItemLikeClickListener = {position, commentBean,like ->
 
@@ -225,7 +225,7 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
     }
 
     private fun goMoreComment(){
-
+        writeCommentLaunch.launch(Intent(this,CommentDetailActivity::class.java))
     }
 
     private fun goWriteComment(){

@@ -2,26 +2,14 @@ package com.buyi.cartoon.detail.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.paging.LoadState
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.buyi.cartoon.R
 import com.buyi.cartoon.databinding.ActivityChapterDiretoryBinding
-import com.buyi.cartoon.databinding.ActivityRankingBinding
 import com.buyi.cartoon.detail.ui.adapter.ChapterDirectoryAdapter
 import com.buyi.cartoon.detail.vm.ChapterDirectoryVM
-import com.buyi.cartoon.home.ui.adapter.HomeRankingContentAdapter
-import com.buyi.cartoon.home.ui.adapter.HomeRankingLabelItemAdapter
-import com.buyi.cartoon.home.vm.RankingVM
-import com.buyi.cartoon.http.bean.ClassifyInfoBean
 import com.buyi.cartoon.main.base.BaseActivity
 import com.buyi.cartoon.main.utils.ConstantApp
-import com.example.pagingdatademo.mvvm.ui.adapter.LoadStateFooterAdapter
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 class ChapterDirectoryActivity : BaseActivity<ActivityChapterDiretoryBinding>() {
 
