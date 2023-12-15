@@ -18,6 +18,7 @@ import com.buyi.cartoon.databinding.ActivityCartoonDetailBinding
 import com.buyi.cartoon.detail.ui.adapter.DetailChapterAdapter
 import com.buyi.cartoon.detail.ui.adapter.DetailCommentAdapter
 import com.buyi.cartoon.detail.ui.adapter.DetailLabelItemAdapter
+import com.buyi.cartoon.detail.ui.dialog.ShareBottomDialog
 import com.buyi.cartoon.detail.vm.CartoonDetailVM
 import com.buyi.cartoon.http.bean.CartoonSimpleInfoBean
 import com.buyi.cartoon.main.base.BaseActivity
@@ -124,6 +125,8 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
         binding.refresh.setOnLoadMoreListener {
             cartoonDetailVM.fetchComment()
         }
+
+        binding.clTop.title.imgRight.setOnClickListener { onShare() }
 
     }
 
@@ -240,6 +243,14 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
                 cartoonDetailVM.fetchComment()
             }
         }
+    }
+
+    private fun onShare(){
+        val dialog = ShareBottomDialog()
+        dialog.onShareClick = {
+
+        }
+        dialog.show(supportFragmentManager,"share")
     }
 
     private val loginLaunch = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){

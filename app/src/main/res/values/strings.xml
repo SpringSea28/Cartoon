@@ -162,6 +162,11 @@
     <string name="person_account_wx_go_bind">去绑定</string>
     <string name="person_account_wx_bind">已绑定</string>
 
+    <string name="share">分享到</string>
+    <string name="share_friend_circle">朋友圈</string>
+    <string name="share_qq">QQ</string>
+    <string name="share_copy">复制链接</string>
+
     <string name="url_privacy">"https://www.baidu.com"</string>
     <string name="url_user_protocol">"https://www.baidu.com"</string>
     <string name="url_about_us">"https://www.baidu.com"</string>

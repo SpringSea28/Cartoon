@@ -55,6 +55,7 @@
             android:paddingTop="13dp"
             android:paddingBottom="13dp"
             android:paddingEnd="10dp"
+            android:src="@mipmap/book_list"
             app:layout_constraintHorizontal_chainStyle="spread_inside"/>
         <TextView
             android:id="@+id/tv_previous"

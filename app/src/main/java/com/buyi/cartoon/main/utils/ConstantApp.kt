@@ -22,5 +22,11 @@ class ConstantApp {
 
         const val SORT_UP = 1
         const val SORT_DOWN = 2
+
+
+        const val SHARE_WECHAT = 1
+        const val SHARE_PYQ = 2
+        const val SHARE_QQ = 3
+        const val SHARE_COPY = 4
     }
 }
