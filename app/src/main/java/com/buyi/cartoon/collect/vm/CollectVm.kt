@@ -25,58 +25,13 @@ class CollectVm(application: Application) : AndroidViewModel(application) {
 
     init {
         Log.i(TAG,"init")
-        EventBus.getDefault().register(this)
     }
 
     override fun onCleared() {
         Log.i(TAG,"onCleared")
-        EventBus.getDefault().unregister(this)
         super.onCleared()
     }
 
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: MsgEvent) {
-        Log.e(TAG,"onMessageEvent: $event")
-        if(event.msgType == MsgEvent.COLLECT_ADD) {
-//            val collect = event.msgObject as CollectBean
-//            offset +=1
-//            collectList.add(0,collect)
-//            collectLoadResultLd.postValue(true)
-            offset = 0
-            collectList.clear()
-        }else if(event.msgType == MsgEvent.COLLECT_REMOVE){
-            val id = event.msgObject as Int
-            val iterator = collectList.iterator()
-            while (iterator.hasNext()){
-                val next = iterator.next()
-                if(next.id == id){
-                    offset -=1
-                    iterator.remove()
-                    collectLoadResultLd.postValue(true)
-                    break
-                }
-            }
-        }else if(event.msgType == MsgEvent.COLLECT_UPDATE){
-            val cartoonId = event.msgObject as Int
-            val collectById = DbManager.getCollectById( cartoonId.toLong())
-            if(collectById != null){
-                collectById.lastReadingChapter?.let { updateCollectReading(cartoonId, it) }
-            }
-        }
-
-    }
-
-    fun updateCollectReading(cartoonId:Int,readingChapter:Int):Int?{
-        var i = 0
-        for (item in collectList){
-            if(item.id == cartoonId){
-                item.lastReadingChapter = readingChapter
-                return i++
-            }
-        }
-        return null
-    }
 
     fun fetchCollect(){
         val single = DbManager.loadAllCollect(offset, 10)
@@ -105,5 +60,33 @@ class CollectVm(application: Application) : AndroidViewModel(application) {
         collectList.clear()
         fetchCollect()
     }
+
+    fun removeItem(id:Int){
+        val iterator = collectList.iterator()
+        while (iterator.hasNext()){
+            val next = iterator.next()
+            if(next.id == id){
+                offset -=1
+                iterator.remove()
+                collectLoadResultLd.postValue(true)
+                break
+            }
+        }
+    }
+
+
+    fun updateCollectReading(cartoonId:Int,readingChapter:Int):Int?{
+        for (i  in 0 until collectList.size){
+            if(collectList[i].id == cartoonId){
+                collectList[i].lastReadingChapter = readingChapter
+                return i
+            }
+        }
+        return null
+    }
+
+
+
+
 
 }

@@ -31,9 +31,11 @@ import com.buyi.cartoon.detail.ui.adapter.ReadingCartoonAdapter
 import com.buyi.cartoon.detail.ui.dialog.ReadingSettingBottomDialog
 import com.buyi.cartoon.detail.ui.dialog.ShareBottomDialog
 import com.buyi.cartoon.detail.utils.ShareUtils
+import com.buyi.cartoon.detail.vm.CollectActionVM
 import com.buyi.cartoon.detail.vm.ReadingVM
 import com.buyi.cartoon.http.bean.CartoonSimpleInfoBean
 import com.buyi.cartoon.main.base.BaseActivity
+import com.buyi.cartoon.main.dialog.ToastDialog
 import com.buyi.cartoon.main.utils.ConstantApp
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.Job
@@ -52,7 +54,9 @@ class ReadingActivity : BaseActivity<ActivityCartoonReadingBinding>() {
     private var nightMode = false
 
     private val readingVM:ReadingVM by viewModels()
+    private val collectActionVM: CollectActionVM by viewModels()
     private val readingAdapter = ReadingCartoonAdapter()
+    private var collectChangeFlag = false
 
     private val wxVm: WxVm by viewModels()
     private val qqVm: QqVm by viewModels()
@@ -76,6 +80,8 @@ class ReadingActivity : BaseActivity<ActivityCartoonReadingBinding>() {
         setPadding(true)
         getIntentData()
         initUi()
+        initVm()
+        collectActionVM.fetchCollect(cartoonId)
         fetchCartoon(chapter)
     }
 
@@ -133,6 +139,25 @@ class ReadingActivity : BaseActivity<ActivityCartoonReadingBinding>() {
 
         binding.title.imgRight.setOnClickListener {
             onSettingClick()
+        }
+    }
+
+    private fun initVm(){
+        collectActionVM.collectSucLd.observe(this){
+            if(it){
+                collectChangeFlag = true
+                val dialog = ToastDialog()
+                dialog.message = getString(R.string.detail_collect_suc)
+                dialog.showDialog(supportFragmentManager)
+            }
+        }
+        collectActionVM.collectDelSucLd.observe(this){
+            if(it){
+                collectChangeFlag = true
+                val dialog = ToastDialog()
+                dialog.message = getString(R.string.detail_collect_cancel_suc)
+                dialog.showDialog(supportFragmentManager)
+            }
         }
     }
 
@@ -246,6 +271,7 @@ class ReadingActivity : BaseActivity<ActivityCartoonReadingBinding>() {
             val intent = Intent()
             intent.putExtra(ConstantApp.INTENT_CHAPTER,chapter)
             intent.putExtra(ConstantApp.INTENT_CARTOON_ID,cartoonId)
+            intent.putExtra(ConstantApp.EXTRA_COLLECT_CHANGE,collectChangeFlag)
             setResult(RESULT_OK,intent)
             finish()
         }
@@ -261,8 +287,9 @@ class ReadingActivity : BaseActivity<ActivityCartoonReadingBinding>() {
             goWriteComment()
         }
         dialog.onCollectClick = {
-
+            collectActionVM.setCollect(simpleInfoBean,chapter)
         }
+        dialog.collectFlag = collectActionVM.collectLd.value ?:false
 
         dialog.show(supportFragmentManager,"setting")
     }

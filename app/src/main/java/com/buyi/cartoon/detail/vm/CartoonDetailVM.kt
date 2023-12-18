@@ -22,8 +22,6 @@ class CartoonDetailVM(application: Application) : AndroidViewModel(application) 
 
     val cartoonDetailBeanLd = MutableLiveData<CartoonDetailBean>()
     val readingChapterLd = MutableLiveData<Int>(1)
-    val collectLd = MutableLiveData<Boolean>()
-    val collectSucLd = MutableLiveData<Boolean>()
     val commentListLd = MutableLiveData<List<CommentBean>>()
     val commentList = ArrayList<CommentBean>()
 
@@ -55,44 +53,8 @@ class CartoonDetailVM(application: Application) : AndroidViewModel(application) 
 
     }
 
-    fun fetchCollect(simpleInfoBean: CartoonSimpleInfoBean?){
-        testCollect(simpleInfoBean)
-    }
-
     fun fetchReadingChapter(simpleInfoBean: CartoonSimpleInfoBean?){
         testReadingChapter(simpleInfoBean)
-    }
-
-    fun setCollect(simpleInfoBean: CartoonSimpleInfoBean?){
-        if(simpleInfoBean?.id == null){
-            Log.e(TAG,"setCollect id null")
-            return
-        }
-        if(collectLd.value == true){
-            DbManager.delCollectSync(simpleInfoBean.id!!.toLong())
-            collectLd.postValue(false)
-            val msgEvent = MsgEvent()
-            msgEvent.msgType = MsgEvent.COLLECT_REMOVE
-            msgEvent.msgObject = simpleInfoBean.id
-            EventBus.getDefault().post(msgEvent)
-        }else{
-            val collectBean = CollectBean()
-            collectBean.id = simpleInfoBean.id
-            collectBean.name = simpleInfoBean.title
-            collectBean.imgUrl = testUrl[0]
-            collectBean.lastReadingChapter = readingChapterLd.value
-            collectBean.lastReadingChapterTitle = "woyebuzhidao"
-            collectBean.lastUpdateChapter = 16
-            collectBean.status = 1
-            collectBean.userId = -1
-            DbManager.insertCollectSync(collectBean)
-            collectLd.postValue(true)
-            collectSucLd.postValue(true)
-            val msgEvent = MsgEvent()
-            msgEvent.msgType = MsgEvent.COLLECT_ADD
-            msgEvent.msgObject = collectBean
-            EventBus.getDefault().post(msgEvent)
-        }
     }
 
 
@@ -134,18 +96,6 @@ class CartoonDetailVM(application: Application) : AndroidViewModel(application) 
         detailBean.chapterInfos = chapterInfos
 
         cartoonDetailBeanLd.postValue(detailBean)
-    }
-
-    private fun testCollect(simpleInfoBean: CartoonSimpleInfoBean?){
-        if(simpleInfoBean?.id == null){
-            Log.e(TAG,"query collect id null")
-            return
-        }
-        val collectById = DbManager.getCollectById(simpleInfoBean?.id!!.toLong())
-        if(collectById != null)
-            collectLd.postValue(true)
-        else
-            collectLd.postValue(false)
     }
 
     private fun testReadingChapter(simpleInfoBean: CartoonSimpleInfoBean?){

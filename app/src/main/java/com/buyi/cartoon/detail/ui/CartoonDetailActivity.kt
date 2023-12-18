@@ -26,6 +26,7 @@ import com.buyi.cartoon.detail.ui.adapter.DetailLabelItemAdapter
 import com.buyi.cartoon.detail.ui.dialog.ShareBottomDialog
 import com.buyi.cartoon.detail.utils.ShareUtils
 import com.buyi.cartoon.detail.vm.CartoonDetailVM
+import com.buyi.cartoon.detail.vm.CollectActionVM
 import com.buyi.cartoon.http.bean.CartoonSimpleInfoBean
 import com.buyi.cartoon.main.CartoonApp
 import com.buyi.cartoon.main.base.BaseActivity
@@ -51,6 +52,7 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
     private val detailCommentAdapter = DetailCommentAdapter()
 
     private val cartoonDetailVM:CartoonDetailVM by viewModels()
+    private val collectActionVM:CollectActionVM by viewModels()
     private var chapter:Int = -1
 
     private val wxVm: WxVm by viewModels()
@@ -112,10 +114,10 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
         binding.clBottom.tvChapter.text = getString(R.string.detail_start_read,chapter)
 
         binding.clBottom.clCollect.setOnClickListener {
-            if(cartoonDetailVM.collectLd.value == true){
+            if(collectActionVM.collectLd.value == true){
                 cancelCollect()
             }else {
-                cartoonDetailVM.setCollect(cartoonSimpleInfoBean)
+                collectActionVM.setCollect(cartoonSimpleInfoBean,chapter)
             }
         }
 
@@ -187,10 +189,10 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
             binding.clBottom.tvChapter.text = getString(R.string.detail_start_read,it)
         }
 
-        cartoonDetailVM.collectLd.observe(this){
+        collectActionVM.collectLd.observe(this){
             binding.clBottom.imgCollect.isSelected = it
         }
-        cartoonDetailVM.collectSucLd.observe(this){
+        collectActionVM.collectSucLd.observe(this){
             if(it){
                 val dialog = ToastDialog()
                 dialog.message = getString(R.string.detail_collect_suc)
@@ -207,8 +209,8 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
     private fun fetchData(){
         cartoonDetailVM.fetchDetail()
         cartoonDetailVM.fetchComment()
-        cartoonDetailVM.fetchCollect(cartoonSimpleInfoBean)
         cartoonDetailVM.fetchReadingChapter(cartoonSimpleInfoBean)
+        collectActionVM.fetchCollect(cartoonSimpleInfoBean)
     }
 
     private fun addStars(score:Float?){
@@ -237,7 +239,7 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
         dialog.leftStr = getString(R.string.detail_collect_cancel)
         dialog.rightStr = getString(R.string.detail_collect_confirm)
         dialog.leftListener = {
-            cartoonDetailVM.setCollect(cartoonSimpleInfoBean)
+            collectActionVM.setCollect(cartoonSimpleInfoBean,chapter)
         }
         dialog.showDialog(supportFragmentManager)
     }
@@ -263,10 +265,6 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
         }
     }
 
-    private fun onShare(){
-        shareUtils.onShare(supportFragmentManager)
-    }
-
     private val loginLaunch = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
         if(it.resultCode == AppCompatActivity.RESULT_OK){
             val login = it.data?.getBooleanExtra(LoginActivity.EXTRA_LOGIN_RESULT,false)
@@ -281,6 +279,11 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
             val chapter = it.data?.getIntExtra(ConstantApp.INTENT_CHAPTER,-1)
             if(chapter!= null && chapter > 0){
                 cartoonDetailVM.readingChapterLd.postValue(chapter)
+            }
+
+            val collect = it.data?.getBooleanExtra(ConstantApp.EXTRA_COLLECT_CHANGE,false)
+            if(collect == true){
+                collectActionVM.fetchCollect(cartoonSimpleInfoBean)
             }
         }
     }
@@ -309,6 +312,10 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
         }
     }
 
+
+    private fun onShare(){
+        shareUtils.onShare(supportFragmentManager)
+    }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)

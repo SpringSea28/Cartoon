@@ -57,7 +57,9 @@
     <string name="detail_collect_cancel">残忍抛弃</string>
     <string name="detail_collect_confirm">继续收藏</string>
     <string name="detail_comment_number">共%d条回复</string>
+    <string name="detail_collect_cancel_suc">收藏已取消</string>
 
+    <string name="reading_collect_cancel">取消收藏</string>
     <string name="reading_comment_send">发表</string>
     <string name="reading_comment_hint">发表您牛逼哄哄的言论吐槽</string>
     <string name="reading_previous">上一章</string>

@@ -13,6 +13,7 @@ class ReadingSettingBottomDialog : BaseBottomSheetDialogFragment<FragmentReading
     var onCommentClick: (() -> Unit) = {}
     var onCollectClick: (() -> Unit) = {}
     var onShareClick: (() -> Unit) = {}
+    var collectFlag = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +28,11 @@ class ReadingSettingBottomDialog : BaseBottomSheetDialogFragment<FragmentReading
     }
 
     override fun initAllMembersData(view: View?, savedInstanceState: Bundle?) {
+        if(collectFlag){
+            binding.tvCollect.text = getString(R.string.reading_collect_cancel)
+        }else{
+            binding.tvCollect.text = getString(R.string.detail_collect)
+        }
        binding.tvComment.setOnClickListener {
            onCommentClick.invoke()
            dismissAllowingStateLoss()

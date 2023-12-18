@@ -8,6 +8,7 @@ class ConstantApp {
 
         const val INTENT_CHAPTER = "INTENT_CHAPTER"
         const val INTENT_CARTOON_ID = "INTENT_CARTOON_ID"
+        const val EXTRA_COLLECT_CHANGE = "EXTRA_COLLECT_CHANGE"
 
         const val KEY_USER_INFO = "KEY_USER_INFO"
 

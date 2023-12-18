@@ -15,9 +15,14 @@ import com.buyi.cartoon.collect.data.CollectUpdateBean
 import com.buyi.cartoon.collect.ui.adapter.CollectAdapter
 import com.buyi.cartoon.collect.vm.CollectVm
 import com.buyi.cartoon.databinding.FragmentCollectBinding
+import com.buyi.cartoon.db.DbManager
 import com.buyi.cartoon.detail.ui.ReadingActivity
 import com.buyi.cartoon.main.base.BaseFragment
+import com.buyi.cartoon.main.eventbus.MsgEvent
 import com.buyi.cartoon.main.utils.ConstantApp
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class CollectFragment : BaseFragment<FragmentCollectBinding>() {
 
@@ -28,12 +33,47 @@ class CollectFragment : BaseFragment<FragmentCollectBinding>() {
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.e(TAG, "onDestroy")
+        Log.i(TAG, "onDestroy")
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = super.onCreateView(inflater, container, savedInstanceState)
+        EventBus.getDefault().register(this)
+        return view
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: MsgEvent) {
+        Log.e(TAG,"onMessageEvent: $event")
+        if(event.msgType == MsgEvent.COLLECT_ADD) {
+            collectVm.refresh()
+        }else if(event.msgType == MsgEvent.COLLECT_REMOVE){
+            val id = event.msgObject as Int
+            collectVm.removeItem(id)
+        }else if(event.msgType == MsgEvent.COLLECT_UPDATE){
+            if(event.msgObject != null ) {
+                val array = event.msgObject as IntArray
+                Log.e(TAG,"COLLECT_UPDATE: ${array[0]},${array[1]}")
+                val pos = collectVm.updateCollectReading(array[0], array[1])
+                if(pos!=null ) {
+                    val updateContent = CollectUpdateBean<Int>()
+                    updateContent.type = CollectUpdateBean.TYPE_READING_CHAPTER
+                    updateContent.content = array[1]
+                    contentAdapter.notifyItemChanged(pos,updateContent)
+                }
+            }
+        }
+
     }
 
     override fun onDestroyView() {
+        EventBus.getDefault().unregister(this)
         super.onDestroyView()
-        Log.e(TAG, "onDestroyView")
+        Log.i(TAG, "onDestroyView")
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -47,6 +87,11 @@ class CollectFragment : BaseFragment<FragmentCollectBinding>() {
         super.onViewStateRestored(savedInstanceState)
         restore = savedInstanceState?.getBoolean("restore")
         Log.e(TAG,"onViewStateRestored")
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        Log.i(TAG,"onHiddenChanged $hidden")
     }
 
 
@@ -65,6 +110,7 @@ class CollectFragment : BaseFragment<FragmentCollectBinding>() {
     }
 
     private fun initUi(){
+        binding.root.setOnClickListener {  }
         binding.title.tvTile.text = getString(R.string.collect_title)
 
         contentAdapter = CollectAdapter()
@@ -108,29 +154,28 @@ class CollectFragment : BaseFragment<FragmentCollectBinding>() {
     }
 
     private fun getData(){
-        if(collectVm.offset == 0)
-            collectVm.refresh()
+        collectVm.refresh()
     }
 
 
     private val readingLaunch = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
         if(it.resultCode == AppCompatActivity.RESULT_OK){
-            val chapter = it.data?.getIntExtra(ConstantApp.INTENT_CHAPTER,-1)
-            val cartoonId = it.data?.getIntExtra(ConstantApp.INTENT_CARTOON_ID,-1)
-            Log.i(TAG,"return cartoonId $cartoonId")
-            Log.i(TAG,"return chapter $chapter")
-            if(cartoonId == null || cartoonId<0){
-                return@registerForActivityResult
-            }
-            if(chapter!= null && chapter > 0){
-                val pos = collectVm.updateCollectReading(cartoonId,chapter)
-                if(pos!=null ) {
-                    val updateContent = CollectUpdateBean<Int>()
-                    updateContent.type = CollectUpdateBean.TYPE_READING_CHAPTER
-                    updateContent.content = chapter
-                    contentAdapter.notifyItemChanged(pos,updateContent)
-                }
-            }
+//            val chapter = it.data?.getIntExtra(ConstantApp.INTENT_CHAPTER,-1)
+//            val cartoonId = it.data?.getIntExtra(ConstantApp.INTENT_CARTOON_ID,-1)
+//            Log.i(TAG,"return cartoonId $cartoonId")
+//            Log.i(TAG,"return chapter $chapter")
+//            if(cartoonId == null || cartoonId<0){
+//                return@registerForActivityResult
+//            }
+//            if(chapter!= null && chapter > 0){
+//                val pos = collectVm.updateCollectReading(cartoonId,chapter)
+//                if(pos!=null ) {
+//                    val updateContent = CollectUpdateBean<Int>()
+//                    updateContent.type = CollectUpdateBean.TYPE_READING_CHAPTER
+//                    updateContent.content = chapter
+//                    contentAdapter.notifyItemChanged(pos,updateContent)
+//                }
+//            }
         }
     }
 

@@ -3,6 +3,7 @@ package com.buyi.cartoon.my.ui
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +30,7 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
     }
 
     override fun initAllMembersData(savedInstanceState: Bundle?) {
+        binding.root.setOnClickListener {  }
         updateLogin()
         binding.tvLogin.setOnClickListener {
             loginLaunch.launch(Intent(context, LoginActivity::class.java))
@@ -150,5 +152,11 @@ class MyFragment : BaseFragment<FragmentMyBinding>() {
                 updateHeader(sex)
             }
         }
+    }
+
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        Log.i(TAG,"onHiddenChanged $hidden")
     }
 }

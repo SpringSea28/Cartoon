@@ -55,7 +55,7 @@ class ReadingVM(application: Application) : AndroidViewModel(application) {
             DbManager.updatCollectSync(collectById)
             val msgEvent = MsgEvent()
             msgEvent.msgType = MsgEvent.COLLECT_UPDATE
-            msgEvent.msgObject = collectById.id
+            msgEvent.msgObject = intArrayOf(cartoonId,chapter)
             EventBus.getDefault().post(msgEvent)
         }
     }

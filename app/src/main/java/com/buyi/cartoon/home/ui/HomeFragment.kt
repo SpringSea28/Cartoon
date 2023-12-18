@@ -39,6 +39,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun initUi(){
+        binding.root.setOnClickListener {  }
         initSearch()
         initUiClassTab()
         initUiRecommend()
@@ -137,6 +138,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         super.onViewStateRestored(savedInstanceState)
         restore = savedInstanceState?.getBoolean("restore")
         Log.e(TAG,"onViewStateRestored")
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        Log.i(TAG,"onHiddenChanged $hidden")
     }
 }
 
