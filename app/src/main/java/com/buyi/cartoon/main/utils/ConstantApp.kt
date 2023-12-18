@@ -16,6 +16,9 @@ class ConstantApp {
         const val KEY_YOUNG_SECRET = "KEY_YOUNG_SECRET"
 
 
+        const val SHARE_URL = "https://www.baidu.com"
+
+
         const val CARTOON_STATUS_END = 2
         const val CARTOON_STATUS_LOADING = 1
 

@@ -4,8 +4,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -19,6 +17,7 @@ import com.bumptech.glide.Glide
 import com.buyi.cartoon.R
 import com.buyi.cartoon.account.ui.LoginActivity
 import com.buyi.cartoon.account.util.UserManager
+import com.buyi.cartoon.account.vm.QqVm
 import com.buyi.cartoon.account.vm.WxVm
 import com.buyi.cartoon.databinding.ActivityCartoonDetailBinding
 import com.buyi.cartoon.detail.ui.adapter.DetailChapterAdapter
@@ -36,9 +35,7 @@ import com.buyi.cartoon.main.utils.Tools
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
-import com.tencent.mm.opensdk.modelmsg.SendMessageToWX
-import com.tencent.mm.opensdk.modelmsg.WXMediaMessage
-import com.tencent.mm.opensdk.modelmsg.WXWebpageObject
+import com.tencent.connect.common.Constants
 import kotlin.math.ceil
 
 
@@ -56,6 +53,7 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
     private var chapter:Int = -1
 
     private val wxVm: WxVm by viewModels()
+    private val qqVm: QqVm by viewModels()
 
     override fun getBindingView(): ActivityCartoonDetailBinding {
         return ActivityCartoonDetailBinding.inflate(layoutInflater)
@@ -71,6 +69,7 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         regToWx()
+        regToQQ()
     }
 
     private fun getIntentData(){
@@ -198,6 +197,14 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
             binding.refresh.finishLoadMore()
             detailCommentAdapter.setData(it)
         }
+
+        qqVm.shareResultLd.observe(this){
+            if(!it){
+                Toast.makeText(this,getString(R.string.share_fail),Toast.LENGTH_SHORT).show()
+                return@observe
+            }
+            Toast.makeText(this,getString(R.string.share_suc),Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun fetchData(){
@@ -265,7 +272,7 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
             when(it){
                 ConstantApp.SHARE_WECHAT -> showWx()
                 ConstantApp.SHARE_PYQ -> showPyq()
-                ConstantApp.SHARE_QQ -> {}
+                ConstantApp.SHARE_QQ -> {shareQQ()}
                 ConstantApp.SHARE_COPY -> copy()
             }
         }
@@ -356,5 +363,20 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
         Toast.makeText(this,getString(R.string.share_suc),Toast.LENGTH_SHORT).show()
     }
 
+
+    private fun regToQQ() {
+        qqVm.regToQq(this)
+    }
+
+    private fun shareQQ(){
+        qqVm.shareQQ(this)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == Constants.REQUEST_QQ_SHARE) {
+            qqVm.onActivityResultData(requestCode, resultCode, data)
+        }
+    }
 
 }
