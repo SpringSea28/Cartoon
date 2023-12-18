@@ -24,6 +24,7 @@ import com.buyi.cartoon.detail.ui.adapter.DetailChapterAdapter
 import com.buyi.cartoon.detail.ui.adapter.DetailCommentAdapter
 import com.buyi.cartoon.detail.ui.adapter.DetailLabelItemAdapter
 import com.buyi.cartoon.detail.ui.dialog.ShareBottomDialog
+import com.buyi.cartoon.detail.utils.ShareUtils
 import com.buyi.cartoon.detail.vm.CartoonDetailVM
 import com.buyi.cartoon.http.bean.CartoonSimpleInfoBean
 import com.buyi.cartoon.main.CartoonApp
@@ -55,6 +56,8 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
     private val wxVm: WxVm by viewModels()
     private val qqVm: QqVm by viewModels()
 
+    private lateinit var shareUtils:ShareUtils
+
     override fun getBindingView(): ActivityCartoonDetailBinding {
         return ActivityCartoonDetailBinding.inflate(layoutInflater)
     }
@@ -68,8 +71,9 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        regToWx()
-        regToQQ()
+        shareUtils = ShareUtils(this,qqVm,wxVm)
+        shareUtils.regToWx()
+        shareUtils.regToQQ()
     }
 
     private fun getIntentData(){
@@ -198,13 +202,6 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
             detailCommentAdapter.setData(it)
         }
 
-        qqVm.shareResultLd.observe(this){
-            if(!it){
-                Toast.makeText(this,getString(R.string.share_fail),Toast.LENGTH_SHORT).show()
-                return@observe
-            }
-            Toast.makeText(this,getString(R.string.share_suc),Toast.LENGTH_SHORT).show()
-        }
     }
 
     private fun fetchData(){
@@ -267,16 +264,7 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
     }
 
     private fun onShare(){
-        val dialog = ShareBottomDialog()
-        dialog.onShareClick = {
-            when(it){
-                ConstantApp.SHARE_WECHAT -> showWx()
-                ConstantApp.SHARE_PYQ -> showPyq()
-                ConstantApp.SHARE_QQ -> {shareQQ()}
-                ConstantApp.SHARE_COPY -> copy()
-            }
-        }
-        dialog.show(supportFragmentManager,"share")
+        shareUtils.onShare(supportFragmentManager)
     }
 
     private val loginLaunch = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
@@ -322,61 +310,14 @@ class CartoonDetailActivity : BaseActivity<ActivityCartoonDetailBinding>() {
     }
 
 
-    private fun copy(){
-        val cm: ClipboardManager = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
-        val mClipData = ClipData.newPlainText("Label", "这里是要复制的文字")
-        cm.setPrimaryClip(mClipData)
-        Toast.makeText(this,getString(R.string.copy_suc),Toast.LENGTH_SHORT).show()
-    }
-
-    private fun showWx(){
-        if(!wxVm.isWxInstalled()){
-            Toast.makeText(this,getString(R.string.login_wx_null),Toast.LENGTH_SHORT).show()
-            return
-        }
-        CartoonApp.instance().wxFrom = 2
-        wxVm.showUrlToSession()
-    }
-
-    private fun showPyq(){
-        if(!wxVm.isWxInstalled()){
-            Toast.makeText(this,getString(R.string.login_wx_null),Toast.LENGTH_SHORT).show()
-            return
-        }
-        CartoonApp.instance().wxFrom = 2
-        wxVm.showUrlToPyq()
-    }
-
-    private fun regToWx() {
-        wxVm.regToWx()
-    }
-
-
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        setIntent(intent)
-        val result = intent.getBooleanExtra("result", false)
-        if(!result){
-            Toast.makeText(this,getString(R.string.share_fail),Toast.LENGTH_SHORT).show()
-            return
-        }
-        Toast.makeText(this,getString(R.string.share_suc),Toast.LENGTH_SHORT).show()
-    }
-
-
-    private fun regToQQ() {
-        qqVm.regToQq(this)
-    }
-
-    private fun shareQQ(){
-        qqVm.shareQQ(this)
+        shareUtils.onNewIntent(this,intent)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == Constants.REQUEST_QQ_SHARE) {
-            qqVm.onActivityResultData(requestCode, resultCode, data)
-        }
+        shareUtils.onActivityResult(requestCode,resultCode,data)
     }
 
 }

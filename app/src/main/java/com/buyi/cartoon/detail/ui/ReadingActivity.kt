@@ -22,10 +22,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.buyi.cartoon.R
 import com.buyi.cartoon.account.ui.LoginActivity
 import com.buyi.cartoon.account.util.UserManager
+import com.buyi.cartoon.account.vm.QqVm
+import com.buyi.cartoon.account.vm.WxVm
 import com.buyi.cartoon.databinding.ActivityCartoonReadingBinding
 import com.buyi.cartoon.databinding.ActivityMainBinding
 import com.buyi.cartoon.db.DbManager
 import com.buyi.cartoon.detail.ui.adapter.ReadingCartoonAdapter
+import com.buyi.cartoon.detail.ui.dialog.ReadingSettingBottomDialog
+import com.buyi.cartoon.detail.ui.dialog.ShareBottomDialog
+import com.buyi.cartoon.detail.utils.ShareUtils
 import com.buyi.cartoon.detail.vm.ReadingVM
 import com.buyi.cartoon.http.bean.CartoonSimpleInfoBean
 import com.buyi.cartoon.main.base.BaseActivity
@@ -48,6 +53,20 @@ class ReadingActivity : BaseActivity<ActivityCartoonReadingBinding>() {
 
     private val readingVM:ReadingVM by viewModels()
     private val readingAdapter = ReadingCartoonAdapter()
+
+    private val wxVm: WxVm by viewModels()
+    private val qqVm: QqVm by viewModels()
+
+    private lateinit var shareUtils: ShareUtils
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        shareUtils = ShareUtils(this,qqVm,wxVm)
+        shareUtils.regToWx()
+        shareUtils.regToQQ()
+    }
+
 
     override fun getBindingView(): ActivityCartoonReadingBinding {
         return ActivityCartoonReadingBinding.inflate(layoutInflater)
@@ -111,6 +130,10 @@ class ReadingActivity : BaseActivity<ActivityCartoonReadingBinding>() {
             }
 
         })
+
+        binding.title.imgRight.setOnClickListener {
+            onSettingClick()
+        }
     }
 
     private fun showMenu(){
@@ -226,5 +249,35 @@ class ReadingActivity : BaseActivity<ActivityCartoonReadingBinding>() {
             setResult(RESULT_OK,intent)
             finish()
         }
+    }
+
+
+    private fun onSettingClick(){
+        val dialog = ReadingSettingBottomDialog()
+        dialog.onShareClick = {
+            onShowClick()
+        }
+        dialog.onCommentClick = {
+            goWriteComment()
+        }
+        dialog.onCollectClick = {
+
+        }
+
+        dialog.show(supportFragmentManager,"setting")
+    }
+
+    private fun onShowClick(){
+        shareUtils.onShare(supportFragmentManager)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        shareUtils.onNewIntent(this,intent)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        shareUtils.onActivityResult(requestCode,resultCode,data)
     }
 }

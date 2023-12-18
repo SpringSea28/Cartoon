@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_22_top_white">
+
+    <TextView
+        android:id="@+id/tv_comment"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:textColor="#FF444444"
+        android:textSize="17sp"
+        android:gravity="center"
+        android:text="@string/detail_comment"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/home_classify_content_item_divider_line_col"/>
+
+    <TextView
+        android:id="@+id/tv_collect"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:textColor="#FF444444"
+        android:textSize="17sp"
+        android:gravity="center"
+        android:text="@string/detail_collect"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/home_classify_content_item_divider_line_col"/>
+
+        <TextView
+            android:id="@+id/tv_share"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:textColor="#FF444444"
+            android:textSize="17sp"
+            android:gravity="center"
+            android:text="@string/reading_share"/>
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="#FFF4F5F9"/>
+
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:textColor="#FF444444"
+        android:textSize="17sp"
+        android:gravity="center"
+        android:text="@string/cancel"/>
+
+    </LinearLayout>
+
+</LinearLayout>
